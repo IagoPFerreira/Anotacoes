@@ -1,0 +1,1 @@
+Neste repositório deixarei minhas anotações disponíveis sobre as linguagens de programação e frameworks que estudo ou já estudei, lembrando que essas são as minhas anotações e elas estão escritas da forma com a qual eu entendo as matérias e como facilita-rá para que eu entenda a matéria caso precise ler de novo, essas anotações não substituem nenhuma documentação oficial.
