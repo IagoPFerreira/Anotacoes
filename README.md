@@ -13,4 +13,4 @@ Este repositório atualmente possui anotações das seguintes linguagens e frame
 * Git e Github
 * Unix e Bash
 
-Essas anotações estão disponíveis em formato .odt (nativo do Linux) e .md (Linguagem de marcação).
+Essas anotações estão disponíveis em formato .odt (nativo do Linux).
