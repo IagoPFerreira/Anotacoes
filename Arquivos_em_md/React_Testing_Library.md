@@ -46,11 +46,11 @@ Dessa forma conseguimos acessar o render necessário para o teste, uma das grand
 
 ~~~JavaScript
 const render = {
-getByText: () => {},
-getByRole: () => {},
-getByLabelText: () => {},
-getByTitle: () => {},
-getByTestId: () => {},
+  getByText: () => {},
+  getByRole: () => {},
+  getByLabelText: () => {},
+  getByTitle: () => {},
+  getByTestId: () => {},
 ...
 }
 ~~~

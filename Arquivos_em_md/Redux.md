@@ -81,8 +81,8 @@ Action creators são funções que criam e retornam uma action. Normalmente são
 ~~~JavaScript
 const addTodoAction = text => {
   return {
-  type: 'todos/todoAdded',
-  payload: text,
+    type: 'todos/todoAdded',
+    payload: text,
   }
 }
 ~~~
@@ -466,9 +466,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
 - [ ] criar a função mapStateToProps
 - [ ] criar a função mapDispatchToProps
 - [ ] fazer o connect
-
-~~~JavaScript
-~~~
 
 ## Comandos REDUX
 
