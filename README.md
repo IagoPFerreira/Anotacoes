@@ -14,4 +14,4 @@ Este repositório atualmente possui anotações das seguintes linguagens e frame
 * Redux
 * Unix e Bash
 
-Essas anotações estão disponíveis em formato .odt (nativo do Linux).
+Essas anotações estão disponíveis em formato .odt (nativo do Linux) e .md(Markdown).
