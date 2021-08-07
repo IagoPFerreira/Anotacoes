@@ -2,13 +2,19 @@
 
 O CSS é responsável pelo estilo da página, é onde são feitas as configurações de design do site, no CSS não são utilizadas tags, mas existem comandos específicos para cada tipo de ajuste. Os ajustes em CSS são feitos em blocos, esses blocos são identificados pelas tags utilizadas no HTML e delimitados pelo uso de chaves, Ex: `h1 {...}`. Tudo que for h1 vai receber as configurações feitas dentro das chaves, caso seja utilizado somente o h ao invés de h1, todos os títulos, independentes dos números irão receber as configurações.
 
+---
+
 ## Identificações em CSS
 
 Quando existe mais de uma mesma tag, normalmente é dado a ela um 'id', 'name' ou ‘class’, que servem como formas de identificação exclusiva daquela tag e que pode ser usada no CSS para delimitar a formatação a somente aquela tag com aquele id, name ou class, sendo id representado por ' # ' (hashtag ou cerquilha), name e class por ' . ' (ponto)
 
+---
+
 ## Valores em CSS
 
 Todos os valores em CSS3 são atribuídos a uma propriedade usando um ‘ : ’ e no final é usado um ‘ ; ’ para indicar o final da propriedade. `Ex: font-size (propriedade): 12pt (valor);`.
+
+---
 
 ## Cores em CSS
 
@@ -42,9 +48,13 @@ O padrão alfa é adicionado normalmente como o próximo elemento após as cores
 
 Existem diversos tipos de padrão de cores com RGB, HEX, HSL e outros, para saber mais sobre cada padrão, acesse o [tutorial de cores do W3Schools](https://www.w3schools.com/colors/colors_hsl.asp).
 
+---
+
 ## Dimensões em CSS
 
 Existem quatro formas de se regular as dimensões de um objeto em CSS, por altura, por largura, por espaçamento interno e por espaçamento externo, sendo respectivamente, height, width, padding e margin, sendo que os 2 primeiros podem receber valores numéricos em px, porcentagem ou outras formas, e os 2 últimos podem receber valores numéricos com qualquer medida ou valores escritos, como auto. As dimensões podem receber vários tipos de medidas, como px (pixel), pt (pontos), % (porcentage), vh (altura da página) ou vw (largura da págia), em (tamanho do elemento), cm (centímetros), in (inches), dentre outros.
+
+---
 
 ## Hierarquia no CSS
 
@@ -55,7 +65,9 @@ O que acontece se criarmos um marcador com a seguinte configuração: `p.teste`?
 Por último, o mais forte deles é o identificador. Então se usarmos o identificador e colocar que a cor dele é rosa, no navegador, a cor do texto vai ser rosa, porque o identificador tem a força 100. Então sempre que estamos criando CSS, precisamos pensar em o quão específico é o marcador e o quão forte ele vai ser para que não seja sobrescrito por qualquer outro, e que nenhum erro no código seja cometido. Por isso a recomendação de criar sempre classes para os elementos é muito boa, ele não é genérico o suficiente para que todas as vezes que a tag seja mudada, ele seja alterado; e ele não é específico igual a um identificador para que só funcione naquele elemento. Ele é um estilo que pode ser replicado várias vezes como a classe, e várias vezes em vários elementos.
 A única forma de alterar isso e alguma coisa mais forte que o identificador é quando temos o estilo inline. Então se adicionarmos uma propriedade `style`, e colocarmos o color igual a roxo, no navegador, ao recarregar, a cor vai ser roxo. Nada substitui o inline, ele é muito específico, ele está no elemento, e por isso ele é o mais forte. Ele teria o que seria equivalente a uma força 1000, e nada substitui isso.
 
-## Comandos em CSS:
+---
+
+## Comandos em CSS
 
 * `font-size: 12pt;` - Tamanho da fonte, o número diz o tamanha e o ‘pt’ significa pontos. O tamanho também pode ser relativo usando o ‘em’, que pega o tamanho da fonte da página, que pode ter sido definido no body, ou deixado pelo padrão do navegador, e multiplica esse tamanho quantas vezes você quiser. Ex: `font-size 2em;` Vai fazer com que o tamanho da fonte seja 2 vezes maior que o tamanho padrão da página.
 * `font-weight: bold;` - Peso da fonte, podendo ser bold (negrito), bolder (mais negrito ainda), lighter (leve), entre outras.
@@ -82,7 +94,7 @@ A única forma de alterar isso e alguma coisa mais forte que o identificador é 
 * `position: absolute;` - Define a posição de um objeto, podendo ela ser static, relative, absolute, entre outros, sendo absoluta é possível que o posicionamento desse objeto seja manipulado através de outros comandos em CSS para qualquer lugar da página, mas o posicionamento é absoluto em relação a página e não outros objetos, o relativo faz o posição a partir do pondo de criação dele e o static mantém ele no posicionamento que ele foi indicado no  código.
 * `box-sizing: border-box;` - Define uma caixa com o tamanho absoluto indicado pelo width e que caso sejam feitas mudanças no margin ou no padding isso não interfira no posicionamento delimitado pelo width.
 * `border: 2px solid #000000;` - Define uma borda no objeto entre o padding e o margin, primeiro o tamanho da espessura da borda, depois o tipo da borda (solid, dashed, dotted, entre outros) e em seguida a cor da borda.
-* `border-radius: 10px;` - Define o arredondamento dos cantos da borda, pode ser declarado de forma geral com apenas um valor, ou para um canto específico. Exs: `border-bottom-left-radius: 10px;` (arredondando o canto inferior esquerdo) ou `border-top-right-radius: 10px; `(arredondando o canto superior direito) ou `border-radius: 10px 20px 30px 40px` (arredondando cada canto de um tamanho começando no superior esquerdo e indo no sentido horário). O tamanho do arredondamento é medido em ‘px’.
+* `border-radius: 10px;` - Define o arredondamento dos cantos da borda, pode ser declarado de forma geral com apenas um valor, ou para um canto específico. Exs: `border-bottom-left-radius: 10px;` (arredondando o canto inferior esquerdo) ou `border-top-right-radius: 10px;`(arredondando o canto superior direito) ou `border-radius: 10px 20px 30px 40px` (arredondando cada canto de um tamanho começando no superior esquerdo e indo no sentido horário). O tamanho do arredondamento é medido em ‘px’.
 * `transition: 1s;` - Cria uma transição entre um estado e outro da configuração de um objeto, essa transição pode ser ativada por um `hover`, um `active`, por outro método ou por recarregar a página.
 * `cursor: pointer;` - Transforma o cursor, nesse caso para a mãozinha.
 * `transform: scale(1.2);` - Transforma o objeto por inteiro, respeitando todas as características pré definidas, ‘scale’ é um dos valores que esse parâmetro pode receber, no caso aumentamos o objeto em 20%.
@@ -94,7 +106,10 @@ A única forma de alterar isso e alguma coisa mais forte que o identificador é 
 * `overflow: auto;` - Cria uma barra de rolagem dentro da div utilizando o parâmetro ‘auto’. Utilizando o ‘hidden’ tudo que estiver fora do tamanho da div ficará escondido
 * `@media screen and (max-width: 480px) {}` – Indica o CSS e ao navegador que tudo que toda tela que tiver uma largura máxima de 480px, exibirá no navegador o estilo da forma que estiver dentro do bloco.
 
+---
+
 ## Pseudo elementos
+
 São métodos, que podem ser de interação ou exibição, restritos somente a objetos aos quais eles estão ligados:
 
 * `hover` - Método de interação do CSS que reflete  na página, serve para executar um bloco de configurações de design somente quando o mouse estiver sobre o objeto ao qual ele está ligado, ele precisa ser atribuído ao objeto com o ‘nome do objeto:hover{}’. Ex: `nav a:hover{}`.

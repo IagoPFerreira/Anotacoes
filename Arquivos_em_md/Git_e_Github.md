@@ -8,10 +8,15 @@ Branch é uma versão independente e editável do código, dentro das branches e
 
 Branch feature são independentes da Branch master, podendo ter modificações especificas para determinados locais do código, ou modificações para determinados clientes. Mas a junção dessas duas branches é possível, e é chamada de Merge.
 
+---
+
 ## Criando um repositório local
+
 Antes de se criar um repositório é preciso criar uma pasta para ele. Para isso você deve utilizar o comando mkdir, como vimos anteriormente, e então navegar para a pasta criada com o comando cd.
 
 Para criar um repositório você deve digitar o comando git init. É muito importante que esteja dentro da pasta criada para o repositório.
+
+---
 
 ## Comandos em GIT
 
@@ -26,7 +31,7 @@ Para criar um repositório você deve digitar o comando git init. É muito impor
 * `git branch -D` – Deleta uma branch. Ex: git branch -D exemplo. Deleta a branch exemplo.
 * `git checkout` – Serve para fazer a mudança entra as Branchs.
 * `git checkout` -b – Cria uma nova branch e já faz o checkout nela. Ex: git checkout -b exemplo. Assim o checkout cria a branch exemplo e já muda para ela.
-* `git checkout 0ccb~1 sobremesas.txt` – Recupera arquivos deletados, a partir do log. Usando em conjunto com o git log –diff-filter=D -summary, e copiando os 4 primeiros dígitos da sequência hexadecimal do hash, colocando o ~ e indicando que ele será existente com o 1, mais o nome do arquivo que deseja recuperar, este arquivo será recuperado, mas será necessário adicioná-lo ao commit. 
+* `git checkout 0ccb~1 sobremesas.txt` – Recupera arquivos deletados, a partir do log. Usando em conjunto com o git log –diff-filter=D -summary, e copiando os 4 primeiros dígitos da sequência hexadecimal do hash, colocando o ~ e indicando que ele será existente com o 1, mais o nome do arquivo que deseja recuperar, este arquivo será recuperado, mas será necessário adicioná-lo ao commit.
 * `git merge` – Serve para juntar 2 Branchs em uma.
 * `git clone` – Serve para fazer um clone de um projeto no Git. Ex: git clone urlDoRepositorio.
 * `git reset` – Tira os arquivos que estiverem na área de staged e volta para a unstaged.

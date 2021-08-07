@@ -4,9 +4,13 @@
 
 TAGS são marcações delimitadas pelos sinais de menor que e maior que, com alguma função escrita dentro, `<tag>`, algumas possuem fechamento, `</tag>` e outras não, elas afetam tudo aquilo a qual estão relacionadas, que estiver entre uma abertura e fechamento de TAG será afetado por ela, as que não possuem fechamento, normalmente apresentam suas peculiaridades dentro delas mesmas.
 
+---
+
 ## Identificações em HTML
 
 Quando existe mais de uma mesma tag, normalmente é dado a ela um parâmetro de identificação, existem alguns tipos desses parâmetros, os mais comuns são os de **id**, **name** e `class`. O `id` serve com forma de identificação uma única tag e o seu valor não pode ser repetido em outra tag, já `name` e `class` podem ter seus valores usados em mais de uma tag. Esses parâmetros de identificação podem ser usados no CSS para delimitar a formatação a somente aquela tag com aquele id, name ou class, sendo em CSS o id representado por **#** (hashtag ou cerquilha), já name e class por **.** (ponto).
+
+---
 
 ## Unicode
 
@@ -14,6 +18,16 @@ O unicode é uma linguagem universal, que serve para representarmos alguns símb
 
 * `<!DOCTYPE html>` - Indica para o navegador e para os desenvolvedores qual é a linguagem que está sendo usada para desenvolver essa página, o ponto de exclamação no início é essencial para que essa tag seja identificada como DOCTYPE. Na versão do 5 do HMTL não é necessário colocar o número da versão.
 * `<html></html>` - Indica onde começa e onde termina o html, tudo deve ser desenvolvido dentro dessa tag. Essa tag recebe um atributo chamado `lang`, que significa language, que indica qual é o idioma do código, dentro desse lang nós colocamos `pt-br`, indicando que a linguagem vá ser português brasileiro, configurando assim para que os acentos e caracteres especiais sejam reconhecidos no codificador, então a tag fica assim: `<html lang="pt-br">`.
+
+---
+
+## Acessibilidade
+
+Durante o desenvolvimento web sempre devemos ter a acessibilidade como padrão, assim como a usabilidade e a responsividade, existem muitas formas de se desenvolver um site mais acessível, uma delas é colocando a propriedade alt das imagens de forma descritiva, descrevendo o que tem na imagem, ou usar a propriedade aria-label para criar a descrição do elemento HTML e/ou o uso do title nos elementos HTML.
+
+O uso de TAGs semânticas no lugar de TAGs generalistas ajuda em muito na acessibilidade de uma aplicação, logo, SEMPRE prefira usar TAGs semânticas ao invés de TAGs generalistas.
+
+---
 
 ## Divisão do HTML
 

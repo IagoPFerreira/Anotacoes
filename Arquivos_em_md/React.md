@@ -8,6 +8,8 @@ A componentização permite ainda utilizar funções específicas, estilizaçõe
 
 O exemplo mais prático de uma aplicação React é a própria [documentação](https://pt-br.reactjs.org/) dela. Além de ser possível visualizar as principais componentizações, como header, menu lateral, conteúdo principal, barra lateral, submenus e footer, conseguimos acessar menus diferentes sem que a página recarregue. Super eficiente, certo? Existem diversas outras ferramentas, como o próprio Facebook e o Slido, que funcionam da mesma forma dinâmica.
 
+---
+
 ## Gerenciadores de pacote
 
 Gerenciadores de pacote são scripts que são utilizados para instalação de pacotes necessários para rodar certas aplicações, existem vários gerenciadores de pacotes, um deles é o npm. O npm  é o gerenciador de pacotes em si, ou seja, ele é quem será utilizado para instalar os pacotes, , enquanto o npx executa o comando de um pacote sem instalá-lo em si. Como o create-react-app é um pacote que a única coisa que faz é criar todos os arquivos necessários para termos um app React, não rodamos ele mais de uma vez por projeto, nem precisamos do pacote instalado em nossas máquinas, por isso **SEMPRE** executamos ele com o npx e não com o npm . Para rodar o npx é só fazer o seguinte passo a passo:
@@ -31,6 +33,8 @@ npm start
 
 Esse comando irá abrir em um navegador a tela do React, caso tudo tenha dado certo durante esse processo, e dentro do diretório criado pelo npx, terão os arquivos para serem utilizados na aplicação React.
 
+---
+
 ## JSX
 
 O JSX , ou Javascript Extension , como o próprio nome sugere, é uma extensão de sintaxe para Javascript. Sua utilização é recomendada pela documentação do React, pois ela demonstra como a interface deverá se comportar, de forma lógica e descritiva.
@@ -51,6 +55,8 @@ const element = React.createElement("h1", null, "Hello, world")
 Agora imagine uma aplicação inteira sendo construída dessa forma. Ficaria muito mais difícil de ser compreendida, certo? O JSX encaixa-se perfeitamente para resolver este dilema.
 
 É importante frisar que o uso do JSX em aplicações React não é obrigatório, mas a complexidade da construção de uma aplicação fica menor e o código fica mais intuitivo quando o utilizamos.
+
+---
 
 ## Incorporando expressões no JSX
 
@@ -87,6 +93,8 @@ const classe = 'hello-class';
 const element = <h1 className={classe}>Hello, {nome}</h1>;
 ~~~
 
+---
+
 ## Especificando atributos com JSX
 
 O JSX permite usar aspas para especificar strings literals como atributos:
@@ -102,6 +110,8 @@ const element = <h1 className={classe}>Hello, {nome}</h1>;
 ~~~
 
 **OBSERVAÇÃO**: NÃO envolva chaves com aspas quando estiver incorporando uma expressão JavaScript em um atributo. Você deveria usar aspas (para valores strings) ou chaves (para expressões), mas não ambos no mesmo atributo.
+
+---
 
 ## ReactDOM.render
 
@@ -126,6 +136,8 @@ Neste exemplo, estamos chamando a função tick que chama o ReactDOM.render a ca
 
 Como JSX é mais próximo de JavaScript do que HTML, o React DOM usa camelCase como convenção para nomes de propriedades ao invés dos nomes de atributos do HTML. Por exemplo, class se transforma em className em JSX, e tabindex se transforma em tabIndex.
 
+---
+
 ## Renderizando um elemento no DOM
 
 Elementos são os menores blocos de construção de aplicativos React, um elemento descreve o que você quer ver na tela. Exemplo:
@@ -139,6 +151,8 @@ Diferente de elementos DOM do navegador, elementos React são objetos simples e 
 Elementos React são imutáveis. Uma vez criados, você não pode alterar seus elementos filhos ou atributos, ou seja, você não pode fazer reatribuições diretas. Com o que aprendemos até agora, a única forma de atualizar a interface é criar um novo elemento e passá-lo para o `ReactDOM.render()`, mas na prática, a maioria das aplicações em React usam o `ReactDOM.render()` apenas uma única vez.
 
 O React DOM compara o elemento novo e seus filhos com os anteriores e somente aplica as modificações necessárias no DOM para levá-lo ao estado desejado, sem alterar ou recarregar os elementos que não sofreram alteração, dessa forma o React consegue aumentar a eficiência do código.
+
+---
 
 ## Componentes e Props
 
@@ -163,6 +177,8 @@ class Welcome extends React.Component {
   }
 }
 ~~~
+
+---
 
 ## Renderizando um Componente
 
@@ -198,6 +214,8 @@ Recapitulando esse exemplo:
 
 **Observação:** Sempre inicie os nomes dos componentes React com uma letra maiúscula, o React trata componentes começando com letras minúsculas como tags do DOM. Por exemplo, `<div />` representa uma tag div do HTML, mas `<Welcome />` representa um componente e requer que Welcome esteja no escopo.
 
+---
+
 ## Compondo componentes
 
 Componentes podem se referir a outros componentes em sua saída. Isso nos permite usar a mesma abstração de componente para qualquer nível de detalhe. Um botão, um formulário, uma caixa de diálogo ou uma tela, em aplicativos React, todos esses são normalmente expressos como componentes. Por exemplo:
@@ -216,6 +234,8 @@ function App() {
 Tipicamente, novas aplicações React possuem um único componente App no topo. Contudo, se você integrar o React em um aplicativo existente, você pode começar de baixo para cima com um pequeno componente como o Button e gradualmente chegar ao topo da hierarquia de exibição.
 
 Não tenha medo de dividir um componente em componentes menores. Extrair componentes pode parecer um trabalho pesado no começo, mas ter uma paleta de coponentes reutilizáveis compensa em aplicações maiores. Uma boa regra é que se uma parte da sua UI for usada várias vezes (Button, Panel, Avatar) ou for complexa o suficiente por si só (App, FeedStory, Comment) é uma boa candidata ser extraída para uma componente separado.
+
+---
 
 ## Props são somente para leitura
 
@@ -238,6 +258,8 @@ function withdraw(account, amount) {
 O React é bastante flexível, mas tem uma única regra estrita:  **Todos os componentes React tem que agir como funções puras em relação ao seus props.**
 
 Obviamente, as UIs de aplicações são dinâmicas e mudam com o tempo. O state permite aos componentes React alterar sua saída ao longo do tempo em resposta a ações do usuário, respostas de rede e quaisquer outras coisas, sem violar essa regra.
+
+---
 
 ## Estado
 
@@ -284,6 +306,8 @@ class Welcome extends React.Component {
 
 ReactDom.render(<Welcome />, document.getElementById("root"));
 ~~~
+
+---
 
 ## Adicionando métodos de ciclo de vida a uma classe
 
@@ -361,6 +385,8 @@ Analisando o código acima:
 4. A cada segundo o navegador chama o método `tick()`. Dentro dele, o componente `Clock` agenda uma atualização de UI chamando `setState()` com um objeto contendo a hora atual. Graças à chamada `setState()`, o método `render()` será diferente e, portanto, a saída de renderização incluirá a hora atualizada. React atualiza o DOM de acordo.
 5. Se o componente `Clock` for removido do DOM, o React chama o método do ciclo de vida `componentWillUnmount()` para que o temporizador seja interrompido.
 
+---
+
 ## Usando o State corretamente
 
 Existem 4 coisas que você deve saber sobre o `setState()`.
@@ -436,6 +462,8 @@ componentDidMount() {
 
 O merge é superficial, então this.setState({comments}) deixa this.state.posts intacto, mas substitui completamente this.state.comments
 
+---
+
 ## Manipulando eventos
 
 Manipular eventos em elementos React é muito semelhante a manipular eventos em elementos DOM. Existe algumas diferenças de sintaxe:
@@ -482,9 +510,13 @@ return (
 );
 ~~~
 
+---
+
 ## Single Page Application (SPA)
 
 SPAs é um conceito de páginas que são carregadas somente no momento em que o usuário entra no site e toda a interação de mudanças de páginas é feito sem que o navegador precise recarregar o site, ou seja, o usuário entra no site e o navegador carrega somente 1 vez o site, através da URL utilizada pelo usuário, todas as interações feitas pelo usuário que o leve a outras páginas no mesmo site, serão feitas sem que o navegador precise reconstruir a página do 0, todo o conteúdo virá a partir de uma lógica criada em JavaScript, aumentando assim a performance do site.
+
+---
 
 ## Definindo props.children
 
@@ -511,6 +543,8 @@ class BemVindo extends React.Component {
   }
 }
 ~~~
+
+---
 
 ## React Router DOM
 
@@ -552,6 +586,8 @@ npm install react-router-dom
 
 E lembre-se: palavras, imagens, até mesmo outros componentes podem ser componentes filhos do Link ! Ser filho do Link significa que, se você clicar neste filho, irá para onde o Link te direciona!
 
+---
+
 ## Componentes Route com passagem de props
 
 No que diz respeito ao componente Route , você pode associar um componente com o caminho da URL via children , component ou render.
@@ -576,6 +612,8 @@ Tanto component quanto `render` permitem que você tenha acesso a informações 
 
 `About` terá `match` , `location` e `history` setadas via `props`.
 
+---
+
 ## Rotas dinâmicas
 
 O interessante em rotas dinâmicas é que podemos utilizar o mesmo componente para renderizar vários caminhos diferentes. Para fazer uso de parâmetro de URL em Route , é preciso fazer uso da sintaxe :nome_do_parametro dentro da propriedade path . Ou seja, `<Route path="/movies/:movieId" component={Movie} />` vai definir um parâmetro chamado movieID , e o componente Movie é mapeado a qualquer um dos seguintes caminhos de URL :
@@ -584,6 +622,8 @@ O interessante em rotas dinâmicas é que podemos utilizar o mesmo componente pa
 - /movies/2
 - /movies/thor
 
+---
+
 ## Hooks
 
 Hooks são funções que permitem a divisão de um componente em funções menores, baseadas em pedaços que são relacionados, em vez de forçar uma divisão baseada nos métodos de ciclo de vida.
@@ -591,6 +631,8 @@ Hooks são funções que permitem a divisão de um componente em funções menor
 Em React existem 2 formas de criar um componente, usando classe ou função, em componentes de classe é possível trabalhar com o uso de métodos de ciclo de vida, como `componentDidMount`, `componentDidUpdate`, `componentShouldUpdate` e `componentWillUnmount`, dentre outros, além de podermos declarar estados internos para armazenar dados que irão variar entre os componentes, entretanto, em componentes funcionais não temos acesso a esses métodos de ciclo de vida, para solucionar esse problema foram criados os ``Hooks``.
 
 O React fornece alguns `Hooks` internos, mas é possível criar `Hooks` personalizados  para reutilizar o comportamento de state entre componentes diferentes. Vejamos alguns `Hooks` internos primeiramente.
+
+---
 
 ## Hook de Estado
 
@@ -631,6 +673,8 @@ function ExampleWithManyStates() {
 ~~~
 
 A sintaxe de desestruturação de arrays nos permite atribuir diferentes nomes para as variáveis de state que declaramos chamando useState. Esses nomes não fazem parte da API useState. Em vez disso, React presume que se você chamar useState muitas vezes, você faz isso na mesma ordem a cada renderização. Mais tarde, voltaremos no porquê disso funcionar e quando será útil.
+
+---
 
 ## Hook de Efeito
 

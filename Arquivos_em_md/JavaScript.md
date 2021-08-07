@@ -2,15 +2,17 @@
 
 O JS é responsável pela parte dinâmica da página como efeitos especiais, preenchimento automático de dados, contas, dentre outras coisas. Assim como toda linguagem, JS também possui tipos primitivos das variáveis, tipos primitivos nada mais são do que como são representados os valores de uma variável. Os tipos primitivos mais comuns são Number (Int, Float, Infinity e NaN), String, Boolean, Null, Undefined, Object (Array), Function.
 
+---
+
 ## Strings em JS
 
 No JS é possível marcar uma string de 3 formas diferentes, usando aspas simples ou duplas ('', “”), para strings simples, e para interpolar, ou seja, exibir uma variável do meio da string, sem precisar ficar abrindo e fechando a string tem as crases, onde for a variável é só abrir um bloco usando o cifrão e escrever o nome da variável dentro das chaves (`${variavel}` ).
 
+---
+
 ## Operadores em JS
 
 Existem muitos tipos de operadores em JS, operadores são sinais que podem desencadear uma ação, ou interferir nela, alguns tipos de operadores são:
-
----
 
     • Aritméticos
       ▪ + Adição
@@ -67,6 +69,8 @@ Existem muitos tipos de operadores em JS, operadores são sinais que podem desen
       ▪ Relacionais
       ▪ Lógicos
 
+---
+
 ## Objetos em JS
 
 Nas linguagens de programação, objetos representam coisas do mundo real, ou mesmo da programação. Ao criarmos um paciente, sabemos que ele deve ter um nome, peso, altura e gordura. Então, agruparemos todas as características em uma mesma variável criando um objeto em JavaScript usando `chaves ({})` . Dentro das chaves, passamos as propriedades do objeto, que nada mais são que as suas características. Para criar uma propriedade, passamos o seu `nome` e o seu `valor` , mas não com igual e sim com dois pontos. Por exemplo, a propriedade `nome: form.nome.value` . Assim, atribuímos às propriedades os valores extraídos do formulário e, no fim, a função retornará o objeto paciente. Para adicionar novas propriedades é só colocar uma vírgula após a propriedade. Para acessar um propriedade específica de um objeto é só escrever o nome do objeto + `.` + nome da propriedade. Ex: `paciente.nome;`
@@ -77,7 +81,7 @@ Nas linguagens de programação, objetos representam coisas do mundo real, ou me
 É possível alterar de fora do bloco do objeto os valores das propriedades, declarando o `nome do objeto` + `.` + `chave` = `mudança` . Ex: `paciente.nome = 'Jorge';` . Usando esse mesmo método é possível adicionar uma nova propriedade, caso ela não exista dentro do bloco desse objeto. Para deletar uma propriedade é só usar o operador `delete` seguido da do nome do objeto e a chave. Ex: `delete paciente ['imc calculado'];` .
 Ex:
 
-```javascript
+~~~javascript
 function obtemPacienteDoFormulario(form) {
   const paciente = {
     nome: form.nome.value,
@@ -88,12 +92,12 @@ function obtemPacienteDoFormulario(form) {
   };
   return paciente;
 }
-```
+~~~
 
 É possível criar uma função que cria objetos de forma automática, ao invés de termos que criar os objetos um por um, é como se ela funcionasse como um molde, onde vamos inserindo os dados e ela vai criando os objetos a partir deste molde.
 Ex:
 
-```javascript
+~~~javascript
 const robotFactory = (model, mobile) => {
   return {
     model: model,
@@ -107,7 +111,7 @@ const robotFactory = (model, mobile) => {
 const tinCan = robotFactory("P-500", true);
 console.log(tinCan);
 tinCan.beep();
-```
+~~~
 
 Neste exemplo foi atribuído a constante `robotFactory` uma função onde os parâmetros são `model` e `mobile` , esses parâmetros irão ocupar o espaço do valor da propriedades de mesmo nome. Quando a constante `tinCan` é declarada e a constante `robotFactory` é atribuída a ela, são passados 2 argumentos, esses argumentos irão substituir os parâmetros da função e por consequência os valores das propriedades, criando assim novos objetos. O parâmetro da função está ligado ao valor da propriedade e não ao nome da propriedade.
 
@@ -115,63 +119,65 @@ Existem formas de acessar os dados de um objeto, como por exemplo, acessar as ch
 
 O `Object.keys()` retorna um array cujo os elementos são strings correspondentes para a propriedade enumerável encontrada diretamente sobre o objeto. A ordenação das propriedades é a mesma que a dada pelo loop sobre as propriedades do objeto manualmente. Ex:
 
-```javascript
+~~~javascript
 const arr = ["a", "b", "c"];
 console.log(Object.keys(arr)); // console: ['0', '1', '2']
 
 // array com objeto
 const obj = { 0: "a", 1: "b", 2: "c" };
 console.log(Object.keys(obj)); // console: ['0', '1', '2']
-```
+~~~
 
 `Object.values()` retorna um array cujos elementos são os valores das propriedades enumeradas encontradas no objeto. A ordem das propriedades é a mesma que a dada pelo laço sobre os valores da propriedade do objeto manualmente. Ex:
 
-```javascript
+~~~javascript
 const obj = { foo: "bar", baz: 42 };
 console.log(Object.values(obj)); // ['bar', 42]
 
 // array como objeto
 const obj = { 0: "a", 1: "b", 2: "c" };
 console.log(Object.values(obj)); // ['a', 'b', 'c']
-```
+~~~
 
 `Object.entries()` retorna um array cujos elementos são também arrays correspondentes aos pares de propriedades [key, value] enumeráveis encontrados diretamente sobre o objeto. A ordem das propriedades é a mesma que seria se fossem iteradas as propriedades do objeto manualmente. Ex:
 
-```javascript
+~~~javascript
 const obj = { foo: "bar", baz: 42 };
 console.log(Object.entries(obj)); // [ ['foo', 'bar'], ['baz', 42] ]
 
 // objeto array-like
 const obj = { 0: "a", 1: "b", 2: "c" };
 console.log(Object.entries(obj)); // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]
-```
+~~~
 
 O método `Object.assign()` copia apenas propriedades enumeráveis e próprias de um objeto de origem para um objeto destino. Ele usa [[Get]] na origem e [[Put]] no destino, então isto irá invocar getters e setters. Ex:
 
-```javascript
+~~~javascript
 const obj = { a: 1 };
 const copy = Object.assign({}, obj);
 console.log(copy); // { a: 1 }
-```
+~~~
 
 Com a evolução do ES algumas funcionalidades foram incluídas no JS, funcionalidades essas que facilitam a construção e a leitura do código deixando ele mais semântico, umas dessas funcionalidades foi a desestruturação ou destructuring, que consiste em acessar as chaves de um objeto sem que seja necessário ficar escrevendo o nome do objeto toda hora e usando um ponto ou um colchete, dessa forma podemos usar o nome do objeto somente uma vez e quando precisarmos do valor de cada chave, usarmos somente o nome da chave, para isso precisamos somente guardar esse valor dentro de uma constante. Ex:
 
-```javascript
+~~~javascript
 const obj = { foo: "bar", baz: 42 };
 
 const { foo, baz } = obj;
 
 console.log(foo, baz); // bar 42
-```
+~~~
 
 Dessa forma o código fica mais limpo e conciso.
+
+---
 
 ## Getters e Setters
 
 Junto com o advento dos objetos e suas propriedades vem certas práticas e metodologias de utilização dos objetos, uma dessas práticas é transforma um objeto em algo que não pode ser alterado, ou no caso não deveria, no ES6 não é possível bloquear a reatribuição de alguma propriedade no código, mas existe a boa prática dos programadores de identificarem as propriedades que não deveriam receber reatribuições permanentes, essa identificação é feita quando um `underline ( _)` é adicionado antes do nome da propriedade, por exemplo:\_nomeDoCliente: `Jorge` . Neste exemplo o nome do cliente foi identificado como sendo uma propriedade que não pode ser mudada na sua fonte, mas isso não significa que ela não possa ser mudada ao longo do código, mas sem alterar a fonte original. Para acessar a informação de uma propriedade e fazer transformações com ela sem que altere o valor original dessa propriedade existe o método `get ()` , o get pode, através de condições feitas no código, retornar diferentes valores para essa propriedade, além de deixar a compreensão do código mais fácil para outros programadores. A declaração do `get` é bem parecido com uma função nominal.
 Ex:
 
-```javascript
+~~~javascript
 get nomeDoCliente() {
   if (typeof this._nomeDoCliente === 'string') {
     return 'Jorge'
@@ -179,14 +185,14 @@ get nomeDoCliente() {
     return 'Problemas com o nome do cliente, por favor cheque se o nome foi informado de forma correta'
   }
 }
-```
+~~~
 
 Neste caso o `get` pegou o valor da propriedade `_nomeDoCliente` e a passou por um teste lógico para verificar se era uma string, mas o teste poderia ser para ver se era um número, ou um resultado booleano, tanto faz, assim como ele poderia ter pego o valor de outra propriedade e ter juntado os 2 valores no momento da exibição. A chamada do `get` não precisa ser feita com o uso do parênteses, é só chamar o nome do objeto + `.` + nome do propriedade que o get recebeu. Ex: `cliente.nomeDoCliente;` .
 
 Existe um outro método que pode ser utilizados para fazer alterações no valor do parâmetro sem que o valor do parâmetro original sofra alterações, basicamente esse método cria uma nova propriedade, baseado na original, onde o valor dessa propriedade pode ser mudado, esse método se chama `set()` . O `set` assim como o `get` funciona como uma função nominal, mas além disso o set também recebe um parâmetro dentro dos seus parênteses, igual a certas funções. O `set` também permite que testes lógicos sejam realizados dentro do seu bloco de função e caso os testes indiquem as condições desejadas atribuir a essa nova propriedade o valor indicado na sua atribuição, essa nova propriedade, na exibição tomará o lugar da propriedade base, mas na fonte, a propriedade original continuará com seu valor inalterado.
 Ex:
 
-```javascript
+~~~javascript
 set idadeDoCliente(idade) {
   if (typeof idade === 'undefinednumber' && idade >= 0) {
     this._idadeDoCliente = idade
@@ -194,15 +200,17 @@ set idadeDoCliente(idade) {
     return 'Problemas com a idade do cliente, por favor cheque se a idade informada é um número maior que 0.'
   }
 }
-```
+~~~
 
 A atribuição de um valor a uma propriedade criada pelo set é normal, igual feito os outros métodos de objeto. Ex: `cliente.idade = 30;` . A sua chamada também é da forma padrão. Ex: `cliente.idade;` . Caso queira a visualização é só coloca-lo no `console.log` ou `document.write` .
+
+---
 
 ## Classes em JS
 
 Classes são ferramentas que os desenvolvedores usam para criar objetos de formas rápidas, criando um molde dos objetos, dessa forma as propriedades dos objetos não precisa ser escritas em todos os objetos, um por um. Para criar uma classe é só utilizar a palavra reservada `class` seguida do `nome` para essa classe e chaves `{}` , tudo que estiver dentro dessas chaves farão parte dessa classe. A utilização do método `constructor` é essencial, visto que ele torna possível a criação dos moldes das propriedades, este método aceita parâmetros. Ex:
 
-```javascript
+~~~javascript
 class Animal {
   constructor(name) {
     this._name = name;
@@ -221,22 +229,24 @@ class Animal {
     this._behavior++;
   }
 }
-```
+~~~
 
 Dentro das classes é possível adicionar objetos, métodos, getters e setters.
 
 É possível também criar classes afilhadas, que são classes que recebem propriedades já definidas na classe pai, mas que podem ter em suas classes, propriedades novas e específicas de sua classe, propriedades que não afetam nem estão presentes nas outras classes filhas. Para que seja possível uma classe filha acessar as propriedades da classe pai é necessária uma declaração diferentes da classe. Ex:
 
-```javascript
+~~~javascript
 class Cat extends Animal {
   constructor(name, usesLitter) {
     super(name);
     this._usesLitter = usesLitter;
   }
 }
-```
+~~~
 
 Neste exemplo `Cat` é a classe filha, `Animal` é a classe pai, `extends` faz com que os métodos dentro da classe `Animal` fiquem disponíveis dentro do `Cat` , agora o `Cat` possui um propriedade que `Animal` não possui, que é a `usesLitter` , que será chamada e declarada pelo `constructor` . Já o `super` chama o `constructor` da classe pai, neste caso pedindo somente o valor da propriedade nome do `constructor` da classe pai.
+
+---
 
 ## Módulos em JS
 
@@ -244,53 +254,57 @@ Utilizando o JS é uma boa prática dividir as diversas funcionalidades presente
 
 Módulos são pedaços de códigos reutilizáveis que podem ser exportados de um código e importado para outro. Módulos são uteis por várias razões, eles podem ser usados para achar, arrumar e debugar um código, reutilizar ou reciclar a lógica de um código em partes diferentes de uma aplicação, manter uma informação privada e protegida de outros módulos, e mais importante, previne a poluição nos espaços para nomes globais das variáveis. No JS é possível exportar um módulos utilizando a sintaxe `module.exports` e atribuindo como valor a ela, o nome da variável onde está o módulo, que queremos exportar. A criação de um módulo é similar a criação de um objeto. Ex:
 
-```javascript
+~~~javascript
 let Airplane = {};
 Airplane.myAirplane = "StarJet";
 
 module.exports = Airplane;
 
 console.log(Airplane);
-```
+~~~
 
 Existe outra sintaxe que ajuda na hora de importar os módulos, que é a `require()` , esta é uma função que importa os módulos do arquivo original para dentro do arquivo alvo, dessa forma todos módulos de um arquivo ficam disponíveis em outro, sem a necessidade de reescrever o mesmo código. Essa função aceita como parâmetro o endereço do arquivo onde estão os módulos que serão importados, o endereço deve estar entre aspas. No entanto essa função precisa ser atribuída a uma variável, que pode ter qualquer nome, o ideal é que o nome tenha a ver com o que está sendo importado e que seja de fácil entendimento. Ex:
 
-```javascript
+~~~javascript
 const Airplane = require("./1-airplane.js");
 function displayAirplane() {
   console.log(Airplane.myAirplane);
 }
 
 displayAirplane();
-```
+~~~
 
 É importante ressaltar que a sintaxe `module.exports` é aceita tanto no ES6 quanto no Node.js, mas no ES6 existe outra sintaxe para fazer a exportação do módulo, mas que não é aceita no Node.js, essa sintaxe é a `export default` , a forma de utilização é bem similar a outra. Ex:
 
-```javascript
+~~~javascript
 let Menu = {};
 export default Menu;
-```
+~~~
 
 Para importação a situação é similar, o `require()` é aceito tanto no ES6 quanto no Node.js, mas existe outra sintaxe que o ES6 aceita na hora de importar, é a sintaxe `import...from...` . A forma de utilização é bem similar a outra. Ex: `import Menu from './menu';` . É uma forma de importação bem específica, importando somente o módulo requisitado.
 Exportação nomeada é outro tipo de exportação feita no ES6, nesse caso é possível exportar objetos e funções, somente adicionando seus nomes dentro das `{}` da sintaxe `export` . Ex:
 
-```javascript
+~~~javascript
 let specialty = "";
 function isVegetarian() {}
 function isLowSodium() {}
 export { specialty, isVegetarian };
-```
+~~~
 
 Existe também a importação nomeada, que é bem parecida com exportação nomeada, essa também só é aceita no ES6, a sua sintaxe é bem similar ao `import...from` , só que dessa forma mais de um módulo pode ser importado ao mesmo tempo. Ex:
 
-```javascript
+~~~javascript
 import { specialty, isVegetarian } from "./menu";
 console.log(specialty);
-```
+~~~
+
+---
 
 ## Eventos em JS
 
 Eventos são processos específicos do código que podem ser disparados pela interação com o site.
+
+---
 
 ## Funções em JS
 
@@ -300,7 +314,7 @@ Os eventos podem ser adicionados nas tag em forma de parâmetros ou podem ser ad
 
 Uma função precisa ser aberta com `function` e um nome para a ação que esse bloco executará exemplo function acao (), após o parênteses é aberto o bloco. Dentro dos parênteses da ação, podem ou não, serem adicionados parâmetros. Além disso uma função pode retornar um resultado. Ex:
 
-```javascript
+~~~javascript
 function acao /*< Nome da função*/(parametro /*< Parâmetro*/) {
   return parametro; /*< Ação*/
   /*^ Retorno da função*/
@@ -308,7 +322,7 @@ function acao /*< Nome da função*/(parametro /*< Parâmetro*/) {
 
 acao(5 /*< Argumento*/);
 /*^ Chamada da função*/
-```
+~~~
 
 A `Chamada` executa a `Função` , mas a chamada oferece e indica o valor `Argumento` que servirá de base para o `Parâmetro` , dentro dos parênteses, a `Ação` é o que acontece dentro do bloco da função e o `Retorno` é o resultado da função, que pode ser exibido na tela usando um comando de exibição.
 
@@ -327,12 +341,14 @@ Outro tipo de função são as funções de expressão, que são declaradas de f
 
 Outra forma de declarar uma função é a `Arrow Function` onde ao invés de escrever `function` somente os parâmetros da função são adicionados e após os parênteses são usados o sinal de igual e maior que formando uma seta indicando o inicio do bloco do código. Ex: `let exemplo = (5, 3) => {};` .
 
+---
+
 ## Condições em JS
 
 Condições são ocasiões que ocorrem em determinadas ocasiões que preencham pré-requisitos. Existem alguns tipo de condição, os mais usados são `if` e `else` . Condições simples são onde só existem `if` , condições composta são onde existem `if` e `else` , e condições aninhadas são onde existem condições dentro de outras condições. As condições devem ser feitas da seguinte forma: `if (teste) {bloco de código}` , `else {bloco de código}` . Se o teste do `if` for verdadeiro o seu bloco será executado, senão será o do `else` .
 Existe uma terceira condição, chamada switch, onde várias condições podem ser declaradas, primeiro é necessária uma variável declarada fora do bloco do switch. O switch é composto da seguinte forma, a declaração do `switch` acompanhado de uma `expressão` , no caso o nome da variável, dentro do bloco são colocados os `case` que possui o valor que será testado (dois pontos no final da linha do case é essencial), um `bloco de código` que será executado caso o teste seja verdade e um `break` que irá finalizar a execução do resto do bloco. Do `case` ao `break` é uma sequência que pode ser reproduzida várias vezes, mas a ultima condição precisa ser um `default` , que também possui um `bloco de código` e um `break` . O `case` é como se fosse um `if` e o `default` é como se fosse um `else` . Ex:
 
-```javascript
+~~~javascript
 let fruta = "mamão";
 switch (fruta) {
   case "maça":
@@ -345,11 +361,11 @@ switch (fruta) {
     console.log("Não temos essa fruta no momento.");
     break;
 }
-```
+~~~
 
 Existem também os operadores ternários, que podem ser usados para substituir um if e else, visto que esse operador testa uma condição e retorna se ela é verdadeira ou falsa. Esse operador é dividido em 3 partes, a primeira parte é o teste, após existe um sinal de `?` que serve para separar a primeira parte da segunda, a segunda parte é o que acontecerá caso o teste seja verdadeiro, após a segunda parte existe um sinal de `:` que separa a terceira parte da segunda, a terceira parte é que acontecerá caso o teste seja falso. Ex:
 
-```javascript
+~~~javascript
 // A sintaxe básica do operador ternário é muito simples:
 `expressão verdadeira ou falsa` ? `retorno se verdadeira` : `retorno se falsa`;
 
@@ -359,22 +375,26 @@ console.log(trueExpression); // isso é verdade
 
 const falseExpression = 2 + 2 === 3 ? `isso é verdade` : `isso é mentira`;
 console.log(falseExpression); // isso é mentira
-```
+~~~
+
+---
 
 ## Repetições em JS
 
 Bem parecidos com as condições, mas as repetições além de testarem condições e executarem blocos específicos, elas também repetem esses testes enquanto a condição de repetição for verdadeira. 2 tipos são mais utilizados `while` e `for` . Eles devem ser montados da seguinte maneira: início; while (teste) {bloco de código; incremento}; for (início, teste, incremento) {bloco de código}. Exs:
 
-```javascript
+~~~javascript
 let c = 1;
 while (c <= 3) {
   c++;
 }
 
 for (let c = 1; c <= 3; c += 1) {}
-```
+~~~
 
 Os 2 possuem a mesma funcionalidade, a única diferença é que o `while` precisa que o inicio seja antes de dele, o teste é atribuído como parâmetro a ele e o incremento fica dentro do bloco, após o código, já o `for` apresenta o início, o teste e o incremento como parâmetro, depois o bloco de código sem a necessidade do incremento no bloco, pois o incremento já foi definido. Existe também o `forEach` que executa o que estiver dentro do seus parenteses.
+
+---
 
 ## Arrays
 
@@ -400,25 +420,31 @@ Existem também os Arrays aninhados, que nada mais são que Arrays dentro de out
 
 Para acessar o número 5 é só chamar da seguinte forma: `a[1][0]` . O primeiro colchete vai identificar se é o array 0 ou 1, e o segundo colchete vai identifica se é o elemento 0 ou 1.
 
+---
+
 ## Escopos
 
 Escopo é a ideia de que as variáveis podem ser acessadas de locais diferentes dos códigos, sejam elas locais ou globais. Variáveis de escopos globais se encontram fora de qualquer bloco de código, já as locais estão dentro de um bloco de código. Um bloco de código é delimitado pelas {}, as variáveis globais podem ser acessadas de qualquer lugar do código, as locais só podem ser acessadas dentro do bloco ao qual elas se encontram. Não é uma boa prática nomear variáveis com escopos diferentes com o mesmo nome, pois um erro pode acabar mudando o valor da variavel geral pelo valor da variável local, sem falar que polui o código, atrapalhando a compreensão dele. Não é boa prática declarar todas as variáveis como globais, isso só vai sobrecarregar a memória do computador, variáveis que só serão usadas um blocos específicos do código só devem ser declaradas dentro desses blocos.
+
+---
 
 ## Teste unitários em JS
 
 Testes unitários são porções de códigos que servem para validar o comportamento de unidades funcionais de código. Existem diversas bibliotecas de teste disponíveis para JS, mas existe uma biblioteca inerte do JS que se chama `assert` e que realiza os teste que indicarmos. Para acessar essa biblioteca é simples, basta somente usar a propriedade `require()` e passar como string a biblioteca assert. Além disso, é recomendado que essa requisição seja salva em uma const, para que seja mais fácil de acessar durante o código. Ex: `const assert = require('assert');` . Essa biblioteca possui diversas propriedades, dentre elas as propriedades strictEqual(), que confere se o teste é exatamente igual ao resultado esperado, noStrictEqual(), que confere se o teste é diferendo do resultado esperado, deepStrictEqual(), que confere se um array ou objeto é igual ao resultado esperado e notDeepStrictEqual(), que confere se um array ou objeto não é igual ao resultado. Existem outras propriedades dentro dessa biblioteca, para saber mais é recomendado olhar a documentação de assert, mas as propriedades em sua maioria compartilham uma característica estrutural bem parecida, ou seja, elas são construídas de forma similar. Primeiro vem o que você deseja testar e depois o que é esperado desse teste. Ex:
 
-```javascript
+~~~javascript
 const assert = require("assert");
 const numbers = [19, 21, 30, 3, 45, 22, 15];
 assert.strictEqual(typeof numbers, "object");
-```
+~~~
+
+---
 
 ## High Order Functions (HOFs) em JS
 
-HOFs são funções que recebem outras funções como parâmetro e/ou retornam outra função, por exemplo a função addEventListener(), que recebe como primeiro parâmetro um evento que ela deve esperar e como segundo parâmetro uma função que deve ser executada após esse evento acontecer. O JS possui diversas HOFs nativas da própria linguagem, ou seja, não é necessário que sejam feitas importações de bibliotecas, a exemplo de map(), filter(), find(), log(), table(), group(), sort(), dentre outras. A estrutura de um HOF é simples, é uma função que recebe uma função como parâmetro e/ou retorna uma função. Ex:
+HOFs são funções que recebem outras funções como parâmetro e/ou retornam outra função, por exemplo a função addEventListener(), que recebe como primeiro parâmetro um evento que ela deve esperar e como segundo parâmetro uma função que deve ser executada após esse evento acontecer. O JS possui diversas HOFs nativas da própria linguagem, ou seja, não é necessário que sejam feitas importações de bibliotecas, a exemplo de `map()`, `filter()`, `find()`, `log()`, `table()`, `group()`, `sort()`, dentre outras. A estrutura de um HOF é simples, é uma função que recebe uma função como parâmetro e/ou retorna uma função. Ex:
 
-```javascript
+~~~javascript
 const repeat = (number, action) => {
   for (let count = 0; count <= number; count += 1) {
     action(count);
@@ -430,9 +456,11 @@ repeat(3, (test) => {
     console.log(test, "is even");
   }
 });
-```
+~~~
 
 Neste caso, a função repeat recebe 2 parâmetros, o primeiro parâmetro é o número 3, que será usado como condição de parada do laço for, já o segundo parâmetro é uma função que será chamada pelo action, essa função será chamada depois que a validação do laço for acontecer, e essa função tem como objetivo identificar se o número passado a ela como parâmetro é par, se não for, ela não informa nada. Action que é a chamada da função anônima que irá testar se o número é par ou impar, recebe como argumento o valor do count em cada iteração do laço for, logo `test` que é o parâmetro da função anônima, irá receber o valor de count e esse valor que será testado.
+
+---
 
 ## Promises em JS
 
@@ -440,13 +468,13 @@ Promises são bem parecidas com as função já vistas acima, mas existem 3 pont
 
 Para cria uma promise é necessário um construtor, esse construtor é chamado `Promise` e pode ser usado ou não em conjunto com o operador `new` . Um construtor nada mais é do que uma função especial que cria um objeto a partir de uma classe. O construtor Promise recebe 2 parâmetros, o `resolve` e o `reject` e obviamente uma construção de função podendo ser em forma de arrow function. Ex:
 
-```javascript
+~~~javascript
 const promise = new Promise((resolve, reject) => {});
-```
+~~~
 
 Uma promise possui 3 estados, `Pending` , `Resolved` , `Rejected` . Quando uma promise é executada ela entra diretamente para o estado de pending, que é quando ela sai da fila de execução normal das funções e vai para a sua fila especial. Quando ela retorna ela pode assumir um dos outros dois estados, resolved, caso tudo tenha ocorrido bem, ou rejected, caso tenha ocorrido algum erro. Existe apenas uma pequena diferença entre o resolve/reject e o return : enquanto o return interrompe a execução da função quando é chamado, o resolve/reject não o fazem, por isso é importante utilizar um return antes de um deles quando não se quer que a execução continue (esse pattern se chama `early-return` ). Ex:
 
-```javascript
+~~~javascript
 const promise = new Promise((resolve, reject) => {
   const number = Math.round(Math.random() * 11);
 
@@ -454,11 +482,11 @@ const promise = new Promise((resolve, reject) => {
     ? reject(console.log(`Que fracasso =( Nosso número foi ${number}`))
     : resolve(console.log(`Que sucesso =) nosso número foi ${number}`));
 });
-```
+~~~
 
 O problema dessa construção é que toda vez que o resolve acontece o console.log acontece da forma esperada, mas quando o reject acontece, uma mensagem de error é lançada no console, mas existe uma forma de se livrar desse erro e de gerenciar o fluxo de execução, para isso são usados outros métodos disponíveis dentro das promises, que são o `.then()` e o `.catch()` . `.then()` e `.catch()` são chamados de gestores de fluxo e eles servem para regular o que vai acontecer para cada resolve ou reject. O `.then()` recebe 1 argumento, que é o retorno da função resolve, além disso, sua estrutura é a mesma de uma HOF, ou seja, recebe um parâmetro e uma função, dentro dos seus parênteses. Além disso o `.then()` pode ser usado em cadeia, assim o próximo `.then()` da cadeia vai receber o retorno do `.then()` anterior, esse conceito é chamado de chaining, ou encadeamento. A parte mais importante é que o `.then()` espera a promise (ou o `.then()` anterior) ser concluída para começar a sua execução. Assim, nosso fluxo está controlado. Ex:
 
-```javascript
+~~~javascript
 const promise = new Promise((resolve, reject) => {
   const number = Math.round(Math.random() * 11);
 
@@ -470,11 +498,11 @@ const promise = new Promise((resolve, reject) => {
 promise
   .then((number) => `Que sucesso =) nosso número foi ${number}`)
   .then((msg) => console.log(msg));
-```
+~~~
 
 Assim como `.then()` recebe o retorno do resolve, o `.catch()` recebe o retorno do reject, que é passado para ele com um parâmetro para a sua função interna. Da mesma forma que o `.then()` , o `.catch()` também possui uma estrutura de uma HOF, ou seja, recebe um parâmetro e uma função, dentro dos seus parênteses. Diferente do `.then()` o `.catch()` não pode ser encadeado, quando ele ocorre, ele pula todos os `.then()` , além disso um `.catch()` pode pegar o erro de um `.then()` de dentro de um encadeamento. Ex:
 
-```javascript
+~~~javascript
 const promise = new Promise((resolve, reject) => {
   const number = Math.round(Math.random() * 11);
 
@@ -485,9 +513,11 @@ promise
   .then((number) => `Que sucesso =) nosso número foi ${number}`)
   .then((msg) => console.log(msg))
   .catch((number) => console.log(`Que fracasso =( Nosso número foi ${number}`));
-```
+~~~
 
 Promises são usadas para fazer requisições a uma API, uma das funções mais utilizadas para isso é o Fetch.
+
+---
 
 ## Fetch em JS
 
@@ -495,7 +525,7 @@ A função fetch, é responsável por enviar requisições a APIs. Porém, essa 
 
 A função fetch recebe como parâmetro um endpoint, que pode ser uma URL da API desejada, o fetch também possui acesso as propriedades `.then()` e `.catch()` . Ex:
 
-```javascript
+~~~javascript
 const fetch = require("node-fetch");
 
 function verifiedFetch(url) {
@@ -511,7 +541,7 @@ function verifiedFetch(url) {
 }
 
 verifiedFetch("https://api.chucknorris.io/jokes/random?category=dev");
-```
+~~~
 
 Vamos dar uma olhada rápida no código. Primeiro criamos a função verifiedFetch e passamos o url do nosso endpoint. Depois retornamos uma promise , transformando nossa função em uma função assíncrona. Agora, dentro da promise fazemos uma verificação. Se o endpoint for o certo, usamos o fetch para fazer uma chamada ao endpoint, transformamos a resposta em um json utilizando o método `.json()` , e para finalizar usamos o resolve para retornar a nossa resposta. Caso o url não seja o certo, levantamos um error. Perceba aqui que usamos o construtor new Error para levantar um error. Usar esse construtor dentro do reject é uma boa prática importante e vamos usá-lo a partir de agora.
 
@@ -519,7 +549,7 @@ Como vimos, `verifiedFetch` é uma promise, logo, é assíncrono. Quando o javas
 
 O async transforma qualquer função em uma promise, para usá-lo é só colocar a palavra async antes da definição da função, daí é só transformar o que for resolve em return e o que for reject em throw. Ex:
 
-```javascript
+~~~javascript
 const fetch = require("node-fetch");
 
 async function verifiedFetch(url) {
@@ -542,11 +572,11 @@ function sendJokeToFriend(name) {
 }
 
 sendJokeToFriend("Anna");
-```
+~~~
 
 Entretanto, ainda não acabou, junto com o async vem o await, que só pode ser utilizado dentro de uma função async e ela faz exatamente o que o nome dela diz, faz com que a função espere uma resposta para poder continuar sua execução. Ex:
 
-```javascript
+~~~javascript
 const fetch = require("node-fetch");
 
 async function verifiedFetch(url) {
@@ -569,11 +599,15 @@ async function sendJokeToFriend(name) {
 }
 
 sendJokeToFriend("Anna");
-```
+~~~
+
+---
 
 ### Observações
 
 Todas as estruturas vistas são acumulativas, elas podem ser usadas umas dentro das outras.
+
+---
 
 ## Comandos e propriedades em JS
 
@@ -601,13 +635,13 @@ Todas as estruturas vistas são acumulativas, elas podem ser usadas umas dentro 
 - `for () {}` – Cria um laço `para`.
 - `class` – É outra forma de declarar uma variável, mas onde a lista é uma parte dela, ao invés de usar o sinal de `=` para atribuição é usado um `{}` e tudo que estiver dentro será considerado como atributo, que devem ser separados por `;`, a class cria um molde de atributos que podem ser usados em outras variáveis, para isso é preciso atribuir a essa variável a class, usando o comando `new nomeDaClass ()`. Para atribuir um valor ao atributo é só usar o nome da variável `.` o nome do atributo. Exemplo:
 
-```javascript
+~~~javascript
 class cliente {
   nome;
 }
 let cliente1 = new cliente();
 cliente1.nome = "Iago";
-```
+~~~
 
 - `.classList.add (“paciente-inválido”);` – Cria uma nova class ao objeto que ela estiver ligada, possibilitando assim novas alterações no CSS através dessa nova classe.
 - `function acao()` – Cria uma função.
@@ -630,6 +664,9 @@ cliente1.nome = "Iago";
 - `.some()` – Procura se existe algum elemento que atenda a função callback passada dentro dos seus parênteses, retorna o valor em booleano, a callback do some aceita até 3 parâmetros, o elemento atual sendo processado no array, o index do elemento atual sendo processado no array e o array de origem.
 - `.every()` – Testa se todos os elementos de um array atendem a função callback passada dentro dos seus parênteses, retorna o valor em booleano, a callback do every aceita até 3 parâmetros, o elemento atual sendo processado no array, o index do elemento atual sendo processado no array e o array de origem.
 - `.forEach()` – Percorre um array e executa a função callback passada dentro dos seus parênteses a cada um dos itens do array, essa função não retorna nada, somente executa a função dentro dela. O forEach aceita até 3 parâmetros dentro da callback, o elemento atual sendo processado no array, o index do elemento atual sendo processado no array e o array de origem.
+
+### Métodos e propriedades
+
 - `.value` – Comando que indica o valor do objeto ao qual ele estiver ligado.
 - `.length` – Indica o tamanho do objeto ao qual estiver ligado.
 - `typeof()` – Mostra qual é tipo primitivo do que estiver entre parênteses.

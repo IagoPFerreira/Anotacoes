@@ -4,6 +4,8 @@ Unix é sistema operacional, pai de quase todos os sistemas operacionais, o Unix
 
 No Unix tudo é diferenciado em dois tipos de coisas, processos e arquivos, todos os comandos são processos e cada processo tem um identificador único (PID, Process Indentifier), no Unix tudo são arquivos, diretórios são arquivos, arquivos são arquivos e dispositivos são arquivos. Arquivos são baseados em um sistema de raiz, tem o diretório raiz simbolizado pela /, e dentro dela existem outros diretórios com outros diretórios.
 
+---
+
 ## Comandos do Terminal
 
 - `https://ss64.com/`- Link para todos os comandos do terminal.

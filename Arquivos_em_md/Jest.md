@@ -31,17 +31,25 @@ expect(sum(2, 3)).toBe(5);
 
 A linha `module.exports = sum` exporta a função sum no primeiro arquivo para que possa ser utilizada em outros módulos. No segundo arquivo, é utilizado o `require('./sum')` para importar a função sum .
 
+---
+
 ## Matchers em Jest
 
 Dentro de um test sempre existe um `expect`, que será o teste em sim e o `matcher`, que é o comparador entre o resultado do teste e o que é esperado, para ver garantir que o  que foi testado se encaixa no resultado esperado. Existem vários tipos de `matchers`, na seção comandos e propriedades deste arquivo, estarão descritos alguns.
+
+---
 
 ## Falsy em Jest
 
 Em JavaScript, existe um tipo de retorno, quando se espera valores boolenos, como em condições, esses valores recebem o nome de falsy. Existem 6 tipos de valores falsy em JavaScript, são eles: `false, 0, ‘’, null, undefined e NaN`. O Jest possui formas de testar cada um desses `falsy`, dependendo da situação é necessário testar qual deles é ou testar somente se o retorno é um `falsy`.
 
+---
+
 ## Describe em Jest
 
 A função `describe()` cria uma bloco para agrupar vários testes. Isso é útil para melhorar a organização dos teste, podendo utilizar o describe para separar testes de funções diferentes, dentro de um mesmo arquivo, ou agrupar testes relacionados dentro de uma função complexa, que requer muitos testes. É possível aninhar blocos describe arbitrariamente. Dentro de cada bloco, qualquer declaração de variáveis ou funções é local a este bloco.
+
+---
 
 ## Erros em Jest
 
@@ -69,13 +77,19 @@ expect(() => { multiplyByTwo() }).toThrowError(new Error('number é indefinido')
 
 Para testar se um erro é lançado, passamos para o expect uma função. Chamamos multiplyByTwo dentro da arrow function . Chamar a função diretamente dentro de expect fará com que o erro não seja capturado. Assim, a asserção falhará, porque o erro acontecerá antes mesmo de expect ser executado e ter a chance de capturar o erro. Para testar a mensagem de erro, como fizemos no terceiro teste do exemplo acima, usamos o matcher toThrowError e passamos dentro do parênteses a mensagem que será mostrada em caso de erro: `new Error("number é indefinido")` . Observe que nos dois casos a função que queremos testar é chamada indiretamente por uma arrow function . Seguir essa sintaxe é importante para que o seu teste funcione corretamente.
 
+---
+
 ## Teste assíncronos em Jest
 
 É comum encontrar em JavaScript linhas de código que possuem comportamento assíncrono. Alguns comportamentos assíncronos já familiares são as `callbacks`, as `promisses` e o `async/await`. Para que seja possível testar estes casos, o Jest fornece algumas soluções com objetivo de que os testes saibam o momento em que a função a ser testada foi concluída, e a informação necessária foi retornada. Isto evita que falsos positivos aconteçam e garante segurança para a aplicação.
 
+---
+
 ## Simulações em Jest
 
 O Jest por ser uma ferramenta de testes, ele nos proporciona várias formas de fazer testes, uma dessas formas é simular testes, ou seja, pegar um código e simular um teste desenvolvido por nós, sem que o código em si rode, só para sabermos quais seriam as respostas desse código que queremos testar. Além de simular a funcionalidade do código, podemos criar uma funcionalidade nova para esse código, a nossa vontade, sem que isso interfira no código fonte. Para isso, utilizamos o mock, que nada mais é do que a forma de criar simulações dentro do Jest. Existem algumas formas para que o código seja ‘mockado’, uma delas é utilizando a função `fn()`, ela mocka somente um elemento específico, seja ele uma função, um objeto ou um array. Existem também o `mock()`, que diferente da `fn()`, mocka o arquivo inteiro, ou seja, todo o conteúdo do arquivo mockado pelo `mock()`, pode ser utilizado na simulação, ao invés de somente 1 elemento. E existe também o `spyOn`, que possui a capacidade de fazer o mock, sem alterar a funcionalidade original do elemento, de forma que você consiga preservar o comportamento inicial do elemento e simular ele.
+
+---
 
 ## Comandos e propriedades em Jest
 

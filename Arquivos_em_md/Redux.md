@@ -10,6 +10,8 @@ No cenário acima parece não fazer muita diferença, pois cortamos somente 1 in
 
 Como visto acima, o Redux existe para auxiliar no fluxo de dados dentro de uma aplicação. Com ele é possível ter, além do estado local de cada componente, um estado global, acessível a todos os componentes, onde se pode armazenar e recuperar informações que precisam ser compartilhadas. Essa ferramenta pode ser dividida em três partes principais: Actions, Stores e Reducers. Cada uma dessas partes tem suas responsabilidades bem definidas.
 
+---
+
 ## Configurações iniciais em Redux
 
 O Redux pode ser instalado na aplicação usando o seguinte comando:
@@ -49,6 +51,8 @@ Para instalar o redux-thunk, que é necessário para uso de códigos assíncrono
 npm install redux-thunk
 ~~~
 
+---
+
 ## Stores em Redux
 
 A store é onde o estado da sua aplicação fica registrado e protegido. As mudanças ou consultas feitas na store precisam estar definidas anteriormente numa action. Isso garante a integridade dos dados. Uma store é criada ao  passar um reducer, normalmente é um `rootReducer`. Ex:
@@ -63,6 +67,8 @@ const store = createStore(rootReducer);
 export default store;
 ~~~
 
+---
+
 ## Actions em Redux
 
 As actions, como o nome indica, são as possíveis ações que seu sistema pode executar na store. Elas atuam como uma regra de negócio para manter os dados da aplicação e as suas mudanças previsíveis e consistentes. É bem comum ouvirmos que as actions são intenções de mudança de estado. Uma action é um objeto JavaScript que possui uma chave `type`, a chave `type` deve ser uma string que dá a action um nome descritivo do que ela se propõe a fazer. É comum usar o estilo onde é passado primeiro o nome da feature ou categoria a qual essa action pertence e depois a ação específica. Ex: `domain/eventName`. Uma action pode ter outras chaves com informações adicionais sobre o que vai acontecer, por convenção, é utilizada uma chave chamada payload para isso. Um objeto action normalmente se parece com esse:
@@ -73,6 +79,8 @@ const addTodoAction = {
   payload: 'Buy milk',
 }
 ~~~
+
+---
 
 ## Actions Creators em Redux
 
@@ -86,6 +94,8 @@ const addTodoAction = text => {
   }
 }
 ~~~
+
+---
 
 ## Reducers em Redux
 
@@ -139,6 +149,8 @@ import { combineReducers } from 'redux';
 export const rootReducer = combineReducers({ myReducer });
 ~~~
 
+---
+
 ## Provider em Redux
 
 Bem parecido com o BrowserRouter do React, que nos permite acessar as informações de rota dos componentes, no Redux existe o Provider, que possibilita o compartilhamento de estado que o Redux propõe. Assim como o BrowserRouter, o Provider também requer que todos os componentes que usem ele estejam abaixo dele na árvore de componentes, por isso fazemos com que englobe o componente App, se houver um BrowserRouter, não há diferença entre o BrowserRouter estar dentro do Provider ou o Provider dentro do BrowserRouter.
@@ -165,6 +177,8 @@ O Provider recebe como propriedade a store, que foi criada para a aplicação de
 
 ***Dica:*** ao importar um recurso de dentro de um arquivo index.js, não é necessário escreve index.js na importação, é possível usar somente o nome do diretório, como exemplo observe a importação da store no código acima.
 
+---
+
 ## Dispatchs em Redux
 
 Outro método presente na store é o `dispatch()`, esse método é a única forma de atualizar o estado da store e passar um objeto action. Após a chamada do `dispatch()` a store vai rodar os reducers e salvar o novo estado. Ex:
@@ -174,6 +188,8 @@ dispatch({ type: 'counter/increment' })
 ~~~
 
 Você pode pensar no dispatch como um “gatilho de eventos” na aplicação. Algo aconteceu, e queremos que a store saiba disso. Reducers agem com eventListeners, e quando ele captam uma action que lhes interessa, eles atualizam o estado, como resposta ao evento.
+
+---
 
 ## MapDispatchToProps em Redux
 
@@ -199,6 +215,8 @@ Analisando o `mapDispatchToProps`:
 
 A função `mapDispatchToProps` é a responsável por disparar, fazer o `dispatch` de,  uma ação para o reducer . Para termos acesso às funcionalidades do Redux, seja a de ler os dados ou manipulá-los, precisamos acessá-las como props de um componente. Por isso, como explícito no nome da função, o `mapDispatchToProps` mapeia os `dispatchs` para o props.
 
+---
+
 ## mapStateToProps
 
 Assim como a função `mapDispatchToProps` transforma os dados das actions em props, para que sejam usadas dentro da aplicação, a função `mapStateToProps` transforma os estados da store em props, para que a aplicação consiga usar esses dados. Da mesma forma que o `mapDispatchToProps`, o `mapStateToProps` fica dentro do mesmo arquivo que o componente no qual ele será usado.
@@ -222,6 +240,8 @@ Analisando o `mapStateToProps`:
 
 Retornando um objeto o `mapStateToProps`, assim como o `mapDispatchToProps`, pode receber mais de uma chave, ou seja, mais de um reducer pode ser passado para ele, vai depender da quantidade de reducers utilizados no componente.
 
+---
+
 ## Connect em Redux
 
 Ao implementar componentes é preciso conectá-los ao Redux, para isso é usado o método `connect`, é ele que fornece o acesso ao `store` do Redux, esse método possui a seguinte estrutura `connect()()`.
@@ -235,6 +255,8 @@ No segundo parênteses vai o componente que deverá ser conectado.
 
 O connect, assim como os métodos que ele liga ao componente, por boa prática, deve estar no mesmo arquivo que o componente ao qual ele está fazendo a ligação.
 
+---
+
 ## Seletores em Redux
 
 Seletores são funções que sabem como extrair dados específicos de um estado da store. Conforme uma aplicação cresce, isso pode ajudar a evitar a repetição de lógica em diferentes partes do código que precisam ler o mesmo dado. Ex:
@@ -246,6 +268,8 @@ const currentValue = selectCounterValue(store.getState())
 console.log(currentValue)
 // 2
 ~~~
+
+---
 
 ## Thunk em Redux
 
@@ -407,6 +431,8 @@ const mapDispatchToProps = (dispatch) => (
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 ~~~
 
+---
+
 ## Checklist do react-redux
 
 (Não sou o autor desse checklist, me foi fornecido pela Trybe)
@@ -466,6 +492,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
 - [ ] criar a função mapStateToProps
 - [ ] criar a função mapDispatchToProps
 - [ ] fazer o connect
+
+---
 
 ## Comandos REDUX
 

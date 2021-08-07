@@ -26,6 +26,8 @@ test('renders learn react link', () => {
 
 Caso nenhuma alteração no componente App tenha sido feita, o teste continuará passando e só irá quebrar a partir do momento em que a frase “learn react” não esteja mais sendo renderizada.
 
+---
+
 ## Testes em RTL
 
 Para criar um teste na RTL, existe um passo a passo que se seguido deixa a compreensão do teste mais fácil e essa lógica ajuda na construção do teste, esse passo a passo é:
@@ -65,6 +67,8 @@ const { getByText } = render(<App />);
 
 Forma essa que é empregada no exemplo do teste do App que já vem na criação de uma aplicação React.
 
+---
+
 ## Querys em RTL
 
 Querys são basicamente seletores que vão até o documento e procuram um ou mais determinados elementos, bons exemplos disso são o querySelector e o querySelectorAll utilizados no JS quando queremos acessar um elemento HTLM para utilizarmos na nossa lógica JS, o querySelector retorna somente 1 elemento, que é elemento que bate com o id ou classe passado para ele, enquanto o querySelectorAll retorna um array com todos os elementos que baterem com a classe ou name passados para ele. Essa lógica também se aplica aos querys da RTL, alguns retornarão somente 1 elemento outros retornarão uma array de elementos, essas querys são:
@@ -100,6 +104,8 @@ TestID | Seleciona a tag pelo valor da prop data-testid | `<input data-testid='u
 
 Como já sabemos o React é baseado em JS e que o JS possui a biblioteca Jest para testes, dessa forma, podemos fazer uma associação entre a RTL e o Jest para realizarmos nossos testes. Lá em Jest nós vimos sobre os matchers e como os utilizamos para montar nossos testes, na RTL usaremos o mesmo princípio. Lista de matchers: <https://jestjs.io/docs/expect>
 
+---
+
 ## Eventos em RTL
 
 Em componentes React é normal que existam elementos que possuam algum tipo de eventro atrelado a eles, como `onChange`, `onClick`, `onDrag`, `onMouseOver`, dentre outros. Muitas das vezes são esses eventos que acabam disparando outras partes do código, ou disparam uma mudança de comportamento, ou uma atualização, independente do que façam, normalmente disparam algum tipo de mudança, sendo assim, essa mudança e esse evento deveriam ser testados para se ter certeza que o esperado está acontecendo, da forma como vimos testes até o momento não é possível fazer isso, pois estávamos testando elementos estáticos já presentes na tela ou documento, podemos utilizar os recursos que vimos até agora para testar se o elemento que tem o evento atrelado está presente na tela ou documento, mas não podemos testar o evento em si ainda. Para testar eventos nós podemos usar 2 formas.
@@ -129,6 +135,8 @@ userEvent.change(inputEmail, EMAIL_USER);
 userEvent.click(btnSend);
 ~~~
 
+---
+
 ## Testando componentes em RTL
 
 É possível testar somente 1 componente específico em RTL, ao invés de fazer testes em cadeias, ou seja testar o pai, para que ele teste o filho para que teste o neto e assim vai, para isso podemos testar direto o componente desejado, e a forma de fazer isso é renderizar o componente alvo dentro do teste, ou seja, ao invés de passar o componente App dentro do render como viemos fazendo nos exemplos, podemos passar direto o componente, como por exemplo:
@@ -138,6 +146,8 @@ const { getByTestId, getByLabelText } = render(<Header />);
 ~~~
 
 A partir disso, os testes podem ser montados com os mesmos recursos vistos anteriormente, somente adaptando-os ao conteúdo de cada componente.
+
+---
 
 ## Mock em RTL
 
@@ -188,6 +198,8 @@ global.fetch = jest.fn(()=> Promise.resolve({ json: ()=> Promise.resolve(joke)})
 ~~~
 
 Todo o código continua igual, só mudando a parte onde é feita o mock
+
+---
 
 ## Testando rotas em RTL
 

@@ -2,9 +2,25 @@
 
 Python é uma linguagem muito utilizada na ciência de dados e desenvolvimento de aplicações. Assim como toda linguagem, Python também possui tipos primitivos das variáveis, tipos primitivos nada mais são do que como são representados os valores de uma variável. Os tipos primitivos mais comuns são Number (Int, Float, Infinity e NaN), String, Boolean, Null, Undefined, Object (Array), Function.
 
+---
+
 ## Strings em Python
 
-No Python é possível marcar uma string de 2 formas diferentes, usando aspas simples ou duplas (``, “”), para strings simples e para interpolar, ou seja, exibir uma variável do meio da string, sem precisar ficar abrindo e fechando a string, onde for a variável é só abrir um bloco usando chaves `{}` e depois da string é só adicionar um método chamado `.format()` escrever o nome da variável dentro dos parênteses do format. Ex: `.format(variavel)`, se for mais de uma variável, é só separa-las por vírgulas, na ordem em que elas aparecem na string. Ex: `.format(var1, var2, var3)`.
+No Python é possível marcar uma string de 2 formas diferentes, usando aspas simples ou duplas ('', “”), para strings simples e para interpolar, ou seja, exibir uma variável do meio da string, sem precisar ficar abrindo e fechando a string, existem 2 modos de se fazer isso, o primeiro é usar uma f-string, ou seja, uma string que tem um f antes das aspas. Ex:
+
+~~~Python
+name = 'John'
+print(f'Hello, {name}')
+~~~
+
+Outra forma é usando o `.format()`, para isso é só escrever a string e onde for a variável é só abrir um bloco usando chaves `{}` e depois da string é só adicionar um método chamado `.format()` escrever o nome da variável dentro dos parênteses do format. Ex: `.format(variavel)`, se for mais de uma variável, é só separa-las por vírgulas, na ordem em que elas aparecem na string. Ex:
+
+~~~Python
+name = 'John'
+print('Hello, {name}', .format(name))
+~~~
+
+---
 
 ## Operadores em Python
 
@@ -56,17 +72,25 @@ Existem muitos tipos de operadores em Python, operadores são sinais que podem d
       ▪ and Conjunção ou “E” lógico
       ▪ or Disjunção ou “OU” lógico
 
+---
+
 ## Variáveis em Python
 
 Em Python as variáveis são declaradas somente declarando o seu nome e atribuindo a ela um valor, de qualquer tipo primitivo, diferente de outras linguagens, Python não requer que uma palavra reservada seja atribuída a variável para que ela se torne uma variável. Ex: `a = 1`. Outro detalhe importante é que diferente de outras linguagens, Python utiliza o método Snake_Case para nomear as variáveis, normalmente as linguagens usam o padrão CamelCase, mas esse não é o padrão do Python. O padrão Python é o seguinte: `total_de_tentativas = 3`. Caso o nome da variável tenha mais de uma palavra, as palavras devem ser separadas por um underline `_`.
+
+---
 
 ## Condições em Python
 
 Condições são ocasiões que ocorrem em determinadas ocasiões que preencham pré-requisitos. Existem alguns tipo de condição, os mais usados são `if` e `else`. Condições simples são onde só existem `if`, condições composta são onde existem `if` e `else`, e condições aninhadas são onde existem condições dentro de outras condições. As condições devem ser feitas da seguinte forma: `if (teste): bloco de código`, `else: bloco de código`. Se o teste do `if` for verdadeiro o seu bloco será executado, senão será o do `else`. Existe também o `elif`, que é uma mistura de else com if, a forma de expressão dele é a mesma, assim como o if ele também recebe um teste, `elif (teste): bloco de código`.
 
+---
+
 ## Laços em Python
 
 Bem parecidos com as condições, mas as repetições além de testarem condições e executarem blocos específicos, elas também repetem esses testes enquanto a condição de repetição for verdadeira. 2 tipos são mais utilizados `while` e `for`. Eles devem ser montados da seguinte maneira: `while (teste lógico): bloco de código`, `for variável a ser testada in range (inicio, fim, passo): bloco de código`. No `for` o laço acaba sempre antes do final escolhido, na realidade o final não é exibido, caso queira a exibição do final é só adicionar `+1` após o fim. Além disso, o laço `for` já incrementa o contador sozinho, já o `while` não, no while é necessário criar um contador e uma atribuição a ele no final do laço. Caso seja necessário sair do laço antes dele ser concluído, caso uma condição específica seja cumprida, é só usar o comando `break`.
+
+---
 
 ## Funções em Python
 
@@ -84,6 +108,8 @@ s = soma (3, 5)
 ~~~
 
 Neste exemplo `a` e `b` foram passados como parâmetros na construção da função e dentro do bloco de código foram somados um com o outro. No momento em que a função `soma` foi chamada lhe foi atribuídos 2 argumentos, `3` e `5`, argumentos esses que vão substituir `a` e `b`, respectivamente, e o código será executado com esses valores.
+
+---
 
 ## Coleções em Python
 
@@ -116,6 +142,8 @@ O dicionário é dividido em 3 partes, `Item`, `Chave` e `Valor`. Neste exemplo 
 
 Existem também as sequências não ordenadas dentro delas está um grupo chamado set, este grupo, ao contrário das tuplas e das listas, não permite itens repetidos dentro da sua sequência. Entretanto, por não ser uma sequência ordenada, o set não possui acesso pelo index, caso tente ele retorna um erro. Um set é feito a partir da declaração de uma variável e utilização de `{}` após o = Ex: `set = {1, 9, 'Olá'}`. Set também aceita tipos diferentes de valores.
 
+---
+
 ## Módulos em Python
 
 Módulos são bibliotecas onde existem códigos já prontos feitos por outros programadores, ou funções que não vem pré-instaladas no Python, mas que importando elas, ficam acessíveis para utilizarmos em nossos códigos.
@@ -129,6 +157,8 @@ from random import choice
 ~~~
 
 Caso a biblioteca inteira seja importada, na hora de declarar o método utilizado a biblioteca precisa ser referenciada. Ex: `hipotenusa = math.hypot(oposto, adjacente)`. Entretanto, caso somente o métodos sejam importados, não é necessário referenciar a biblioteca.  Ex: `hipotenusa = hypot(oposto, adjacente)`.
+
+---
 
 ## Comandos em Python
 

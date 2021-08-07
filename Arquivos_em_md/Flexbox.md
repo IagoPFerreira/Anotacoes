@@ -2,6 +2,8 @@
 
  O Flexbox é uma ferramenta que ajuda a estilizar o CSS de forma mais regulada, ajuda no posicionamento de objetos de forma mais responsiva. O flex pode ser usado no objeto pai, para que os filhos recebam o comportamento.
 
+---
+
 ## Comandos FLEXBOX
 
 * `display: flex;` - Cria um alinhamento flexível para os objetos, os coloca inline, mas não restringe a suas movimentações.
