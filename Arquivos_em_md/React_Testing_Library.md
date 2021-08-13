@@ -6,7 +6,7 @@ Existem muitas bibliotecas de teste, tanto para JavaScript puro, como para React
 
 A RTL se tornou tão aceita pela comunidade de React que agora ela já vem instalada junto com os projetos, para criar o projeto só é necessário usar o comando
 
-~~~unix
+~~~bash
 npx create-react-app nome-do-projeto
 ~~~
 

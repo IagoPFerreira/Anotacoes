@@ -15,19 +15,19 @@ O exemplo mais prático de uma aplicação React é a própria [documentação](
 Gerenciadores de pacote são scripts que são utilizados para instalação de pacotes necessários para rodar certas aplicações, existem vários gerenciadores de pacotes, um deles é o npm. O npm  é o gerenciador de pacotes em si, ou seja, ele é quem será utilizado para instalar os pacotes, , enquanto o npx executa o comando de um pacote sem instalá-lo em si. Como o create-react-app é um pacote que a única coisa que faz é criar todos os arquivos necessários para termos um app React, não rodamos ele mais de uma vez por projeto, nem precisamos do pacote instalado em nossas máquinas, por isso **SEMPRE** executamos ele com o npx e não com o npm . Para rodar o npx é só fazer o seguinte passo a passo:
 Na pasta onde deseja criar a aplicação React, pelo terminal insira o comando:
 
-~~~unix
+~~~bash
 npx create-react-app testando-meu-computador 
 ~~~
 
 Caso seja instalado o gerenciador de pacotes yarn ou algum outro diferente do npm, é só inserir o próximo comando:
 
-~~~unix
+~~~bash
 npm install
 ~~~
 
 Com o npx rodado e o npm instalado, é só entrar no diretório criado pelo npx e inserir o próximo comando:
 
-~~~unix
+~~~bash
 npm start
 ~~~
 
@@ -550,7 +550,7 @@ class BemVindo extends React.Component {
 
 Para poder fazer uso de React Router, é preciso que se instale em uma aplicação React o pacote react-router-dom.
 
-~~~Unix
+~~~bash
 npm install react-router-dom
 ~~~
 

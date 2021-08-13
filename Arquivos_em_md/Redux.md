@@ -16,25 +16,25 @@ Como visto acima, o Redux existe para auxiliar no fluxo de dados dentro de uma a
 
 O Redux pode ser instalado na aplicação usando o seguinte comando:
 
-~~~unix
+~~~bash
 npm install react-redux
 ~~~
 
 E para fazer a conexão entre essas 2 bibliotecas é necessário instalar outra biblioteca, essa biblioteca é a react-redux:
 
-~~~unix
+~~~bash
 npm install --save redux react-redux.
 ~~~
 
 Para instalar o Redux DevTools, que será necessário para criação da store, utilize o seguinte comando:
 
-~~~unix
+~~~bash
 npm install --save redux-devtools-extension.
 ~~~
 
 Caso não use o comando acima, no momento da criação da store será necessário atribuir um segundo parâmetro a createStore(), esse parâmetro é:
 
-~~~unix
+~~~bash
 window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 ~~~
 
@@ -47,7 +47,7 @@ const store = createStore(rootReducer, extension);
 
 Para instalar o redux-thunk, que é necessário para uso de códigos assíncronos:
 
-~~~unix
+~~~bash
 npm install redux-thunk
 ~~~
 
