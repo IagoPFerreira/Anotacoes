@@ -1,6 +1,6 @@
 # Structured Query Language (SQL)
 
-QL é a linguagem usada para criar, pesquisar, extrair e também manipular dados dentro de um banco de dados relacional. Para que isso seja possível, existem comandos como o SELECT, UPDATE, DELETE, INSERT e WHERE, entre outros.
+SQL é a linguagem usada para criar, pesquisar, extrair e também manipular dados dentro de um banco de dados relacional. Para que isso seja possível, existem comandos como o SELECT, UPDATE, DELETE, INSERT e WHERE, entre outros.
 
 Todas as pesquisas realizadas dentro de um banco de dados são feitas em tabelas. Tabelas possuem linhas e colunas. Linhas representam um exemplo, ou instância, daquilo que se deseja representar, ao passo que colunas descrevem algum aspecto da entidade representada.
 
@@ -8,7 +8,7 @@ Todas as pesquisas realizadas dentro de um banco de dados são feitas em tabelas
 
 Por padrão, após a instalação, seu servidor vai estar configurado para iniciar junto ao sistema. Caso não queira que isso aconteça, para poupar memória RAM, você pode desativar o início automático utilizando o comando:
 
-~~~unix
+~~~bash
 # Linux
 sudo systemctl disable mysql
 
@@ -20,7 +20,7 @@ brew services cleanup
 
 A primeira vez que for utilizar após iniciar o computador, será necessário iniciar o servidor com o comando:
 
-~~~unix
+~~~bash
 # Linux
 sudo systemctl start mysql
 
@@ -30,7 +30,7 @@ brew services run mysql
 
 Se desejar ativar novamente que ele inicie junto ao computador, basta usar o comando:
 
-~~~unix
+~~~bash
 # Linux
 sudo systemctl enable mysql
 
@@ -40,7 +40,7 @@ brew services start mysql
 
 ---
 
-## Contrains
+## Constrains
 
 Uma das grandes vantagens de armazenar seus dados em um banco de dados é de possibilitar a criação de regras e restrições ( constraints , em inglês), que ditam exatamente como os dados podem ou não ser manipulados em suas tabelas.
 
