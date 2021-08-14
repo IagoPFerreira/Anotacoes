@@ -661,7 +661,45 @@ ALTER TABLE noticia ADD COLUMN data_postagem date NOT NULL;
 
 Neste caso a coluna `data_postagem` está sendo adicionada na tabela `noticia` e essa coluna está recebendo a constrain `NOT NULL`;
 
+Outros usos do `ALTER TABLE`:
+
+~~~SQL
+-- Modificar o tipo e propriedades de uma coluna
+ALTER TABLE noticia MODIFY noticia_id BIGINT;
+
+-- Adicionar incremento automático a uma coluna
+-- (especifique o tipo da coluna + auto_increment)
+ALTER TABLE noticia MODIFY noticia_id BIGINT auto_increment;
+
+-- Alterar o tipo e nome de uma coluna
+ALTER TABLE noticia CHANGE historia conteudo_postagem VARCHAR(1000) NOT NULL;
+
+-- Dropar/Excluir uma coluna
+ALTER TABLE noticia DROP COLUMN data_postagem;
+
+-- Adicionar uma nova coluna após outra
+ALTER TABLE noticia ADD COLUMN data_postagem DATETIME NOT NULL AFTER titulo;
+~~~
+
 ---
+
+## DROPando uma tabela
+
+Dropar ou excluir uma tabelaé fácil, é só usar o comando `DROP TABLE`. Exemplo:
+
+~~~SQL
+DROP TABLE nome_da_tabela;
+~~~
+
+Entretanto, não possível dropar uma tabela que é referenciada por uma restrição de chave estrangeira. A chave estrangeira ou a tabela que a contém deve ser excluída antes. Ao tentar dropar uma tabela que é referenciada por outra, a seguinte mensagem de erro aparecerá:
+
+~~~SQL
+Error Code: 3730. Cannot drop table 'table' referenced by a foreign key constraint 'fk_key' on table 'table2'
+~~~
+
+Onde `table`, `fk_key` e `table2` serão substituídos pela tabela que foi tentada apagar, a chave estrangeira a qual a tabela está ligada e a tabela onde a chave estrangeira se encontra, respectivamente.
+
+O impedimento da exclusão de um tabela dessa forma acontece por conta da **Integridade referencial**, que é uma propriedade que afirma que todas as referências de chaves estrangeiras devem ser válidas.
 
 ## Comandos em SQL
 
