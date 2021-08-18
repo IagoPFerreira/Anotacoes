@@ -12,7 +12,7 @@ Fazendo um paralelo, as coleções são equivalentes às tabelas dos bancos de d
 
 ---
 
-## Sumário
+# Sumário
 
 - [Configurando a inicialização do servidor do MongoDB](#Configurando-a-inicialização-do-servidor-do-MongoDB)
 - [Bancos de Dados](#Bancos-de-Dados)
@@ -25,12 +25,17 @@ Fazendo um paralelo, as coleções são equivalentes às tabelas dos bancos de d
 - [Find](#Find)
   - [Projection](#Projection)
 - [Operadores em Mongo](#Operadores-em-Mongo)
+- [Arrays em Mongo](#Arrays-em-Mongo)
+- [Tipos de dados](#Tipos-de-dados)
 - [Comandos em Mongo](#Comandos-em-Mongo)
   - [CRUD](#CRUD)
   - [Outros métodos](#Outros-métodos)
+- [Operadores](#Operadores)
   - [Operadores de comparação](#Operadores-de-comparação)
   - [Operadores lógicos](#Operadores-lógicos)
   - [Operador de existência](#Operador-de-existência)
+  - [Operadores de atualização](#Operadores-de-atualização)
+  - [Operadores de atualização de Arrays](#Operadores-de-atualização-de-Arrays)
 
 ---
 
@@ -60,26 +65,26 @@ sudo service mongod start
 
 Assim como nos sistemas gerenciadores de bancos de dados relacionais, dentro de uma mesma instância do `MongoDB` é possível ter um ou vários bancos de dados. Uma grande diferença, é que não existe a formalidade de criar um banco de dados antes de fazer uma operação nele.
 
-Por exemplo, quando é feito um insert , o `MongoDB` cuida disso para você: criando o banco e a coleção (caso não existam previamente) juntos com o documento inserido. Tudo isso em uma mesma operação.
+Por exemplo, quando é feito um insert, o `MongoDB` cuida disso para você: criando o banco e a coleção (caso não existam previamente) juntos com o documento inserido. Tudo isso em uma mesma operação.
 
-Uma vez conectado à uma instância do `MongoDB` através do `MongoDB Shell` , só é preciso especificar o contexto em que essa escrita acontecerá. Nesse caso, o contexto é o nome do banco de dados que você quer criar:
+Uma vez conectado à uma instância do `MongoDB` através do `MongoDB Shell`, só é preciso especificar o contexto em que essa escrita acontecerá. Nesse caso, o contexto é o nome do banco de dados que você quer criar:
 
 ~~~JavaScript
   use nomeDoBanco;
   db.nomeDaColecao.insertOne( { x: 1 });
 ~~~
 
-Feito! A função `insertOne()` cria tanto o banco de dados nomeDoBanco , como a coleção nomeDaColecao , caso eles não existam. Se existirem, apenas mapeia o documento a ser inserido dentro deles e, por fim, executa a operação.
+Feito! A função `insertOne()` cria tanto o banco de dados nomeDoBanco, como a coleção nomeDaColecao, caso eles não existam. Se existirem, apenas mapeia o documento a ser inserido dentro deles e, por fim, executa a operação.
 
 ---
 
 ## Coleções
 
-Como citado anteriormente, os documentos no `MongoDB` são armazenados dentro das coleções . Lembrando que uma coleção é equivalente à uma tabela dos bancos de dados relacionais.
+Como citado anteriormente, os documentos no `MongoDB` são armazenados dentro das coleções. Lembrando que uma coleção é equivalente à uma tabela dos bancos de dados relacionais.
 
 ### Criando uma coleção
 
-Como visto anteriormente, se uma coleção não existe, o `MongoDB` cria essa coleção no momento do primeiro insert .
+Como visto anteriormente, se uma coleção não existe, o `MongoDB` cria essa coleção no momento do primeiro insert.
 
 ~~~JavaScript
 db.nomeDaColecao1.insertOne({ x: 1});
@@ -129,7 +134,7 @@ _id | nome | endereco | cidade | uf
 }
 ~~~
 
-Como visto acima, um insert recebe como parâmetro um `JSON` . Esse parâmetro define os dados e a estrutura do documento. É importante ressaltar que, por ser schemaless , ou seja, sem esquema por padrão, a estrutura não faz parte da coleção, e sim do documento . Com isso, é possível ter várias "estruturas" por coleção. No exemplo acima, podemos observar essa diferença entre os documentos. No primeiro, temos o atributo `regiao` , que não existe no segundo documento.
+Como visto acima, um insert recebe como parâmetro um `JSON`. Esse parâmetro define os dados e a estrutura do documento. É importante ressaltar que, por ser schemaless, ou seja, sem esquema por padrão, a estrutura não faz parte da coleção, e sim do documento. Com isso, é possível ter várias "estruturas" por coleção. No exemplo acima, podemos observar essa diferença entre os documentos. No primeiro, temos o atributo `regiao`, que não existe no segundo documento.
 
 Quando fizer uma alteração, faça-a em nível de documento. Pois caso a faça em nível de coleção, muitos documentos com estruturas diferentes poderão ser impactados com a criação, alteração ou remoção de um atributo que não faz parte da estrutura de todos.
 
@@ -137,7 +142,7 @@ Quando fizer uma alteração, faça-a em nível de documento. Pois caso a faça 
 
 ## BSON Types
 
-Por mais que o insert ocorra recebendo um documento `JSON` , internamente, o `MongoDB` armazena os dados em um formato chamado `BSON (ou Binary JSON)`. Esse formato é uma extensão do `JSON` e permite que você tenha mais tipos de dados armazenados no `MongoDB` , não somente os tipos permitidos pelo `JSON`.
+Por mais que o insert ocorra recebendo um documento `JSON`, internamente, o `MongoDB` armazena os dados em um formato chamado `BSON (ou Binary JSON)`. Esse formato é uma extensão do `JSON` e permite que você tenha mais tipos de dados armazenados no `MongoDB`, não somente os tipos permitidos pelo `JSON`.
 
 ---
 
@@ -162,14 +167,14 @@ db.collection.find(query, projection);
   - Descrição: especifica os filtros da seleção usando os `query operators`. Para retornar todos os documentos da coleção, é só omitir esse parâmetro ou passar um documento vazio `({})`.
 - `projection` (opcional):
   - Tipo: documento;
-  - Descrição: especifica quais atributos serão retornados nos documentos selecionados pelo parâmetro query . Para retornar todos os atributos desses documentos, é só omitir esse parâmetro.
+  - Descrição: especifica quais atributos serão retornados nos documentos selecionados pelo parâmetro query. Para retornar todos os atributos desses documentos, é só omitir esse parâmetro.
 
 ### Projection
 
 Como dito, o parâmetro projection determina quais atributos serão retornados dos documentos que atendam aos critérios de filtro. O formato recebido por ele é algo como:
 
 ~~~JavaScript
-{ "atributo1": valor, "atributo2": valor ... }
+{ "atributo1": valor, "atributo2": valor... }
 ~~~
 
 O `valor` pode ser uma das seguintes opções:
@@ -244,7 +249,8 @@ Como em toda linguagem, `Mongo` também possui operadores, que podem ser usados 
 
 Em `Mongo` os operadores são identificados pelo prefixo `$`.
 
-    • Comparação
+[Comparação](#Comparação)
+
       ▪ $lt - less than, menor que, <;
       ▪ $lte - less than or equal, menor ou igual a, <=;
       ▪ $gt - greater than, maior que, >;
@@ -256,7 +262,8 @@ Em `Mongo` os operadores são identificados pelo prefixo `$`.
 
 ---
 
-    • Lógicos
+[Lógicos](#Lógicos)
+
       ▪ $and - and, se todas as condições forem verdadeiras retorna true;
       ▪ $or - or, se apenas uma condição for verdadeira retorna true;      
       ▪ $not - not, inverte o resultado da expressão;
@@ -264,12 +271,148 @@ Em `Mongo` os operadores são identificados pelo prefixo `$`.
 
 ---
 
-    • Existência
+[Existência](#Existência)
+
       ▪ $exists - exists, verifica a existência de um atributo;
 
 ---
 
+[Atualização](#Atualização)
+
+      ▪ $set - set, define um novo valor;
+      ▪ $mul - mul, multiplica o valor do campo;
+      ▪ $inc - inc, incrementa ou decrementa o valor de um campo;
+      ▪ $min - min, altera os valores de um campo para o mínimo; 
+      ▪ $max - max, altera os valores de um campo para o máximo;
+      ▪ $currentDate - currentDate, atribui ao valor de um campo a data corrente;
+      ▪ $rename - rename, remoneia um determinado atributo de um ou mais documentos;
+      ▪ $unset - unset, remove um ou mais campos de um documento;
+
+---
+
+[Atualização de Arrays](#Atualização-de-Arrays)
+
+      ▪ $push - push, adiciona um valor a um array;
+        ◦ $each - each, adiciona múltiplos valores a um array;
+        ◦ $slice - slice, limita o número de elementos do array;
+        ◦ $sort - sort, ordena os elementos do array;
+        ◦ $position - position, especifica a posição do elemento que está sendo inserido no array;
+      ▪ $pop - pop, remove o primeiro ou o último elemento de um array;
+      ▪ $pull - pull, remove um ou mais elementos de um array;
+      ▪ $addToSet - addToSet, adiciona somente valores únicos ao array;
+      ▪ $all - all, seleciona todos os elementos com um ou mais valores específicos;
+      ▪ $elemMatch - elemMatch, seleciona os arrays com pelo menos um campo específico;
+      ▪ $size - size, seleciona arrays com um tamanho específico;
+      ▪ $expr - expr, usa expressões de agregação;
+      ▪ $regex - regex, usa expresões regulares;
+      ▪ $text - text, buscas textuais por campos indexados;
+      ▪ $mod - mod, usa o módulo de uma divisão;
+---
+
+## Arrays em Mongo
+
+Assim como em muitas linguages, `Mongo` também possui Arrays, e assim como objetos Arrays são muito úteis para guardar muitas informações. Entretanto, diferente de muitas linguagens a navegação dentro de um Array, em `Mongo` não se dá pela utilização de colchetes `[]` com o número do indice de um item dentro deles,  mas sim como navegamos dentro de objetos, por `dot notation`, mas ainda se fazendo necessário especificar o número do indice de cada item. Exemplo:
+
 ~~~JavaScript
+db.collection.insertOne({
+  _id: 1,
+  quantity: 250,
+  details: { model: "14Q2", make: "xyz" },
+  tags: [ "apparel", "clothing" ],
+  ratings: [ { by: "ijk", rating: 4 } ]
+});
+
+db.collection.updateOne(
+  { _id: 1 },
+  { $set: {
+      "tags.1": "rain gear",
+      "ratings.0.rating": 2
+    }
+  }
+);
+~~~
+
+Existem formas de deixar o valor do indice dinâmico, para que não necessário sempre passa-lo de forma hardcode. Para isso basta usar a seguinte sintaxe `$[elemento]`, dessa forma é possível usar o indice de um elemento de forma dinâmica. Exemplo:
+
+~~~JavaScript
+db.recipes.updateMany(
+  {},
+  {
+    set : {
+      "ingredients.$[elemento].unit": "xícara", 
+      "ingredients.$[elemento].name": "Farinha Integral", 
+    },
+  },
+  { arrayFilters: [ { "elemento.name": "Farinha" } ] },
+);
+~~~
+
+---
+
+## Tipos de dados
+
+O `Mongo` possui vários tipos de dados, vamos escrever sobre alguns deles aqui:
+
+### Data
+
+Existem vários formas de retornar a data, seja ela como uma string ou como um objeto.
+
+- `Date()` - retorna a data atual como uma string. Exemplo:
+
+~~~JavaScript
+var myDateString = Date();
+
+myDateString;
+
+// Saída: Tue Aug 17 2021 16:51:19 GMT-0300 (Brasilia Standard Time)
+~~~
+
+- `new Date()` - retorna a data em formato de objeto. Exemplo:
+
+~~~JavaScript
+var myDate = new Date();
+
+myDate;
+
+// Saída: { "$date": "2021-08-17T19:54:01.162Z" }
+~~~
+
+- `ISODate()` - retorna a data em formato de objeto. Exemplo:
+
+~~~JavaScript
+var isoDate = ISODate();
+
+isoDate;
+
+// Saída: { "$date": "2021-08-17T19:54:54.816Z" }
+~~~
+
+### NumberLong
+
+Todos os números longos, com muitas casas, são considerados com `NumberLong`, os números podem ser passados como strings ou não. Exemplo:
+
+~~~JavaScript
+NumberLong("2090845886852");
+NumberLong(2090845886852);
+~~~
+
+### NumberInt
+
+É utilizado para especificar números inteiros, ou seja, sem casas decimais. Exemplo:
+
+~~~JavaScript
+NumberInt(5);
+~~~
+
+### NumberDecimal
+
+É utilizado para especificar os números com casas decimais, o `Mongo` considera os números por padrão como NumberDecimal, entretanto é possível especificar. Exemplo:
+
+~~~JavaScript
+NumberDecimal("1000.55");
+NumberDecimal("1000.55555555555");
+NumberDecimal(1000.55);
+NumberDecimal(1000.55555555555);
 ~~~
 
 ---
@@ -320,6 +463,26 @@ db.collection.find({});
 
 #### Update
 
+- `updateOne()` - Altera apenas o primeiro documento que satisfaça critério de seleção, mesmo que muitos outros documentos também se enquadrem no critério de seleção. Se nenhum valor for passado como parâmetro, a operação alterará o primeiro documento da coleção. São passados 2 parâmetros para esse método, o primeiro é o filtro e o segundo é a operação de `update` em si. Exemplo:
+
+~~~JavaScript
+db.collection.updateOne(
+  { item: "paper" },
+  { $set: { "size.uom": "cm", status: "P" } }
+);
+~~~
+
+- `updateMany()` - Altera todos os documento que satisfaçam o critério de seleção. Se nenhum valor for passado como parâmetro, a operação alterará todos os documentos da coleção. São passados 2 parâmetros para esse método, o primeiro é o filtro e o segundo é a operação de `update` em si. Exemplo:
+
+~~~JavaScript
+db.collection.updateMany(
+  { qty: { $lt: 50 } },
+  { $set: { "size.uom": "in", status: "P" } }
+);
+~~~
+
+Os métodos de `update` possuem o parâmetro `upsert`, que caso nenhum documento combine com o filtro, um novo documento será criado, atendendo aos requisitos do filtro.
+
 #### Delete
 
 - `deleteOne()` - Remove apenas um documento, que deve satisfazer o critério de seleção, mesmo que muitos outros documentos também se enquadrem no critério de seleção. Se nenhum valor for passado como parâmetro, a operação removerá o primeiro documento da coleção. Exemplo:
@@ -328,7 +491,7 @@ db.collection.find({});
 db.collection.deleteOne({ status: "D" });
 ~~~
 
-- `deleteMany()` - Remove todos os documentos que satisfaçam o critério de seleção. Exemplo:
+- `deleteMany()` - Remove todos os documentos que satisfaçam o critério de seleção. Se nenhum valor for passado como parâmetro, a operação removerá todos os documentos da coleção. Exemplo:
 
 ~~~JavaScript
 db.collection.deleteMany({ status: "D" });
@@ -363,7 +526,15 @@ db.collection.find({}, { value, name }).sort({ value: -1 }, { name: 1 });
 db.collection.find().sort({ nomeDoAtributo: 1 });
 ~~~
 
-### Operadores de comparação
+- `createIndex()` - Cria indeces que podem ser utilizados em buscas dentro dos documentos. Recebe como parâmetro um objeto, onde a chave é o nome do campo onde será feita a busca e o valor é o tipo de dado. Exemplo:
+
+~~~JavaScript
+db.collection.createIndex({ campo: "text" })
+~~~
+
+## Operadores
+
+### Comparação
 
 - `$lt` - Seleciona os documentos em que o valor do atributo filtrado é menor do que (<) o valor especificado. Exemplo:
 
@@ -408,15 +579,15 @@ db.collection.find({ qty: { $ne: 5 } });
 db.collection.find({ qty: { $in: [ 5, 10 ] } });
 ~~~
 
-- `$in` - Seleciona os documentos em que o valor do atributo filtrado não é igual ao especificado no array , ou o campo não existe. Exemplo
+- `$in` - Seleciona os documentos em que o valor do atributo filtrado não é igual ao especificado no array, ou o campo não existe. Exemplo
 
 ~~~JavaScript
 db.collection.find({ qty: { $nin: [ 5, 10 ] } });
 ~~~
 
-### Operadores lógicos
+### Lógicos
 
-- `$not` - Executa uma operação lógica de `NEGAÇÃO` no operador ou expressão especificado e seleciona os documentos que não correspondam ao operador ou expressão . Isso também inclui os documentos que não contêm o atributo. Exemplo:
+- `$not` - Executa uma operação lógica de `NEGAÇÃO` no operador ou expressão especificado e seleciona os documentos que não correspondam ao operador ou expressão. Isso também inclui os documentos que não contêm o atributo. Exemplo:
 
 ~~~JavaScript
 db.collection.find({ qty: { $not: { $gt: 5 } } });
@@ -428,7 +599,7 @@ db.collection.find({ qty: { $not: { $gt: 5 } } });
 db.collection.find({ $or: [{ qty: { $lt: 20 } }, { price: 10 }] });
 ~~~
 
-- `$nor` - Executa uma operação lógica de `NEGAÇÃO` , porém, em um array de uma ou mais expressões, e seleciona os documentos em que todas essas expressões falhem , ou seja, seleciona os documentos em que todas as expressões desse array sejam falsas. Exemplo:
+- `$nor` - Executa uma operação lógica de `NEGAÇÃO`, porém, em um array de uma ou mais expressões, e seleciona os documentos em que todas essas expressões falhem, ou seja, seleciona os documentos em que todas as expressões desse array sejam falsas. Exemplo:
 
 ~~~JavaScript
 db.collection.find({ $nor: [{ price: 1.99 }, { sale: true }] });
@@ -445,13 +616,287 @@ db.collection.find({
 });
 ~~~
 
-### Operador de existência
+### Existência
 
-- `$exists` - Quando o `boolean` é verdadeiro ( `true` ), o operador `$exists` encontra os documentos que contêm o atributo , incluindo os documentos em que o valor do atributo é igual a null . Se o `boolean` é falso ( `false` ), a consulta retorna somente os documentos que não contêm o atributo. Exemplos:
+- `$exists` - Quando o `boolean` é verdadeiro ( `true` ), o operador `$exists` encontra os documentos que contêm o atributo, incluindo os documentos em que o valor do atributo é igual a null. Se o `boolean` é falso ( `false` ), a consulta retorna somente os documentos que não contêm o atributo. Exemplos:
 
 ~~~JavaScript
 db.collection.find({ qty: { $exists: true } });
 db.collection.find({ qty: { $exists: true, $nin: [ 5, 15 ] } });
+~~~
+
+### Atualização
+
+- `$set` - Define um novo valor para uma ou mais propriedades e caso o campo não exista ele será criado, também vale para campos com `dot notation`. É possível especificar múltiplos pares de campos valores e o operador `$set` alterará ou criará cada um desses campos. Pode ser utilizado em conjunto com outros operadores. Exemplos:
+
+~~~JavaScript
+db.collection.updateMany({}, { $set: { creator: "Me" } });
+db.collection.updateOne(
+  { _id: 100 },
+  { $set: {
+      quantity: 500,
+      details: { model: "14Q3", make: "xyz" },
+      tags: [ "coats", "outerwear", "clothing" ]
+    }
+  }
+);
+db.collection.updateOne(
+  { _id: 100 },
+  { $set: { "details.make": "zzz" } }
+);
+~~~
+
+- `$mul` - multiplica o valor de um campo por um número especificado, persistindo o resultado dessa operação sem a necessidade do operador $set. Caso esse operador seja usado em um campo inexistente, o campo será criado e terá como valor inicial o valor 0 com o mesmo tipo númerico do multiṕlicador. Exemplo:
+
+~~~JavaScript
+db.collection.updateOne(
+  { _id: 1 },
+  { $mul: { price: NumberDecimal("1.25"), qty: 2 } }
+);
+~~~
+
+Neste caso o campo `price` terá seu valor multiplicado por `1.25` e o campo `qty` terá seu valor multiplicado por `2`.
+
+- `$inc` - Incrementa ou decrementa valores em um campo específico, utilizando tanto valores positivos quanto negativos, utilizando valores positivos acontece a incrementação, usando valores negativos acontece a decrementação. Exemplo:
+
+~~~JavaScript
+db.increment.updateOne(
+  { sku: "abc123" },
+  { $inc: { quantity: -2, "metrics.orders": 1 } }
+);
+~~~
+
+- `$min` - Altera o valor do campo para o valor especificado se esse valor especificado é menor do que o atual valor do campo, ou seja, arrasta os valores maiores que o especificado para o mesmo valor que o especificado. Exemplo:
+
+~~~JavaScript
+db.collection.updateMany({}, { $min: { campo: 25 } });
+// Todos os valores acima de 25 foram alterados para 25
+~~~
+
+- `$max` - Altera o valor do campo para o valor especificado se esse valor especificado é maior do que o atual valor do campo, ou seja, arrasta os valores menores que o especificado para o mesmo valor que o especificado. Exemplo:
+
+~~~JavaScript
+db.collection.updateMany({}, { $max: { campo: 75 } });
+// Todos os valores abaixo de 75 foram alterados para 75
+~~~
+
+- `$currentDate` - Atribui ao valor de um campo a data corrente, utilizando um tipo Date ou timestamp. Se não for especificado o tipo, por padrão, o MongoDB atribuirá o valor do tipo Date. Exemplo:
+
+~~~JavaScript
+db.collection.updateOne(
+  { _id: 1 },
+  { $currentDate: {
+      lastModified: true,
+      "cancellation.date": { $type: "timestamp" }
+    }, $set: {
+      "cancellation.reason": "user request",
+      status: "D"
+    }
+  }
+);
+~~~
+
+- `$rename` - Remoneia um determinado atributo de um ou mais documentos, esse operador recebe um documento contendo o nome atual do campo e o novo nome. Pode ser utilizado com os métodos `updateOne()` ou `updateMany()`, e também pode receber um critério de seleção de documentos. Exemplo:
+
+~~~JavaScript
+db.collection.updateOne(
+  { name: "Banana" },
+  { $rename: {
+      "name": "productName"
+    }
+  }
+);
+~~~
+
+- `$unset` - Remove um ou mais campos de um documento ao passar o nome do campo e como valor uma string vazia. Exemplo:
+
+~~~JavaScript
+db.collection.updateMany(
+  { productName: "Banana" },
+  { $unset: { quantity: "" } }
+);
+~~~
+
+### Atualização de Arrays
+
+- `$push` - Adiciona um valor a um array. Se o campo não existir no documento, um novo array com o valor em um elemento será adicionado. Em conjunto com o $push, é possível utilizar os modificadores. Cada um desses modificadores tem funções específicas.
+
+---
+
+    • Modificadores
+      ▪ `$each` : Adiciona múltiplos valores a um array;
+      ▪ `$slice` : Limita o número de elementos do array. Requer o uso do modificador `$each`;
+      ▪ `$sort` : Ordena os elementos do array. Requer o uso do modificador `$each`;
+      ▪ `$position` : Especifica a posição do elemento que está sendo inserido no array. Requer o modificador `$each`. Sem o modificador `$position`, o operador `$push` adiciona o elemento no final do array.
+
+---
+
+    • Ordem de ação dos modificadores
+
+      1. Altera o array para adicionar os elementos na posição correta;
+      2. Aplica a ordenação ( $sort ), se especificada;
+      3. Limita o array ( $slice ), se especificado;
+      4. Armazena o array.
+
+---
+
+Exemplo:
+
+~~~JavaScript
+db.collection.updateOne(
+  { _id: 1 },
+  {
+    $push: {
+      items: {
+        $each: [
+          {
+            name: "notepad",
+            price: 35.29,
+            quantity: 2,
+          },
+          {
+            name: "envelopes",
+            price: 19.95,
+            quantity: 8,
+          },
+          {
+            name: "pens",
+            price: 56.12,
+            quantity: 5,
+          },
+        ],
+        $sort: { quantity: -1 },
+        $slice: 2,
+      },
+    },
+  },
+  { upsert: true }
+);
+~~~
+
+- `$pop` - Remove o primeiro ou o último elemento de um array. Passando o valor -1 o primeiro elemento será removido. Já ao passar o valor 1 , o último elemento do array será removido. Exemplos:
+
+~~~JavaScript
+db.collection.updateOne({ _id: 1 }, { $pop: { items: -1 } });
+db.collection.updateOne({ _id: 1 }, { $pop: { items: 1 } });
+~~~
+
+- `$pull` - Remove de um array existente todos os elementos com um ou mais valores que atendam à condição especificada. Exemplos:
+
+~~~JavaScript
+db.collection.updateMany(
+  {},
+  { $pull: { items: { name: { $in: ["pens", "envelopes"] } } } },
+);
+
+db.collection.updateOne(
+  { _id: 1 },
+  { $pull: { votes: { $gte: 6 } } },
+);
+
+db.collection.updateMany(
+  {},
+  { $pull: { results: { score: 8 , item: "B" } } },
+);
+~~~
+
+- `$addToSet` - Adiciona valores no array somente quando o valor já não está presente dentro do array, garantindo que o array possui somente valores únicos. Esse operador tem 3 pontos de atenção:
+  - Caso o campo no qual ele está sendo utilizado não exista, ele criará esse campo;
+  - Se for usado em um campo que não é um array, a operação não funcionará;
+  - Se o valor passado for um documento, o MongoDB o considerará como duplicado se um documento existente no array for exatamente igual ao documento a ser adicionado, ou seja, possui os mesmos campos com os mesmos valores, e esses campos estão na mesma ordem.
+
+Também é possível usar o modificador $each, mantendo as características do `$addToSet`.
+
+Exemplos:
+
+~~~JavaScript
+db.collection.updateOne(
+  { _id: 1 },
+  { $addToSet: { tags: "camera"  } },
+);
+
+db.collection.updateOne(
+  { _id: 2 },
+  {
+    addToSet: {
+      tags: {
+        each: ["camera", "electronics", "accessories"],
+      },
+    },
+  },
+);
+~~~
+
+- `$all` - Seleciona todos os documentos em que o valor do campo é um array que contenha todos os elementos especificados. Utiliza-se $all sempre que é preciso passar mais de um valor de comparação, e é irrelevante para a verificação tanto a existência de mais elementos no array quanto a ordem em que esses elementos estão.
+
+~~~JavaScript
+db.collection.find({ tags: { $all: ["red", "blank"] } });
+~~~
+
+- `$elemMatch` - Seleciona os documentos que contêm um campo do tipo array com pelo menos um elemento que satisfaça todos os critérios de seleção especificados.
+
+~~~JavaScript
+db.collection.find(
+  { results: { $elemMatch: { $gte: 80, $lt: 85 } } }
+);
+~~~
+
+- `$size` - Seleciona documentos em que um array contenha um número de elementos especificado. É importante saber que o operador `$size` aceita apenas valores númericos, não sendo possível, por exemplo, trazer arrays com comprimento maior do que 2 (`$gt: 2`). Caso seja necessário selecionar documentos com base em valores diferentes, a solução é criar um campo que se incremente quando elementos forem adicionados ao array .
+
+~~~JavaScript
+db.collection.find(
+  { tags: { $size: 2 } }
+);
+~~~
+
+- `$expr` - Permite que você utilize expressões de agregação e construa queries que comparem campos no mesmo documento. A query abaixo utiliza o operador $expr para buscar os documentos em que o valor de spent exceda o valor de budget:
+
+~~~JavaScript
+db.collection.find(
+  {
+    $expr: { $gt: [ "$spent", "$budget" ] }
+  }
+);
+~~~
+
+Note que, na query , nenhum valor foi especificado explicitamente. O que acontece é que o operador `$expr` entende que deve comparar os valores dos dois campos. Por isso o `$` é utilizado, indicando que a string entre aspas referencia um campo.
+
+- `$regex` - Fornece os "poderes" das expressões regulares ( regular expressions ) para seleção de strings. Um uso muito comum para o operador `$regex` é fazer consultas como o `LIKE` do `SQL`. Exemplos:
+
+~~~JavaScript
+db.collection.find({ sku: { $regex: /789$/ } }); // retorna os documentos em que o campo "sku" termine em "789"
+
+db.collection.find({ sku: { $regex: /$xyz/ } }); // retornar os documentos em que o campo "sku" comece com "xyz"
+
+db.collection.find({ sku: { $regex: /^ABC/i } }); //retorna os documentos em que o campo "sku" possua em algum lugar o trecho "abc", independente do case
+~~~
+
+- `$text` - Faz uma busca "textual" em um campo indexado por um text index, index esse que é criado pelo método `createIndex()`, esse operador possui alguns atributos que auxiliam nas buscas.
+
+---
+    • $search : Uma string com os termos que o MongoDB utilizará para fazer o parse e utilizará como filtro. Internamente, o MongoDB faz uma busca lógica ( OR ) sobre os termos, a menos que seja especificado como uma frase inteira;
+
+    • $language : Opcional. Esse campo determina a lista de stop words que será utilizada na tokenização da busca. Caso seja passado o valor none , a busca utilizará uma tokenização simples sem utilizar nenhuma lista de stop words (Stop word: Também conhecido como palavra vazia , é uma palavra que é removida antes ou após o processamento de um texto em linguagem natural);
+
+    • $caseSensitive : Opcional. Recebe um valor booleano para habilitar ou desabilitar buscas case sensitive . O valor default é false , o que faz com que as buscas sejam case-insensitive;
+
+    • $diacriticSensitive : Opcional. Recebe um valor booleano para habilitar ou desabilitar busca diacritic sensitive . O valor default também é false.
+---
+
+~~~JavaScript
+db.collection.createIndex({ campo: "text" }); // cria o index do tipo texto
+
+db.collection.find({ $text: { $search: "coffee" } }); // busca todos os documentos que contenham o termo coffee
+
+db.collection.find({ $text: { $search: "bake coffee cake" } }); // busca todos os documentos que contenham qualquer um desses argumentos
+
+db.collection.find({ $text: { $search: "\"coffee shop\"" } }); // busca todos os documentos que contenham essa frase específica
+~~~
+
+- `$mod` - Seleciona todos os documentos em que o valor do campo dividido por um divisor seja igual ao valor especificado, ou seja, executa a operação matemática módulo, ou seja, encontra o resto da divisão de um número por outro. A query a seguir seleciona todos os documentos da coleção em que o valor do campo qty módulo 4 seja 0:
+
+~~~JavaScript
+db.collection.find({ qty: { $mod: [4, 0] } });
 ~~~
 
 ~~~JavaScript

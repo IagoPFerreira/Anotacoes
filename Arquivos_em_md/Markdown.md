@@ -57,6 +57,7 @@ Use um asterísco, um sinal de menos ou um sinal de mais, seguido do texto.
 * __Ateriscos **__ ou **underlines __** duplos, para utilizar o __negrito__;
 * **Ateriscos e _underlines_** podem ser combinados para ter uma ênfase ainda maior;
 * ~~Tils~~ duplos, esse acento pode ser utilizado para riscar frases;
+* $Sifrão$ para utilizar uma fonte cursiva;
 
 ---
 
