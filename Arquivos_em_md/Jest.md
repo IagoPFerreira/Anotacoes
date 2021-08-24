@@ -2,7 +2,11 @@
 
 Jest é um framework de testes automatizados desenvolvido pelo facebook, onde vários testes podem ser feitos e rodados em diversos arquivos, simultaneamente.
 
-Para adicionar o Jest ao projeto é sou usar o comando: `npm install –save-dev jest`
+Para adicionar o Jest ao projeto é sou usar o comando:
+
+~~~bash
+npm install –save-dev jest
+~~~
 
 Para escrever testes com jest é bem simples, só precisa usar a função `test`, que tem um alias chamado `it`, ou seja, ambas se referem a mesma função e qualquer uma delas pode ser usado. Essas funções são globais e ficam disponíveis nos arquivos que você está codando uma vez o que o jest é instalado.
 
@@ -11,7 +15,7 @@ A função test espera 3 argumentos, o primeiro argumento é o nome do teste, se
 ~~~javascript
 const sum = (a, b) => a + b;
 test('sums two values', () => {
-expect(sum(2, 3)).toEqual(5);
+  expect(sum(2, 3)).toEqual(5);
 });
 ~~~
 
@@ -25,7 +29,7 @@ module.exports = sum;
 // sum.test.js
 const sum = require('./sum');
 test('sums two values', () => {
-expect(sum(2, 3)).toBe(5);
+  expect(sum(2, 3)).toBe(5);
 });
 ~~~
 
@@ -57,21 +61,25 @@ Testes podem retornar erros, devido a vários motivos, mas existem formas de cap
 
 ~~~javascript
 const multiplyByTwo = (number) => {
-if (!number) {
-throw new Error('number é indefinido')
-}
-return number * 2;
+  if (!number) {
+    throw new Error('number é indefinido');
+  }
+  return number * 2;
 };
 multiplyByTwo(4);
 
 test('testa se multiplyByTwo retorna o resultado da multiplicação', () => {
-expect(multiplyByTwo(4)).toBe(8);
+  expect(multiplyByTwo(4)).toBe(8);
 });
 test('testa se é lançado um erro quando number é indefinido', () => {
-expect(() => { multiplyByTwo() }).toThrow();
+  expect(() => {
+    multiplyByTwo();
+  }).toThrow();
 });
 test('testa se a mensagem de erro é "number é indefinido"', () => {
-expect(() => { multiplyByTwo() }).toThrowError(new Error('number é indefinido'));
+  expect(() => {
+    multiplyByTwo();
+  }).toThrowError(new Error('number é indefinido'));
 });
 ~~~
 

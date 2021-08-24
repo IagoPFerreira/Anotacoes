@@ -36,6 +36,9 @@ Fazendo um paralelo, as coleções são equivalentes às tabelas dos bancos de d
   - [Operador de existência](#Operador-de-existência)
   - [Operadores de atualização](#Operadores-de-atualização)
   - [Operadores de atualização de Arrays](#Operadores-de-atualização-de-Arrays)
+  - [Agregação](#Agregação)
+  - [Acumulação](#Acumulação)
+  - [Expressões](#Expressões)
 
 ---
 
@@ -251,62 +254,73 @@ Em `Mongo` os operadores são identificados pelo prefixo `$`.
 
 [Comparação](#Comparação)
 
-      ▪ $lt - less than, menor que, <;
-      ▪ $lte - less than or equal, menor ou igual a, <=;
-      ▪ $gt - greater than, maior que, >;
-      ▪ $gte - greater than or equal, maior ou igual a, >=;
-      ▪ $eq - equal, igual a, =;
-      ▪ $ne - not equal, diferente de, !=, <>;
-      ▪ $in - in, dentro de;
-      ▪ $nin - not in, não está dentro de;
+    ▪ $lt - less than, menor que, <;
+    ▪ $lte - less than or equal, menor ou igual a, <=;
+    ▪ $gt - greater than, maior que, >;
+    ▪ $gte - greater than or equal, maior ou igual a, >=;
+    ▪ $eq - equal, igual a, =;
+    ▪ $ne - not equal, diferente de, !=, <>;
+    ▪ $in - in, dentro de;
+    ▪ $nin - not in, não está dentro de;
 
 ---
 
 [Lógicos](#Lógicos)
 
-      ▪ $and - and, se todas as condições forem verdadeiras retorna true;
-      ▪ $or - or, se apenas uma condição for verdadeira retorna true;      
-      ▪ $not - not, inverte o resultado da expressão;
-      ▪ $nor - not or, semelhante ao or, porém trabalha com a condição false;
+    ▪ $and - and, se todas as condições forem verdadeiras retorna true;
+    ▪ $or - or, se apenas uma condição for verdadeira retorna true;      
+    ▪ $not - not, inverte o resultado da expressão;
+    ▪ $nor - not or, semelhante ao or, porém trabalha com a condição false;
 
 ---
 
 [Existência](#Existência)
 
-      ▪ $exists - exists, verifica a existência de um atributo;
+    ▪ $exists - exists, verifica a existência de um atributo;
 
 ---
 
 [Atualização](#Atualização)
 
-      ▪ $set - set, define um novo valor;
-      ▪ $mul - mul, multiplica o valor do campo;
-      ▪ $inc - inc, incrementa ou decrementa o valor de um campo;
-      ▪ $min - min, altera os valores de um campo para o mínimo; 
-      ▪ $max - max, altera os valores de um campo para o máximo;
-      ▪ $currentDate - currentDate, atribui ao valor de um campo a data corrente;
-      ▪ $rename - rename, remoneia um determinado atributo de um ou mais documentos;
-      ▪ $unset - unset, remove um ou mais campos de um documento;
+    ▪ $set - set, define um novo valor;
+    ▪ $mul - mul, multiplica o valor do campo;
+    ▪ $inc - inc, incrementa ou decrementa o valor de um campo;
+    ▪ $min - min, altera os valores de um campo para o mínimo; 
+    ▪ $max - max, altera os valores de um campo para o máximo;
+    ▪ $currentDate - currentDate, atribui ao valor de um campo a data corrente;
+    ▪ $rename - rename, remoneia um determinado atributo de um ou mais documentos;
+    ▪ $unset - unset, remove um ou mais campos de um documento;
 
 ---
 
 [Atualização de Arrays](#Atualização-de-Arrays)
 
-      ▪ $push - push, adiciona um valor a um array;
-        ◦ $each - each, adiciona múltiplos valores a um array;
-        ◦ $slice - slice, limita o número de elementos do array;
-        ◦ $sort - sort, ordena os elementos do array;
-        ◦ $position - position, especifica a posição do elemento que está sendo inserido no array;
-      ▪ $pop - pop, remove o primeiro ou o último elemento de um array;
-      ▪ $pull - pull, remove um ou mais elementos de um array;
-      ▪ $addToSet - addToSet, adiciona somente valores únicos ao array;
-      ▪ $all - all, seleciona todos os elementos com um ou mais valores específicos;
-      ▪ $elemMatch - elemMatch, seleciona os arrays com pelo menos um campo específico;
-      ▪ $size - size, seleciona arrays com um tamanho específico;
-      ▪ $expr - expr, usa expressões de agregação;
-      ▪ $regex - regex, usa expresões regulares;
-      ▪ $text - text, buscas textuais por campos indexados;
-      ▪ $mod - mod, usa o módulo de uma divisão;
+    ▪ $push - push, adiciona um valor a um array;
+      ◦ $each - each, adiciona múltiplos valores a um array;
+      ◦ $slice - slice, limita o número de elementos do array;
+      ◦ $sort - sort, ordena os elementos do array;
+      ◦ $position - position, especifica a posição do elemento que está sendo inserido no array;
+    ▪ $pop - pop, remove o primeiro ou o último elemento de um array;
+    ▪ $pull - pull, remove um ou mais elementos de um array;
+    ▪ $addToSet - addToSet, adiciona somente valores únicos ao array;
+    ▪ $all - all, seleciona todos os elementos com um ou mais valores específicos;
+    ▪ $elemMatch - elemMatch, seleciona os arrays com pelo menos um campo específico;
+    ▪ $size - size, seleciona arrays com um tamanho específico;
+    ▪ $expr - expr, usa expressões de agregação;
+    ▪ $regex - regex, usa expresões regulares;
+    ▪ $text - text, buscas textuais por campos indexados;
+    ▪ $mod - mod, usa o módulo de uma divisão;
+---
+
+[Agregação](#Agregação)
+
+    ▪ $match - match, seleciona os documentos que passarem no filtro;
+    ▪ 
+    ▪ 
+    ▪ 
+    ▪ 
+    ▪ 
+
 ---
 
 ## Arrays em Mongo
@@ -338,11 +352,11 @@ Existem formas de deixar o valor do indice dinâmico, para que não necessário 
 db.recipes.updateMany(
   {},
   {
-    set : {
+    set:: {
       "ingredients.$[elemento].unit": "xícara", 
       "ingredients.$[elemento].name": "Farinha Integral", 
     },
-  },
+  ,
   { arrayFilters: [ { "elemento.name": "Farinha" } ] },
 );
 ~~~
@@ -460,6 +474,20 @@ db.collection.find({ _id: 1 });
 db.collection.find();
 db.collection.find({});
 ~~~
+
+- `aggregate()` - Agrega documentos que possuam propriedades que passem nos mesmo filtros, reduzindo assim o possível relatório e juntando um ou mais resultados com informações duplicadas. Esse método recebe como primeiro parâmetro um array de documentos, que nada mais são do que os estágios do pipeline. É possível ter quantos estágios forem necessários dentro do mesmo `aggregate`. Exemplo:
+
+~~~JavaScript
+db.collection.aggregate([
+  { $match: { status: "A" } },
+  { $group: { _id: "$cust_id", total: { $sum: "$amount" } } }
+]);
+~~~
+
+A operação acima tem 2 estágios:
+
+- **Primeiro Estágio**: O estágio `$match` filtra os documentos pelo campo `status` , e passam para o próximo estágio somente os documentos que têm `status` igual a `A`.
+- **Segundo Estágio**: O estágio `$group` agrupa os documentos pelo campo `cust_id` para calcular a soma dos valores do campo `amount` para cada `cust_id` único.
 
 #### Update
 
@@ -841,7 +869,7 @@ db.collection.find(
 );
 ~~~
 
-- `$size` - Seleciona documentos em que um array contenha um número de elementos especificado. É importante saber que o operador `$size` aceita apenas valores númericos, não sendo possível, por exemplo, trazer arrays com comprimento maior do que 2 (`$gt: 2`). Caso seja necessário selecionar documentos com base em valores diferentes, a solução é criar um campo que se incremente quando elementos forem adicionados ao array .
+- `$size` - Seleciona documentos em que um array contenha um número de elementos especificado. É importante saber que o operador `$size` aceita apenas valores númericos, não sendo possível, por exemplo, trazer arrays com comprimento maior do que 2 (`$gt: 2`). Caso seja necessário selecionar documentos com base em valores diferentes, a solução é criar um campo que se incremente quando elementos forem adicionados ao array.
 
 ~~~JavaScript
 db.collection.find(
@@ -849,7 +877,7 @@ db.collection.find(
 );
 ~~~
 
-- `$expr` - Permite que você utilize expressões de agregação e construa queries que comparem campos no mesmo documento. A query abaixo utiliza o operador $expr para buscar os documentos em que o valor de spent exceda o valor de budget:
+- `$expr` - Permite que você utilize expressões de agregação e construa queries que comparem campos no mesmo documento. A query abaixo utiliza o operador `$expr` para buscar os documentos em que o valor de `spent` exceda o valor de `budget`:
 
 ~~~JavaScript
 db.collection.find(
@@ -878,9 +906,9 @@ db.collection.find({ sku: { $regex: /^ABC/i } }); //retorna os documentos em que
 
     • $language : Opcional. Esse campo determina a lista de stop words que será utilizada na tokenização da busca. Caso seja passado o valor none , a busca utilizará uma tokenização simples sem utilizar nenhuma lista de stop words (Stop word: Também conhecido como palavra vazia , é uma palavra que é removida antes ou após o processamento de um texto em linguagem natural);
 
-    • $caseSensitive : Opcional. Recebe um valor booleano para habilitar ou desabilitar buscas case sensitive . O valor default é false , o que faz com que as buscas sejam case-insensitive;
+    • $caseSensitive : Opcional. Recebe um valor booleano para habilitar ou desabilitar buscas case sensitive. O valor default é false , o que faz com que as buscas sejam case-insensitive;
 
-    • $diacriticSensitive : Opcional. Recebe um valor booleano para habilitar ou desabilitar busca diacritic sensitive . O valor default também é false.
+    • $diacriticSensitive : Opcional. Recebe um valor booleano para habilitar ou desabilitar busca diacritic sensitive. O valor default também é false.
 ---
 
 ~~~JavaScript
@@ -899,5 +927,405 @@ db.collection.find({ $text: { $search: "\"coffee shop\"" } }); // busca todos os
 db.collection.find({ qty: { $mod: [4, 0] } });
 ~~~
 
+### Agregação
+
+- `$match` - Filtra os documentos da mesma maneira que o método `find()`, entretanto, esse operador pode ser usado em métodos de agreagação. Exemplo:
+
 ~~~JavaScript
+db.collection.aggregate([{ $match: { author: "dave" } }]);
+
+db.collection.aggregate([
+    {
+      $match: {
+        $or: [
+          { score: { $gt: 70, $lt: 90 } },
+          { views: { $gte: 1000 } }
+        ]
+      }
+    }
+  ]);
+~~~
+
+- `$limit` - Limita o número de documentos que será passado para o próximo estágio do pipeline. Ele sempre recebe um valor do tipo inteiro e positivo.
+
+~~~JavaScript
+db.collection.aggregate([{ $limit : 5 }]);
+~~~
+
+- `$project` - Passa adiante no pipeline apenas alguns campos dos documentos vindos do estágio anterior, fazendo isso por meio de uma "projeção", como no método `find({}, { $project })`. Entretanto, existe a diferença de que esses campos podem ser novos, sendo resultado de um cálculo ou de uma concatenação. Assim como numa projeção comum, o único campo que precisa ser negado explicitamente é o _id. E caso um campo especificado seja inexistente, o `$project` simplesmente ignorará esse campo, sem afetar a projeção. Exemplo:
+
+~~~JavaScript
+db.collection.aggregate([
+    {
+      $project : {
+        title : 1,
+        author : 1,
+        _id: 0,
+      }
+    }
+  ]);
+
+db.collection.aggregate([
+  {
+    $project : {
+      "author.first": 0,
+      copies: 0
+    }
+  }
+]);
+
+// É possível usar uma string iniciada com o caractere $ para indicar que queremos projetar um campo, assim: "$nomeDoCampo".
+db.collection.aggregate([
+  {
+    $project: {
+      title: 1,
+      isbn: {
+        prefix: { $substr: ["$isbn", 0, 3] },
+        group: { $substr: ["$isbn", 3, 2] },
+        publisher: { $substr: ["$isbn", 5, 4] },
+        title: { $substr: ["$isbn", 9, 3] },
+        checkDigit: { $substr: ["$isbn", 12, 1] }
+      },
+      lastName: "$author.last",
+      copiesSold: "$copies"
+    }
+  }
+]);
+~~~
+
+- `$group` - Agrupa valores de diferentes documentos, aceitando outros operadores dentro dele, o que pode refinar os filtros. O principal parâmetro do `$group` é o `_id` (que não tem nada a ver com o campo `_id` das coleções). Neste caso, ele é responsável por conter o campo ou os campos que serão utilizados no agrupamento. No documento de saída, o `_id` contém um agrupamento exclusivo para cada valor. Esses documentos de saída também podem conter campos calculados , que conterão valores de alguma expressão de acumulação.
+
+~~~JavaScript
+db.collection.aggregate([
+  {
+    $group: {
+      _id: null,
+      count: { $sum: 1 }
+    }
+  }
+]);
+~~~
+
+- `$unwind` - "Desconstrói" um campo array do documento de entrada e gera como saída um documento para cada elemento do array. Cada documento de saída é o documento de entrada com o valor do campo array substituído por um elemento do array.
+
+~~~JavaScript
+db.inventory.insertOne({ _id: 7, item: "ABC1", sizes: ["S", "M", "L"] });
+
+db.inventory.aggregate([{ $unwind : "$sizes" }]);
+
+// Resultado
+// { "_id" : 7, "item" : "ABC1", "sizes" : "S" }
+// { "_id" : 7, "item" : "ABC1", "sizes" : "M" }
+// { "_id" : 7, "item" : "ABC1", "sizes" : "L" }
+~~~
+
+- `$lookup` - Faz a junção de documentos de coleções diferentes. Como resultado dessa junção, um elemento do tipo array é adicionado a cada documento da coleção de entrada, contendo os documentos que deram `match` na coleção com a qual se faz o `join`. Existem quatro parâmetros básicos para montar um `$lookup` :
+
+  - `from`: uma coleção no mesmo database para executar o join;
+  - `localField`: o campo da coleção de onde a operação de agregação está sendo executada. Será comparado por igualdade com o campo especificado no parâmetro `foreingField`;
+  - `foreingField` : o campo da coleção especificada no parâmetro from que será comparado com o campo `localField` por igualdade simples;
+  - `as`: o nome do novo array que será adicionado.
+  - `let`: define as variáveis que serão utilizadas no estágio pipeline dentro do `$lookup`. É necessário porque o estágio `pipeline` não consegue acessar diretamente os campos dos documentos de entrada, então esses campos precisam ser definidos previamente e transformados em variáveis;
+  - `pipeline`: define as condições ou o pipeline que será executado na coleção de junção. Se precisar de todos os documentos da coleção de junção, é só especificá-lo como vazio ( [] ).
+
+Os parâmetros `let` e `pipeline` são opicionais.
+
+Exemplos:
+
+~~~JavaScript
+// Com localField e foreingField
+
+// orders
+db.orders.insertMany([
+  { _id: 1, item: "almonds", price: 12, quantity: 2 },
+  { _id: 2, item: "pecans", price: 20, quantity: 1 },
+  { _id: 3 }
+]);
+
+// inventory
+db.inventory.insertMany([
+  { _id: 1, sku: "almonds", description: "product 1", instock: 120 },
+  { _id: 2, sku: "bread", description: "product 2", instock: 80 },
+  { _id: 3, sku: "cashews", description: "product 3", instock: 60 },
+  { _id: 4, sku: "pecans", description: "product 4", instock: 70 },
+  { _id: 5, sku: null, description: "Incomplete" },
+  { _id: 6 }
+]);
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "inventory",
+      localField: "item",
+      foreignField: "sku",
+      as: "inventory_docs"
+    }
+  }
+]);
+
+// Resultado esperado
+{
+  "_id" : 1,
+  "item" : "almonds",
+  "price" : 12,
+  "quantity" : 2,
+  "inventory_docs" : [
+    {
+      "_id" : 1,
+      "sku" : "almonds",
+      "description" : "product 1",
+      "instock" : 120
+    }
+  ]
+}
+{
+  "_id" : 2,
+  "item" : "pecans",
+  "price" : 20,
+  "quantity" : 1,
+  "inventory_docs" : [
+    {
+      "_id" : 4,
+      "sku" : "pecans",
+      "description" : "product 4",
+      "instock" : 70
+    }
+  ]
+}
+{
+  "_id" : 3,
+  "inventory_docs" : [
+    {
+      "_id" : 5,
+      "sku" : null,
+      "description" : "Incomplete"
+    },
+    {
+      "_id" : 6
+    }
+  ]
+}
+~~~
+
+~~~JavaScript
+// Com let e pipeline
+
+// orders
+db.orders.insertMany([
+  { _id: 1, item: "almonds", price: 12, ordered: 2 },
+  { _id: 2, item: "pecans", price: 20, ordered: 1 },
+  { _id: 3, item: "cookies", price: 10, ordered: 60 }
+]);
+
+// warehouses
+db.warehouses.insertMany([
+  { _id: 1, stock_item: "almonds", warehouse: "A", instock: 120 },
+  { _id: 2, stock_item: "pecans", warehouse: "A", instock: 80 },
+  { _id: 3, stock_item: "almonds", warehouse: "B", instock: 60 },
+  { _id: 4, stock_item: "cookies", warehouse: "B", instock: 40 },
+  { _id: 5, stock_item: "cookies", warehouse: "A", instock: 80 }
+]);
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "warehouses",
+      let: { order_item: "$item", order_qty: "$ordered" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $eq: [ "$stock_item",  "$$order_item" ] },
+                { $gte: [ "$instock", "$$order_qty" ] }
+              ]
+            }
+          }
+        },
+        { $project: { stock_item: 0, _id: 0 } }
+      ],
+      as: "stockdata"
+    }
+  }
+]);
+
+// Resultado esperado
+{
+  "_id" : 1,
+  "item" : "almonds",
+  "price" : 12,
+  "ordered" : 2,
+  "stockdata" : [
+    {
+      "warehouse" : "A",
+      "instock" : 120
+    },
+    {
+      "warehouse" : "B",
+      "instock" : 60
+    }
+  ]
+}
+{
+  "_id" : 2,
+  "item" : "pecans",
+  "price" : 20,
+  "ordered" : 1,
+  "stockdata" : [
+    {
+      "warehouse" : "A",
+      "instock" : 80
+    }
+  ]
+}
+{
+  "_id" : 3,
+  "item" : "cookies",
+  "price" : 10,
+  "ordered" : 60,
+  "stockdata" : [
+    {
+      "warehouse" : "A",
+      "instock" : 80
+    }
+  ]
+}
+~~~
+
+### Acumulação
+
+Usados para fazer operações sobre os campos de documentos agrupados.
+
+- `$addToSet` -  retorna um array com os valores únicos da expressão para cada grupo;
+
+- `$avg` : retorna a média de valores numéricos. Valores não numéricos são ignorados;
+- `$first` : retorna um valor do primeiro documento de cada grupo;
+- `$last` : retorna um valor do último documento de cada grupo;
+- `$max` : retorna o maior valor de cada grupo;
+- `$sum` : retorna a soma de valores numéricos. Valores não numéricos são ignorados.
+
+### Expressões
+
+- `$add` - Soma valores numéricos e datas. Se um dos argumentos for do tipo `date`, o outro argumento será tratado como milissegundos e adicionado à data. Exemplos:
+
+~~~JavaScript
+db.collection.aggregate([
+  { $project: { item: 1, total: { $add: ["$price", "$fee"] } } }
+]);
+
+db.collection.aggregate([
+  { $project: { item: 1, billing_date: { $add: ["$date", 3 * 24 * 60 * 60000] } } }
+]);
+~~~
+
+- `$subtract` - Subtrai valores numéricos e retorna a diferença entre eles, ou duas datas para retornar a diferença entre elas  em milisegundos. O segundo argumento sempre será subtraído do primeiro. Exemplo:
+
+~~~JavaScript
+db.collection.aggregate([
+  {
+    $project: {
+      item: 1,
+      total: {
+        $subtract: [
+          { $add: ['$price', '$fee'] },
+          '$discount'
+        ]
+      }
+    }
+  }
+])
+
+db.collection.aggregate([
+  {
+    $project: {
+      item: 1,
+      dateDifference: {
+        $subtract: [ '$$NOW', '$date']
+      }
+    }
+  }
+]);
+~~~
+
+- `$ceil` - Arredonda o número especificado para "cima".
+
+~~~JavaScript
+db.collection.aggregate([
+  { $project: { value: 1, ceilingValue: { $ceil: '$value' } } }
+]);
+~~~
+
+- `$floor` - Arredonda o número especificado para "baixo".
+
+~~~JavaScript
+db.collection.aggregate([
+  { $project: { value: 1, ceilingValue: { $floor: '$value' } } }
+]);
+~~~
+
+- `$round` - Arredonda o número especificado para o número inteiro mais perto e também permite definir a quantidade de casas decimais a manter ao arredondar. O `$round` recebe um array, onde o primeiro item é o que será arredondado e o segundo item é o número de casas decimais que serão mantidas.
+
+~~~JavaScript
+db.collection.aggregate([
+  { $project: { value: 1, ceilingValue: { $round: ['$value', 1] } } }
+]);
+~~~
+
+- `$abs` - Retorna o valor absoluto de um número.
+
+~~~JavaScript
+db.collection.aggregate([
+  { $project: { value: 1, ceilingValue: { $abs: { $subtract: ['$start', '$end'] } } } }
+]);
+~~~
+
+- `$multiply` - Multiplica 2 valores numéricos, esses valores devem ser passados em um array.
+
+~~~JavaScript
+db.collection.aggregate([
+  {
+    $project: {
+      date: 1,
+      item: 1,
+      total: {
+        $multiply: ["$price", "$quantity"]
+      }
+    }
+  }
+]);
+~~~
+
+- `$divide` - Divide dois valores, sendo que o primeiro argumento é o dividendo, e o segundo é o divisor.
+
+~~~JavaScript
+db.planning.aggregate([
+  {
+    $project: {
+      name: 1,
+      workdays: {
+        $divide: ["$hours", 8]
+      }
+    }
+  }
+]);
+~~~
+
+- `$addFields` - Adiciona novos campos aos documentos. A saída desse estágio conterá todos os campos existentes nos documentos de entrada e adicionará os novos campos especificados.
+
+~~~JavaScript
+db.scores.aggregate([
+  {
+    $addFields: {
+      totalHomework: { $sum: "$homework" } ,
+      totalQuiz: { $sum: "$quiz" }
+    }
+  },
+  {
+    $addFields: {
+      totalScore: {
+        $add: [ "$totalHomework", "$totalQuiz", "$extraCredit" ]
+      }
+    }
+  }
+]);
 ~~~
