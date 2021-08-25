@@ -315,11 +315,11 @@ Em `Mongo` os operadores são identificados pelo prefixo `$`.
 [Agregação](#Agregação)
 
     ▪ $match - match, seleciona os documentos que passarem no filtro;
-    ▪ 
-    ▪ 
-    ▪ 
-    ▪ 
-    ▪ 
+    ▪ $limit - limit, limita o número de documentos a serem retornados;
+    ▪ $project - project, passa somente alguns campos para o método seguinte do pipeline;
+    ▪ $group - group, agrupa valores de diferentes documentos;
+    ▪ $unwind - unwind, desconstroi um campo com array em vários documentos, sendo um documento para cada elemento do array;
+    ▪ $lookup - lookup, faz a junção de documentos de coleções diferentes
 
 ---
 
