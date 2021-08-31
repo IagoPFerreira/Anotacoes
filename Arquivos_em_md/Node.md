@@ -18,6 +18,14 @@ O `Node.js` surgiu do `V8`, que é a ferramenta do Google Chrome responsável po
     - [Internos](#Internos)
     - [Terceiros](#Terceiros)
 - [NPM](#NPM)
+- [HTTP](#HTTP)
+- [API](#API)
+- [Express](#Express)
+  - [Começando com o Express](#Começando-com-o-Express)
+  - [Nodemon](#Nodemon)
+  - [Roteamento](#Roteamento)
+- [Comandos](#Comandos)
+  - [NPMs](#NPMs)
 
 ---
 
@@ -100,6 +108,8 @@ Como visto módulos são muito importantes em Node, mas para que seja possível 
 
 *Visto que o sistema do CommonJS é o nativo do Node, será esse que usaremos.*
 
+[Voltar ao sumário](#Sumário)
+
 ### Exportando módulos
 
 Para exportar algo no sistema CommonJS, utilizamos a variável global module.exports, atribuindo a ela o valor que desejamos exportar. Exemplo:
@@ -124,6 +134,8 @@ module.exports = {
   usdToBrl,
 };
 ~~~
+
+[Voltar ao sumário](#Sumário)
 
 ### Importando módulos
 
@@ -174,6 +186,8 @@ console.log(meuModulo); // { funcionalidade1: [Function: funcionalidade1], funci
 meuModulo.funcionalidade1();
 ~~~
 
+[Voltar ao sumário](#Sumário)
+
 #### Internos
 
 Para utilizar um módulo interno, é necessário passar o nome do pacote como parâmetro para a função `require`. Por exemplo, `require('fs')` importa o pacote `fs`, responsável pelo sistema de arquivos.
@@ -211,9 +225,237 @@ O `CLI` do `npm` é uma ferramenta oficial que nos auxilia no gerenciamento de p
 
 ---
 
+## HTTP
+
+`Hypertext Transfer Protocol`, ou `HTTP`, é nome dado a um protocolo de transferência de dados pela web. Ele é a base para a comunicação de dados da `World Wide Web`. Hipertexto é o texto estruturado que utiliza ligações lógicas entre nós contendo texto.Existem muitos tipos de requisições `HTTP`, cada uma delas exercendo uma função específica e desencadeando diferentes resultados. Entretanto, existe uma estrutura básica que as requisições `HTTP` seguem, exemplo:
+
+~~~HTTP
+GET / HTTP/1.1
+Host: developer.mozilla.org
+Accept: text/html
+~~~
+
+Analisando as informações presentes nessa requisição:
+
+- O método HTTP, definido por um verbo em inglês. Nesse caso, o `GET`, que normalmente é utilizado para "buscar" algo do servidor, e é também o método padrão executado por navegadores quando acessamos uma URL;
+- O caminho, no servidor, do recurso que estamos tentando acessar. Nesse caso, o caminho é `/`, pois estamos acessando a página inicial;
+- A versão do protocolo (1.1 é a versão nesse exemplo).
+- O local (`host`) onde está o recurso que se está tentando acessar, ou seja, a URL ou o endereço IP servidor. Nesse caso, utilizamos developer.mozilla.org, mas poderia ser `localhost:3000`, caso esteja trabalhando localmente.
+- Os `headers`. São informações adicionais a respeito de uma requisição ou de uma resposta. Eles podem ser enviados do cliente para o servidor, ou vice-versa. Na requisição de exemplo, temos o `header Host`, que informa o endereço do servidor, e o `header Accept`, que informa o tipo de resposta que esperamos do servidor. Um outro exemplo bem comum são os **tokens de autenticação**, em que o cliente informa ao servidor quem está tentando acessar aquele recurso: `Authorization: Bearer {token-aqui}`.
+
+Esses são os dados transmitidos em uma request do tipo `GET`. No entanto, o `GET` não é o único método `HTTP` existente. Na verdade, existem 39 métodos diferentes! Os mais comuns são cinco: `GET`, `PUT`, `POST`, `DELETE` e `PATCH`, além do método `OPTIONS`, utilizado por clientes para entender como deve ser realizada a comunicação com o servidor.
+
+A principal diferença entre os métodos é o seu significado. Cada método costuma dizer para o servidor que uma operação diferente deve ser executada. O método `POST`, por exemplo, costuma ser utilizado para criar um determinado recurso naquele servidor.
+
+Além da diferença de significado, requisições do tipo `POST`, `PUT` e `PATCH` carregam mais uma informação para o servidor: o corpo, ou `body`. É no corpo da requisição que as informações de um formulário, por exemplo, são transmitidas.
+
+Quando um servidor recebe uma requisição, ele envia de volta uma **resposta**. Veja um exemplo:
+
+~~~HTTP
+HTTP/1.1 200 OK
+Date: Sat, 09 Oct 2010 14:28:02 GMT
+Server: Apache
+Last-Modified: Tue, 01 Dec 2009 20:18:22 GMT
+ETag: "51142bc1-7449-479b075b2891b"
+Accept-Ranges: bytes
+Content-Length: 29769
+Content-Type: text/html
+
+<!DOCTYPE html... (aqui vêm os 29769 bytes da página solicitada)
+~~~
+
+A composição da resposta é definida por:
+
+- A versão do protocolo (1.1 no nosso exemplo);
+- O código do status, que diz se a requisição foi um sucesso ou não (nesse caso, deu certo, pois recebemos um código 200 ), acompanhado de uma pequena mensagem descritiva (OK, nesse caso).
+- Os `Headers`, no mesmo esquema da requisição. No caso do exemplo acima, o `Content-Type` diz para o navegador o que ele precisa fazer. No caso do HTML, ele deve renderizar o documento na página.
+- Um `body`, que é opcional. Por exemplo, caso você submeta um formulário registrando um pedido em uma loja virtual, no corpo da resposta pode ser retornado o número do pedido ou algo do tipo.
+
+Após a resposta, a conexão com o servidor é fechada ou guardada para futuras requisições (o navegador faz essa parte automáticamente).
+
+Note que tanto requisições quanto respostas podem ter `headers` e um `body`. No entanto, é importante não confundir uma coisa com a outra: o `body` e os `headers` da **requisição** representam a informação que o **cliente está enviando para o servidor**. Por outro lado, o `body` e os `headers` da **resposta** representam a informação que o **servidor está devolvendo para o cliente**.
+
+[Voltar ao sumário](#Sumário)
+
+---
+
+## API
+
+`API` é uma sigla para `A`pplication `P`rogramming `I`nterface. Ou seja, Interface de programação de aplicação.
+Isso quer dizer que uma `API` é, basicamente, qualquer coisa que permita a comunicação, de forma programática, com uma determinada aplicação.
+
+Um tipo muito comum de `API` são as `APIs` `HTTP`, que permitem que códigos se comuniquem com aplicações através de requisições `HTTP`. É desse tipo de `API` que boa parte da web é feita.
+
+Elas são extremamente importantes nos dias de hoje, em que temos múltiplos clients (web, apps mobile, tvs, smartwatches etc.) se comunicando com o mesmo servidor! É assim que seu Netflix está sempre sincronizado entre seu celular, seu computador e sua televisão.
+
+[Voltar ao sumário](#Sumário)
+
+---
+
+## Express
+
+O `Express` é um framework `Node.js` criado para facilitar a criação de `APIs` `HTTP` com Node. Ele fornece uma série de recursos e abstrações que facilitam a vida na hora de decidir quais requisições tratar, como tratá-las, quais regras de negócio aplicar e afins.
+
+O framework foi construído pensando em um padrão de construção de `APIs` chamado de `REST`. Seu objetivo é ajudar a construir `APIs` de forma mais fácil, essencialmente permitindo criar `APIs` altamente funcionais com metade do trabalho que teria para fazer isso "na mão".
+
+Existem outras ferramentas semelhantes no mercado, mas o `Express` é largamente adotado na comunidade hoje, e dois dos motivos são:
+
+- Ele foi lançado no final de 2010, ou seja, é um framework maduro e “testado em batalha”;
+- Ele é um "unopinionated framework" (framework sem opinião). Isso significa que ele não impõe um padrão de desenvolvimento na hora de escrever sua aplicação.
+
+Hoje, o `Express` faz parte da `Node.js Foundation`. Isso demonstra o quão relevante ele é para a comunidade.
+
+### Começando com o Express
+
+Assim como qualquer tipo de projeto, criamos sempre um diretório para armazenar tudo referente àquele projeto, com o `express` não é diferente, caso não exista um diretório para o projeto, criamos ele. Exemplo:
+
+~~~bash
+mkdir hello-express && cd hello-express && npm init -y
+~~~
+
+Após a criação do diretório e iniciar um pacote `Node.js` dentro dele, é necessário fazer a instalação do `express` dentro do diretório. E como toda e qualquer aplicação `Node.js`, essa precisa de um `entrypoint`, ou seja, um ponto de partida, por convenção será usado o `index.js`
+
+~~~bash
+npm i express && touch index.js
+~~~
+
+Agora vamos ao código
+
+~~~JavaScript
+const express = require('express');
+
+const app = express(); // 1
+
+app.get('/hello', handleHelloWorldRequest); // 2
+
+app.listen(3001, () => {
+  console.log('Aplicação ouvindo na porta 3001');
+}); // 3
+
+function handleHelloWorldRequest(req, res) {
+  res.status(200).send('Hello World!'); // 4
+};
+~~~
+
+Com esse script é possível:
+
+1. Criar uma nova aplicação `Express`;
+2. Dizer ao `Express` que, quando uma requisição com método `GET` for recebida no caminho `/hello`, a função `handleHelloWorldRequest` deve ser chamada;
+3. Pedir ao `Express` que crie um servidor `HTTP` e escute por requisições na porta `3001`;
+4. Ao tratar uma requisição com método `GET` no caminho `/hello`, enviar o status `HTTP 200` que significa `OK` e a mensagem `"Hello world!"`.
+
+Para iniciar a aplicação, é só executar o comando abaixo no diretório da aplicação
+
+~~~bash
+node index.js
+~~~
+
+Diferente dos outros scrpits nodes desenvolvidos até aqui, que executavam e acabavam quando chegava ao final do script essa aplicação vai ficar executando `ad eternum`. Para parar a aplicação pressione `CTRL+C` no terminal.
+
+[Voltar ao sumário](#Sumário)
+
+### Nodemon
+
+Uma vez que a API está rodando e são feitas modificações no código, é preciso parar e reiniciar a aplicação executando novamente o node index.js. Entretanto, para facilitar o fluxo de desenvolvimento é possível utilizar um pacote chamado `Nodemon`,  que reinicia a aplicação toda vez que alguma alteração é salva nos arquivos da aplicação. Para utilizar esse pacote é necessário instalá-lo na aplicação.
+
+~~~bash
+npm i nodemon -D
+~~~
+
+Observe que foi passado o parâmetro `-D` que indica ao npm que esse pacote deve ser instalado como uma dependência de desenvolvimento. Para poder automatizar o uso do nodemon, abra o arquivo package.json e adicione a seguinte linha:
+
+~~~JavaScript
+//...
+// "scripts": {
+//    "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "nodemon index.js"
+//  },
+//...
+~~~
+
+Assim para executar a aplicação basta utilizar o comando:
+
+~~~bash
+npm run dev
+~~~
+
+⚠️ **Atenção** ⚠️ Apesar de ser uma ferramenta muito útil para desenvolvimento, o Nodemon não deve ser utilizado para rodar a aplicação, pois caso seja disponibilizada para a pessoa usuária final (ou seja, em produção), podemos ter problemas de reinicialização da aplicação, devido ao fato de que qualquer alteração em qualquer arquivo afete a aplicação, fazendo com que toda ela seja reiniciada. Para executar uma aplicação em produção, deve-se utilizar o script `start` com o comando `node index.js`.
+
+[Voltar ao sumário](#Sumário)
+
+### Roteamento
+
+O aspecto mais básico de uma `API HTTP` se dá através de suas `rotas`, também chamadas de `endpoints`. Uma `rota` ou `endpoint` é definida pelo método `HTTP` e caminho.
+
+Na aplicação de "Hello, world!", por exemplo, foi registrada uma `rota GET /hello`. Repare que, se tentarmos utilizar qualquer outro método ou qualquer outro caminho para acessar essa `rota`, receberemos um erro do `Express`, juntamente com um `status 404 - Not Found`.
+
+o roteamento consiste em "direcionar" uma requisição para que seja atendida por uma determinada parte do nosso sistema.
+
+No Express, nós registramos uma rota utilizando a assinatura app.METODO(caminho, callback), onde a função de callback recebe três parâmetros: `request`, `response` e `next`.
+
+- `request`: comumente chamado de `req`; contém as informações enviadas pelo cliente ao servidor.
+- `response`: geralmente chamado de `res`; permite o envio de informações do servidor de volta ao cliente.
+- `next`: função que diz para o `Express` que aquele callback terminou de ser executado, e que ele deve prosseguir para executar o próximo callback para aquela rota. Este parâmetro é opcional e está ligado o uso de `middlewares`.
+
+As rotas respondem a requisições que satisfaçam a condição método `HTTP + caminho`.
+
+~~~JavaScript
+const express = require('express');
+const app = express();
+
+/* Rota com caminho '/', utilizando o método GET */
+app.get('/', function (req, res) {
+  res.send('hello world');
+});
+
+/* Rota com caminho '/', utilizando o método POST */
+app.post('/', function (req, res) {
+  res.send('hello world');
+});
+
+/* Rota com caminho '/', utilizando o método PUT */
+app.put('/', function (req, res) {
+  res.send('hello world');
+});
+
+/* Rota com caminho '/', utilizando o método DELETE */
+app.delete('/', function (req, res) {
+  res.send('hello world');
+});
+
+/* Rota com caminho '/' para qualquer método HTTP */
+app.all('/', function (req, res) {
+  res.send('hello world');
+});
+
+/* Ou podemos encadear as requisições para evitar repetir o caminho */
+app
+  .route('/')
+  .get(function (req, res) {
+        // Requisições para rota GET `/` são resolvidas aqui!
+    res.send('hello world get');
+  })
+  .post(function (req, res) {
+        // Requisições para rota POST `/` são resolvidas aqui!
+    res.send('hello world post');
+  });
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
+~~~
+
+~~~JavaScript
+
+~~~
+
+[Voltar ao sumário](#Sumário)
+
+---
+
 ## Comandos
 
-### npm
+### NPMs
 
 - `npm init` - Permite criar, de forma rápida e simplificada, um novo pacote Node.js na pasta onde é executado. Ao ser executado, o comando pede para quem executou algumas informaçãoes sobre o pacote como nome, versão, nome das pessoas autoras e afins. Esse comando cria um arquivo `package.json`, com as respostas respondias e com alguns outros metadados, dentro desse arquivo ficam algumas configurações importantes para o pacote como nome, versão, dependências e scripts.
 
@@ -232,7 +474,7 @@ O `CLI` do `npm` é uma ferramenta oficial que nos auxilia no gerenciamento de p
 Para executar esse script é só rodar `npm run <nome do script>`. Exemplo:
 
 ~~~bash
-npm run lin
+npm run lint
 ~~~
 
 É possível criar quantos scripts forem necessários, para realizar quais tarefas quiser. Inclusive, pode criar scripts que chamam outros scripts, criando assim "pipelines". Esse tipo de coisa é muito útil, por exemplo, quando trabalhando supersets do JavaScript como o TypeScript, ou transpiladores como o Babel, pois ambos exigem que sejam executaods comandos adicionais antes de iniciar os pacotes.
@@ -241,11 +483,11 @@ npm run lin
 
 ~~~json
 {
-  // ...
+  //...
   "scripts": {
     "start": "node imc.js"
   }
-  // ...
+  //...
 }
 ~~~
 
@@ -254,6 +496,8 @@ npm run lin
   - `npm install <nome do pacote>` - Baixa o pacote do registro do `NPM` e o adiciona ao objeto `dependencies` do `package.json`
   - `npm install -D <nome do pacote>` - É semelhante ao comando anterior. Baixa o pacote do registro do `NPM`, porém o adiciona ao objeto `devDependencies` do `package.json`, indicando que o pacote em questão não é necessário para executar a aplicação, mas é necessário para desenvolvimento, ou seja, para alterar o código daquela aplicação. Isso é muito útil ao colocar a aplicação no ar, pois pacotes marcados como `devDependencies` podem ser ignorados, já que vamos apenas executar a aplicação, e não modificá-la.
   - `npm install` - Baixa e instala todos os pacotes listados nos objetos de `dependencies` e `devDependencies` do `package.json`. Sempre deve ser executado ao clonar o repositório de um pacote para garantir que todas as dependências desse pacote estão instaladas.
+
+[Voltar ao sumário](#Sumário)
 
 ~~~JavaScript
 ~~~
