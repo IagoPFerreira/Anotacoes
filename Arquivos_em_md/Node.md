@@ -24,6 +24,7 @@ O `Node.js` surgiu do `V8`, que é a ferramenta do Google Chrome responsável po
   - [Começando com o Express](#Começando-com-o-Express)
   - [Nodemon](#Nodemon)
   - [Roteamento](#Roteamento)
+  - [Parâmertos de rota](#Parâmertos-de-rota)
 - [Comandos NPM](#Comandos-NPM)
 - [Métodos HTTP](#Métodos-HTTP)
   - [CRUD](#CRUD)
@@ -450,7 +451,59 @@ app.listen(3000, function () {
 
 ---
 
+### Parâmertos de rota
 
+São informações passadas na URL, normalmente são ids ou nomes, mas são parâmetros que vão retornar algo específico. Esses valores que são passados nas rotas que geralmente devolvem uma página seguindo o mesmo template mas com um conteúdo diferente é implementado graças ao parâmetro de rota.
+
+Imagina se para cada nova notícia ou pedido você tivesse que criar uma rota específica exatamente com `/noticias/489` ou `/pedidos/713`? o trabalho das pessoas desenvolvedoras seria passar o dia inteiro escrevendo rotas.
+
+Para facilitar esse processo, utilizamos parâmetros de rota, que no Express, podem ser definidos da seguinte forma: `/<rota>/<:parametro>` onde `:parametro` vai servir para qualquer valor que vier na URL com aquele prefixo específico. Exemplo:
+
+~~~JavaScript
+const express = require('express');
+const app = express();
+
+const recipes = [
+  { id: 1, name: 'Lasanha', price: 40.0, waitTime: 30 },
+  { id: 2, name: 'Macarrão a Bolonhesa', price: 35.0, waitTime: 25 },
+  { id: 3, name: 'Macarrão com molho branco', price: 35.0, waitTime: 25 },
+];
+
+app.get('/recipes', function (req, res) {
+ res.json(recipes);
+});
+
+app.get('/recipes/:id', function (req, res) {
+  const { id } = req.params;
+  const recipe = recipes.find((r) => r.id === parseInt(id));
+
+  if (!recipe) return res.status(404).json({ message: 'Recipe not found!'});
+
+  res.status(200).json(recipe);
+});
+
+app.listen(3001, () => {
+  console.log('Aplicação ouvindo na porta 3001');
+});
+~~~
+
+No código acima foi criada uma rota onde é possível acessar um item específico através da informação passada pela rota, independente do `id` ser um número ou string vai cair nessa segunda rota, em vez de cair na rota `/recipes`.
+
+Para acessar o valor do parâmetro enviado na URL foi feita a desestruturação do atributo `id` do objeto `req.params`. O que indica que o parâmetro `req` traz informações a respeito da requisição.
+
+É importante que o nome do parâmetro nomeado na rota seja igual ao atributo que está sendo desestruturando. Por exemplo, se na definição da rota estivesse escrito `/recipes/:nome` seria necessário usar `const { nome } = req.params`.
+
+Em seguida foi usado um `find()` para encontrar a receita que tem o `id` igual ao `id` passado na rota, só que antes foi feita a conversão do `id` que veio pela rota para um número inteiro, visto que os parâmetros de sempre são `strings`.
+
+⚠️ **Atenção** ⚠️ Perceba que na linha com o `if` foi colocado um `return`. Isso serve para indicar para o express que ele deve quebrar o fluxo e não executar a linha `res.status(200).json(recipe);`. Caso não seja colocado o `return` , a requisição vai funcionar mas terá um erro como este abaixo no log do terminal:
+
+~~~bash
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+~~~
+
+Esse erro significa que o `Express` entendeu que o código está tentando retornar 2 respostas para o cliente. Por isso é preciso ter cuidado para sempre que existir uma condição que pode quebrar o fluxo principal colocar um `return` antes do `res.json` para não ter esse problema.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
