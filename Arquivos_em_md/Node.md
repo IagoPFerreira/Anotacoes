@@ -25,6 +25,7 @@ O `Node.js` surgiu do `V8`, que é a ferramenta do Google Chrome responsável po
   - [Nodemon](#Nodemon)
   - [Roteamento](#Roteamento)
   - [Parâmertos de rota](#Parâmertos-de-rota)
+  - [Query String](#Query-String)
 - [Comandos NPM](#Comandos-NPM)
 - [Métodos HTTP](#Métodos-HTTP)
   - [CRUD](#CRUD)
@@ -502,6 +503,41 @@ Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the cli
 ~~~
 
 Esse erro significa que o `Express` entendeu que o código está tentando retornar 2 respostas para o cliente. Por isso é preciso ter cuidado para sempre que existir uma condição que pode quebrar o fluxo principal colocar um `return` antes do `res.json` para não ter esse problema.
+
+[Voltar ao sumário](#Sumário)
+
+### Query String
+
+Também é comum se deparar com `URLs` nesse formato `/produtos?q=Geladeira&precoMaximo=2000`. Essa string depois do `?` é uma `query string`. Nesse caso está sendo passado dois parâmetros: `q` com o valor `Geladeira` e `precoMaximo` com o valor `2000`.
+
+Para nosso exemplo, vamos definir uma rota `/recipes/search?nome=Macarrão` que permita, inicialmente, buscar uma lista de receitas filtrando pelo nome.
+
+~~~JavaScript
+//...
+
+app.get('/recipes/search', function (req, res) {
+  const { name } = req.query;
+  const filteredRecipes = recipes.filter((r) => r.name.includes(name));
+  res.status(200).json(filteredRecipes);
+});
+
+
+// app.get('/recipes/:id', function (req, res) {
+//  const { id } = req.params;
+//  const recipe = recipes.find((r) => r.id === parseInt(id));
+//  if (!recipe) return res.status(404).json({ message: 'Recipe not found!'});
+//
+//  res.status(200).send(recipe);
+// });
+
+//...
+~~~
+
+Nessa rota foi utilizado o `req.query` e desestruturado o atributo nome, para na sequencia usar como parâmetro de busca. Dessa vez a `HOF` usada foi a `filter()`, para filtrar os receitas que contenham ( `.includes` ) o nome recebido através da query string e no final devolver a lista de receitas obtidas por esse filtro.
+
+Note que a rota ficou apenas com o prefixo `/recipes/search` já que os parâmetros enviados query string, não dependem desse prefixo e sim das informações que vem após o uso da `?` na `URL`. É importante entender que na `URL` é possível colocar quantos parâmetros desejar, desde que eles sigam o formato `<chave>=<valor>` e que entre cada parâmetro, exista o `&` para definir que ali está sendo passado um novo parâmetro.
+
+⚠️ **Observação** ⚠️: Quando houver rotas com um mesmo radical e uma destas utilizar parâmetro de rota, as rotas mais específicas devem ser definidas sempre antes. Isso porque o `Express` ao resolver uma rota vai olhando rota por rota qual corresponde a `URL` que chegou. Se colocar a rota `/recipes/search` depois da rota `/recipes/:id`, o `Express` vai entender que a palavra `search` como um `id` e vai chamar a callback da rota `/recipes/:id`. Tenha atenção a esse detalhe ao utilizar rotas similares na definição da sua `API`.
 
 [Voltar ao sumário](#Sumário)
 
