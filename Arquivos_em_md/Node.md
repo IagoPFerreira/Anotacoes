@@ -24,8 +24,9 @@ O `Node.js` surgiu do `V8`, que é a ferramenta do Google Chrome responsável po
   - [Começando com o Express](#Começando-com-o-Express)
   - [Nodemon](#Nodemon)
   - [Roteamento](#Roteamento)
-- [Comandos](#Comandos)
-  - [NPMs](#NPMs)
+- [Comandos NPM](#Comandos-NPM)
+- [Métodos HTTP](#Métodos-HTTP)
+  - [CRUD](#CRUD)
 
 ---
 
@@ -445,17 +446,15 @@ app.listen(3000, function () {
 });
 ~~~
 
-~~~JavaScript
-
-~~~
-
 [Voltar ao sumário](#Sumário)
 
 ---
 
-## Comandos
 
-### NPMs
+
+---
+
+## Comandos NPM
 
 - `npm init` - Permite criar, de forma rápida e simplificada, um novo pacote Node.js na pasta onde é executado. Ao ser executado, o comando pede para quem executou algumas informaçãoes sobre o pacote como nome, versão, nome das pessoas autoras e afins. Esse comando cria um arquivo `package.json`, com as respostas respondias e com alguns outros metadados, dentro desse arquivo ficam algumas configurações importantes para o pacote como nome, versão, dependências e scripts.
 
@@ -498,6 +497,63 @@ npm run lint
   - `npm install` - Baixa e instala todos os pacotes listados nos objetos de `dependencies` e `devDependencies` do `package.json`. Sempre deve ser executado ao clonar o repositório de um pacote para garantir que todas as dependências desse pacote estão instaladas.
 
 [Voltar ao sumário](#Sumário)
+
+---
+
+## Métodos HTTP
+
+- `.listen()` - Especifica a porta onde a aplicação ficará ouvindo as requisições, pode receber uma callback como parâmetro. Exemplo:
+
+~~~JavaScript
+app.listen(3000, () => console.log('exemplo'))
+~~~
+
+- `.status()` - Retorna o status da resposta, esse status está ligado com os [códigos HTTP](../imagens/HTTP_Status_Code.jpg) de resposta. Exemplo:
+
+~~~JavaScript
+res.status(200);
+~~~
+
+- `.send()` - Retorna a resposta de uma requisição de uma forma genérica, adaptando o tipo de retorno ao que vai ser retornado. Exemplo:
+
+~~~JavaScript
+res.status(200).send('Hello, world!');
+~~~
+
+- `.json()` - Retorna a resposta em forma de JSON. Exemplo:
+
+~~~JavaScript
+res.status(200).json('Hello, world!');
+~~~
+
+- `.route()` - Especifica uma rota para que vários métodos possam ser encadeados nessa mesma rota. Exemplo:
+
+~~~JavaScript
+app
+  .route('/')
+  .get(function (req, res) {
+        // Requisições para rota GET `/` são resolvidas aqui!
+    res.json('hello world get');
+  })
+  .post(function (req, res) {
+        // Requisições para rota POST `/` são resolvidas aqui!
+    res.json('hello world post');
+  });
+~~~
+
+[Voltar ao sumário](#Sumário)
+
+**Métodos de tipos de requisição podem ser encadeados em routes, como visto acima, entretanto, caso não haja um método `route()` é necessário especificar no método de requisição qual será a rota utilizada, aqui especificaremos todos os métodos de requisição como senão estivessem ligados a um método `route()`.**
+
+### CRUD
+
+- `.get()` - Faz uma requisição de leitura e espera a resposta de algo que possa ser exibido. Exemplo:
+
+~~~JavaScript
+app.get('/', (req, res, next) => {})
+~~~
+
+- `.post()`
 
 ~~~JavaScript
 ~~~
