@@ -33,6 +33,7 @@ O `Node.js` surgiu do `V8`, que é a ferramenta do Google Chrome responsável po
 - [Comandos NPM](#Comandos-NPM)
 - [Métodos HTTP](#Métodos-HTTP)
   - [CRUD](#CRUD)
+-[Começando um projeto Node](#Começando-um-projeto-Node)
 
 ---
 
@@ -856,6 +857,44 @@ app.delete('/recipes/:id', function (req, res) {
 ~~~
 
 ~~~JavaScript
+~~~
+
+[Voltar ao sumário](#Sumário)
+
+## Começando um projeto Node
+
+~~~bash
+# Criar um diretório e entrar nele:
+mkdir <nome-do-diretório> && cd <nome-do-diretório>
+
+# Criar um arquivo index:
+touch index.js
+
+# Criar um pacote Node?
+npm init -y
+
+# Instalar o express:
+npm i express
+
+# Instalar o nodemon:
+npm i nodemon
+
+# Instalar o body-parser:
+npm i body-parser
+
+# Instalar o cors:
+npm i cors
+
+# Agilizando todos esses comando:
+mkdir <nome-do-diretório> && cd <nome-do-diretório> && touch index.js && npm init -y && npm i express && npm i nodemon && npm i body-parser && npm i cors
+~~~
+
+Depois é só alterar o nome do autor no arquivo package.json e adicionar na chave scripts:
+
+~~~json
+"scripts": {
+    "dev": "nodemon index.js"
+  }
 ~~~
 
 [Voltar ao sumário](#Sumário)
