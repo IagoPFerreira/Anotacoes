@@ -26,6 +26,10 @@ O `Node.js` surgiu do `V8`, que é a ferramenta do Google Chrome responsável po
   - [Roteamento](#Roteamento)
   - [Parâmertos de rota](#Parâmertos-de-rota)
   - [Query String](#Query-String)
+  - [Recebendo dados no body](#Recebendo-dados-no-body)
+    - [Post](#Post)
+    - [Put](#Put)
+    - [Delete](#Delete)
 - [Comandos NPM](#Comandos-NPM)
 - [Métodos HTTP](#Métodos-HTTP)
   - [CRUD](#CRUD)
@@ -541,6 +545,164 @@ Note que a rota ficou apenas com o prefixo `/recipes/search` já que os parâmet
 
 [Voltar ao sumário](#Sumário)
 
+### Recebendo dados no body
+
+Toda requisição `HTTP`, possui um cabeçalho e um corpo, como foi mencionado anteriormente. Mas o que isso significa na prática?
+
+Acabamos de ver que é possível receber dados da `URL`, via `query string`, porém vamos imaginar que precisamos salvar dados sensíveis como uma senha, número de algum documento importante. Se enviarmos isso na `URL` qualquer pessoa que conseguir espiar o tráfego de rede entre o cliente e o servidor vai ter acesso a essas informações. Uma forma que o protocolo `HTTP` encontrou para resolver isso foi criando o tráfego através do corpo da requisição, praticamente o que acontece é uma compressão dos dados enviados que só serão descomprimidos do lado do back-end. Isso além de não deixar as informações trafegadas tão expostas acaba deixando a requisição um pouco mais rápida já que ocorre um processo de serialização dos dados enviados. Porém aqui cabe um detalhe, geralmente para enviar dados no body da requisição você precisa usar algum tipo específico de requisição, como por exemplo, utilizando o verbo `HTTP` `POST`.
+
+#### Post
+
+Até então só vimos exemplos de rotas mapeadas para o verbo `GET`, Vamos ver como fica agora para esse novo verbo.
+
+Antes disso, precisamos fazer uma pequena etapa que é instalar o pacote `bodyParser`. Como explicamos, os dados enviados pelo front-end são comprimidos, e para que conseguimos remontar os dados enviados precisamos parsear as informações para um formato compreensível para o back-end, esse formato no caso vai ser JSON. Para instalar esse pacote execute o comando:
+
+~~~bash
+npm i body-parser
+~~~
+
+E no arquivo onde está sendo feito o script de requisições é preciso fazer a seguinte mudança:
+
+~~~JavaScript
+// const express = require('express');
+const bodyParser = require('body-parser');
+
+// const app = express();
+app.use(bodyParser.json());
+
+//...
+~~~
+
+Agora implementando a rota que vai receber dados no body da requisição:
+
+~~~JavaScript
+//...
+app.post('/recipes', function (req, res) {
+  const { id, name, price } = req.body;
+  recipes.push({ id, name, price});
+  res.status(201).json({ message: 'Recipe created successfully!'});
+});
+~~~
+
+Perceba, que repetimos a rota `/recipes` , só que agora usando o método `.post`. No Express, é possível ter rotas com o mesmo caminho desde que o método (ou verbo) `HTTP` utilizado seja diferente, na outra rota definimos o que acontece para o método `GET`. Por falar nisso, fica a pergunta, como vamos conseguir fazer requisições já que por padrão as requisições que fazemos ou no navegador ou no fetch api são do tipo `GET`?
+
+Vamos começar pelo `fetch-api`, usando o código abaixo.
+
+~~~JavaScript
+fetch(`http://localhost:3001/recipes/`, {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    id: 4,
+    title: 'Macarrão com Frango',
+    price: 30
+  })
+});
+~~~
+
+Diferente do usado para fazer um requisição do tipo `GET`, dessa vez foi passado um segundo parâmetro que éum objeto formado pelos atributos `method`, `headers` e `body`.
+
+- `method`: Método HTTP utilizado (`GET`, `POST`, `PUT` e `DELETE`).
+- `headers`: Define algumas informações sobre a requisição como o atributo `Accept` que diz qual o tipo de dado esperado como resposta dessa requisição e o `Content-Type` que sinaliza que no corpo da requisição está sendo enviado um `JSON`.
+- `body`: É o corpo da requisição. Como no `HTTP` só é possível trafegar texto, é necessário transformar o objeto JavaScript que quizer enviar para uma `string JSON`. Por isso que do lado do back-end é preciso utilizar o `bodyParser` para transformar as informações que foram trafegadas como `string JSON`, de volta para um `objeto JavaScript`.
+
+Não é possível fazer requisições POST diretamente pelo navegador como a requisição para rota `GET /recipes`. Por isso é necessário utilizar aplicações como o `Insomnia`, `Postman` ou a extensão `Thunder Client` do `VSCode` para fazer requisições de qualquer tipo diferente do `GET`.
+
+Reanalizando a implementação do post:
+
+~~~JavaScript
+//...
+app.post('/recipes', function (req, res) {
+  const { id, name, price } = req.body;
+  recipes.push({ id, name, price});
+  res.status(201).json({ message: 'Recipe created successfully!'});
+});
+~~~
+
+Na primeira linha foram desestruturados os atributos `id`, `name` e `price` do objeto `req.body` para na segunda linha usar esses valores para inserir um novo objeto dentro da array `recipes`. Na terceira e última linha foi retornada uma resposta com o `status 201`, que serve para sinalizar que ocorreu uma operação de persistência de uma informação e um `json` com o atributo `message`.
+
+[Voltar ao sumário](#Sumário)
+
+#### Put
+
+Além de `GET` e `POST`, o `HTTP` também possui os métodos `PUT` e `DELETE` que são convencionalmente utilizados para rotas que, respectivamente, editam e removem objetos. O `Express` tem métodos específicos para definir rotas para esses dois verbos. Vamos começar dando um exemplo do uso do `PUT`.
+
+~~~JavaScript
+//...
+
+app.put('/recipes/:id', function (req, res) {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
+
+  if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
+
+  recipes[recipeIndex] = { ...recipes[recipeIndex], name, price };
+
+  res.status(204).end();
+});
+//...
+~~~
+
+Observe que o `id` foi desestruturado do `req.params` enquanto que o `name` e o `price` foram desestruturados do `req.body`. É um padrão sempre mandar o `id` como parâmetro de rota e os atributos que vão ser alterados, no `body`, pois é uma boa prática do `RESTful`. Depois apenas foi usado o `findIndex()` para encontrar a receita correspondente ao `id` e atualizar os atributos para os valores recebidos. Por fim, foi devevolvida a resposta `HTTP` com o `status 204`, que serve para indicar que algo foi atualizado e foi utilizado o método `.end()` que indica que a resposta vai ser retornada sem retornar nenhuma informação.
+
+[Voltar ao sumário](#Sumário)
+
+#### Delete
+
+~~~JavaScript
+app.delete('/recipes/:id', function (req, res) {
+  const { id } = req.params;
+  const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
+
+  if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
+
+  recipes.splice(recipeIndex, 1);
+
+  res.status(204).end();
+});
+~~~
+
+Observe que novamente o `id` foi desestruturado do `req.params`. Essa é uma convenção que serve para sempre que for preciso trabalhar com `id` seja para pesquisar, editar e remover objetos através da `API`.
+
+É possível fazer a mesma coisa enviando o id como query string ou no body da requisição, mas usar parâmetro de rota acaba sendo a forma mais simples de mandar esse tipo de dado entre todas as opções disponíveis.
+
+E novamente como nada precisa ser retornado, somente alterado, o `status` foi o `204` e o método `end()` foi utilizado.
+
+No front-end, para fazer requisições do tipo `PUT` e `DELETE` através do `fetch api` é possível utilizar os exemplos de código abaixo:
+
+~~~JavaScript
+// Requisição do tipo PUT
+fetch(`http://localhost:3001/recipes/2`, {
+  method: 'PUT',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'Macarrão ao alho e óleo',
+    price: 40
+  })
+});
+
+// Requisição do tipo DELETE
+fetch(`http://localhost:3001/recipes/4`, {
+  method: 'DELETE',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+});
+~~~
+
+~~~JavaScript
+~~~
+
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Comandos NPM
@@ -630,6 +792,12 @@ app
   });
 ~~~
 
+- `.end()` - Indica que a requisição será retornada sem nenhuma informação. Exemplo:
+
+~~~JavaScript
+res.status(204).end();
+~~~
+
 [Voltar ao sumário](#Sumário)
 
 **Métodos de tipos de requisição podem ser encadeados em routes, como visto acima, entretanto, caso não haja um método `route()` é necessário especificar no método de requisição qual será a rota utilizada, aqui especificaremos todos os métodos de requisição como senão estivessem ligados a um método `route()`.**
@@ -639,10 +807,55 @@ app
 - `.get()` - Faz uma requisição de leitura e espera a resposta de algo que possa ser exibido. Exemplo:
 
 ~~~JavaScript
-app.get('/', (req, res, next) => {})
+app.get('/recipes/search', function (req, res) {
+  const { name } = req.query;
+  const filteredRecipes = recipes.filter((r) => r.name.includes(name));
+  res.status(200).json(filteredRecipes);
+});
 ~~~
 
-- `.post()`
+- `.post()` - Faz uma requisição de escrita, ou seja, adiciona algo no back-end. Exemplo
+
+~~~JavaScript
+app.post('/recipes', function (req, res) {
+  const { id, name, price } = req.body;
+  recipes.push({ id, name, price});
+  res.status(201).json({ message: 'Recipe created successfully!'});
+});
+~~~
+
+- `.put()` - Faz uma requisição de atualização, ou seja, atualiza informações no back-end. Exemplo:
+
+~~~JavaScript
+app.put('/recipes/:id', function (req, res) {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
+
+  if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
+
+  recipes[recipeIndex] = { ...recipes[recipeIndex], name, price };
+
+  res.status(204).end();
+});
+~~~
+
+- `.delete()` - Faz uma requisição de deleção, ou seja, deleta informações no back-end. Exemplo:
+
+~~~JavaScript
+app.delete('/recipes/:id', function (req, res) {
+  const { id } = req.params;
+  const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
+
+  if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
+
+  recipes.splice(recipeIndex, 1);
+
+  res.status(204).end();
+});
+~~~
 
 ~~~JavaScript
 ~~~
+
+[Voltar ao sumário](#Sumário)
