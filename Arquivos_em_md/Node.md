@@ -455,8 +455,6 @@ app.listen(3000, function () {
 
 [Voltar ao sumário](#Sumário)
 
----
-
 ### Parâmertos de rota
 
 São informações passadas na URL, normalmente são ids ou nomes, mas são parâmetros que vão retornar algo específico. Esses valores que são passados nas rotas que geralmente devolvem uma página seguindo o mesmo template mas com um conteúdo diferente é implementado graças ao parâmetro de rota.
@@ -699,6 +697,77 @@ fetch(`http://localhost:3001/recipes/4`, {
 });
 ~~~
 
+[Voltar ao sumário](#Sumário)
+
+---
+
+## Middlewares
+
+São todas e quaisquer funções passadas para uma rota, seja de forma direta ou indireta. Para o `Èxpress`, um `middleware` é uma função que realiza o tratamento de uma request e que pode encerrar essa reques, ou chamar o próximo middleware.
+
+As até então chamadas `callbacks` são na verdade, para o `Express` os `middlewares`. `Middlewares` podem retornar qualquer coisa , incluindo `Promises`. O fato é que o `Express` ignora o retorno dos `middlewares`, visto que o importante é se aquele `middleware` chamou ou não um método que encerra a `request`, ou a função `next`.
+
+Por exemplo, vamos considerar que temos o seguinte cenário onde na nossa API de CRUD de receitas precisamos validar se o nome não foi enviado vazio ao cadastrar uma nova receita.
+
+~~~JavaScript
+//...
+app.post('/recipes', 
+function (req, res, next) {
+  const { name } = req.body;
+  if (!name || name === '') return res.status(400).json({ message: 'Invalid data!'}); // 1
+
+  next(); // 2
+},
+function (req, res) { // 3
+  const { id, name, price } = req.body;
+  recipes.push({ id, name, price});
+  res.status(201).json({ message: 'Recipe created successfully!'});
+});
+//...
+~~~
+
+No exemplo acima, temos uma rota que utiliza dois `middlewares`, onde:
+
+1. Fizemos uma validação que retorna uma resposta para requisição caso seja enviada no body da requisição um nome vazio. O `middleware` retorna uma resposta com status 400 e um json com uma mensagem dizendo que os dados enviados foram inválidos.
+2. Caso não caia no if , este `middleware` endereça a requisição para o próximo `middleware`.
+3. Esse `middleware` faz todo o processo de pegar os dados enviados, salvar em um array, e finalmente retornar uma mensagem de sucesso dizendo que o produto foi cadastrado.
+
+O segundo `middleware` só executado se o primeiro chamar ele usando a função `next()`.
+
+Uma das vantagens de usar middlewares é que o Express suporta o uso de diversos deles e que eles podem ser reaproveitados em diversas rotas. No nosso caso essa função que valida se o nome foi enviado poderia ser também aproveitada para a rota `PUT` `/recipes/:id`. Para isso vamos tirar a definição dessa função de dentro da rota `POST` `/recipes` e aplicá-la para ser usada nas duas rotas.
+
+~~~JavaScript
+//...
+function validateName(req, res, next) {
+  const { name } = req.body;
+  if (!name || name === '') return res.status(400).json({ message: 'Invalid data!'});
+
+  next(); 
+};
+
+app.post('/recipes', validateName, function (req, res) {
+  const { id, name, price } = req.body;
+  recipes.push({ id, name, price});
+  res.status(201).json({ message: 'Recipe created successfully!'});
+});
+
+app.put('/recipes/:id', validateName, function (req, res) {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  const recipesIndex = recipes.findIndex((r) => r.id === parseInt(id));
+
+  if (recipesIndex === -1)
+    return res.status(404).json({ message: 'Recipe not found!' });
+
+  recipes[recipesIndex] = { ...recipes[recipesIndex], name, price };
+
+  res.status(204).end();
+});
+//...
+~~~
+
+Para ficar nítido, todo `middleware`, pode receber o `next` como um terceiro parâmetro, mas geralmente no caso do último `middleware` de uma rota, que processa a resposta da requisição caso todos os `middlewares` anteriores não tenham encerrado o fluxo, não há a necessidade de usar o objeto `next` por isso é possível simplesmente receber apenas os objetos `req` e `res`.
+
 ~~~JavaScript
 ~~~
 
@@ -877,22 +946,26 @@ npm init -y
 npm i express
 
 # Instalar o nodemon:
-npm i nodemon
+npm i nodemon -D
 
 # Instalar o body-parser:
 npm i body-parser
 
 # Instalar o cors:
 npm i cors
+~~~
 
-# Agilizando todos esses comando:
-mkdir <nome-do-diretório> && cd <nome-do-diretório> && touch index.js && npm init -y && npm i express && npm i nodemon && npm i body-parser && npm i cors
+Agilizando todos esses comando:
+
+~~~bash
+mkdir <nome-do-diretório> && cd <nome-do-diretório> && touch index.js && npm init -y && npm i express body-parser cors && npm i nodemon -D
 ~~~
 
 Depois é só alterar o nome do autor no arquivo package.json e adicionar na chave scripts:
 
 ~~~json
 "scripts": {
+  //...
     "dev": "nodemon index.js"
   }
 ~~~
