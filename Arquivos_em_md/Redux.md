@@ -291,9 +291,9 @@ const store =createStore(reducer, apllyMiddleWare(thunk));
 
 O `thunk` nada mais é do que uma função que encapsula uma operação para que ela seja feita posteriormente. Em termos práticos, isso significa que está sendo defininda uma função que vai ser retornada por uma outra função com mais lógica adicionada a ela.
 
-Com `redux-thunk` , é posspivel definir uma `action` creator que retorna uma função (que será invocada pelo `redux-thunk` ) em vez de retornar somente um objeto. Na função retornada é possível realizar uma operação assíncrona, como fazer chamadas de API e, uma vez finalizada a operação, é possível enviar uma `action` com os dados obtidos por ela. Note a conveniência que isso traz: toda essa lógica de lidar com operações assíncronas está encapsulada na sua respectiva `action` assíncrona, deixando transparente para quem for fazer uso dela, que para esse caso seriam os componentes React ! Sob a perspectiva do componente, ele estaria consumindo uma `action` como uma outra qualquer!
+Com `redux-thunk` , é possível definir uma `action` creator que retorna uma função (que será invocada pelo `redux-thunk`) em vez de retornar somente um objeto. Na função retornada é possível realizar uma operação assíncrona, como fazer chamadas de API e, uma vez finalizada a operação, é possível enviar uma `action` com os dados obtidos por ela. Note a conveniência que isso traz: toda essa lógica de lidar com operações assíncronas está encapsulada na sua respectiva `action` assíncrona, deixando transparente para quem for fazer uso dela, que para esse caso seriam os componentes React! Sob a perspectiva do componente, ele estaria consumindo uma `action` como uma outra qualquer!
 
-Para ser devidamente usada pelo `redux-thunk` a `action` creator precisa retornar uma função, que pode fazer uso de `dispatch` e `getState` da store como parâmetros. Segue um exemplo de uma `action creator` definida em conformidade com tais requisitos:
+Para ser devidamente usada pelo `redux-thunk` a `action creator` precisa retornar uma função, que pode fazer uso de `dispatch` e `getState` da store como parâmetros. Segue um exemplo de uma `action creator` definida em conformidade com tais requisitos:
 
 ~~~JavaScript
 export const REQUEST_MOVIES = 'REQUEST_MOVIES';
@@ -318,12 +318,12 @@ export function fetchMovies() {
 // componente onde você usaria a action creator fetchMovies assíncrona como uma outra qualquer
 ...
 class MyConectedAppToRedux extends Component {
-...
-componentDidMount() {
-  const { dispatch, fetchMovies } = this.props;
-  dispatch(fetchMovies()); // enviando a action fetchMovies
-}
-...
+  ...
+  componentDidMount() {
+    const { dispatch, fetchMovies } = this.props;
+    dispatch(fetchMovies()); // enviando a action fetchMovies
+  }
+  ...
 }
 ...
 ~~~

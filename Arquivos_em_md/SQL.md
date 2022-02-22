@@ -781,7 +781,7 @@ O `WHEN` diz quando a condição é atendida então, `THEN`, algo é executado, 
 - `MOD` - Retorna o resto deuma divisão como resultado. Exemplo: `SELECT 10 MOD 3`. Nesse caso o retorno é igual a 1.
 - `ROUND()` - Retorna o valor arredondado. Exemplo: `SELECT ROUND(10.4925);`. Neste caso retorna 10.
 - `CEIL()` - Retorna o valor arredondado pra cima. Exemplo: `SELECT CEIL(10.49);`. Neste caso retorna 11.
-- `FLOOR()` - Retorna o valor arredondado pra cima. Exemplo: `SELECT FLOOR(10.51);`. Neste caso retorna 10.
+- `FLOOR()` - Retorna o valor arredondado pra baixo. Exemplo: `SELECT FLOOR(10.51);`. Neste caso retorna 10.
 - `POW()` - Retorna o valor do primeiro parâmetro elevado pelo segundo. Exemplo: `SELECT POWER(2, 4)`. Neste caso retorna 16.
 - `SQRT()` - Retorna a raiz quadrada. Exemplo: `SELECT SQRT(9)`. Neste caso retorna 3.
 - `RAND()` - Retorna um valor aletório.
