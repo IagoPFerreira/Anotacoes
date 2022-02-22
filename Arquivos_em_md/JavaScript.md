@@ -4,9 +4,35 @@ O JS é responsável pela parte dinâmica da página como efeitos especiais, pre
 
 ---
 
+# Sumário
+
+- [Strings em JS](#Strings-em-JS)
+- [Operadores em JS](#Operadores-em-JS)
+- [Objetos em JS](#Objetos-em-JS)
+- [Getters e Setters](#Getters-e-Setters)
+- [Classes em JS](#Classes-em-JS)
+- [Módulos em JS](#Módulos-em-JS)
+- [Eventos em JS](#Eventos-em-JS)
+- [Funções em JS](#Funções-em-JS)
+- [Condições em JS](#Condições-em-JS)
+- [Repetições em JS](#Repetições-em-JS)
+- [Arrays](#Arrays)
+- [Escopos](#Escopos)
+- [Teste unitários em JS](#Teste-unitários-em-JS)
+- [High Order Functions (HOFs) em JS](#High-Order-Functions-(HOFs)-em-JS)
+- [Promises em JS](#Promises-em-JS)
+- [Fetch em JS](#Fetch-em-JS)
+  - [Observações](#Observações)
+- [Comandos e propriedades em JS](#Comandos-e-propriedades-em-JS)
+  - [HOFs](#HOFs)
+  - [Métodos e propriedades](#Métodos-e-propriedades)
+  - [Eventos nativos](#Eventos-nativos)
+
 ## Strings em JS
 
 No JS é possível marcar uma string de 3 formas diferentes, usando aspas simples ou duplas ('', “”), para strings simples, e para interpolar, ou seja, exibir uma variável do meio da string, sem precisar ficar abrindo e fechando a string tem as crases, onde for a variável é só abrir um bloco usando o cifrão e escrever o nome da variável dentro das chaves (`${variavel}` ).
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -68,6 +94,8 @@ Existem muitos tipos de operadores em JS, operadores são sinais que podem desen
       ▪ Aritméticos
       ▪ Relacionais
       ▪ Lógicos
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -170,6 +198,8 @@ console.log(foo, baz); // bar 42
 
 Dessa forma o código fica mais limpo e conciso.
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Getters e Setters
@@ -203,6 +233,8 @@ set idadeDoCliente(idade) {
 ~~~
 
 A atribuição de um valor a uma propriedade criada pelo set é normal, igual feito os outros métodos de objeto. Ex: `cliente.idade = 30;` . A sua chamada também é da forma padrão. Ex: `cliente.idade;` . Caso queira a visualização é só coloca-lo no `console.log` ou `document.write` .
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -245,6 +277,8 @@ class Cat extends Animal {
 ~~~
 
 Neste exemplo `Cat` é a classe filha, `Animal` é a classe pai, `extends` faz com que os métodos dentro da classe `Animal` fiquem disponíveis dentro do `Cat` , agora o `Cat` possui um propriedade que `Animal` não possui, que é a `usesLitter` , que será chamada e declarada pelo `constructor` . Já o `super` chama o `constructor` da classe pai, neste caso pedindo somente o valor da propriedade nome do `constructor` da classe pai.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -298,11 +332,15 @@ import { specialty, isVegetarian } from "./menu";
 console.log(specialty);
 ~~~
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Eventos em JS
 
 Eventos são processos específicos do código que podem ser disparados pela interação com o site.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -341,6 +379,8 @@ Outro tipo de função são as funções de expressão, que são declaradas de f
 
 Outra forma de declarar uma função é a `Arrow Function` onde ao invés de escrever `function` somente os parâmetros da função são adicionados e após os parênteses são usados o sinal de igual e maior que formando uma seta indicando o inicio do bloco do código. Ex: `let exemplo = (5, 3) => {};` .
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Condições em JS
@@ -377,6 +417,8 @@ const falseExpression = 2 + 2 === 3 ? `isso é verdade` : `isso é mentira`;
 console.log(falseExpression); // isso é mentira
 ~~~
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Repetições em JS
@@ -393,6 +435,8 @@ for (let c = 1; c <= 3; c += 1) {}
 ~~~
 
 Os 2 possuem a mesma funcionalidade, a única diferença é que o `while` precisa que o inicio seja antes de dele, o teste é atribuído como parâmetro a ele e o incremento fica dentro do bloco, após o código, já o `for` apresenta o início, o teste e o incremento como parâmetro, depois o bloco de código sem a necessidade do incremento no bloco, pois o incremento já foi definido. Existe também o `forEach` que executa o que estiver dentro do seus parenteses.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -420,11 +464,15 @@ Existem também os Arrays aninhados, que nada mais são que Arrays dentro de out
 
 Para acessar o número 5 é só chamar da seguinte forma: `a[1][0]` . O primeiro colchete vai identificar se é o array 0 ou 1, e o segundo colchete vai identifica se é o elemento 0 ou 1.
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Escopos
 
 Escopo é a ideia de que as variáveis podem ser acessadas de locais diferentes dos códigos, sejam elas locais ou globais. Variáveis de escopos globais se encontram fora de qualquer bloco de código, já as locais estão dentro de um bloco de código. Um bloco de código é delimitado pelas {}, as variáveis globais podem ser acessadas de qualquer lugar do código, as locais só podem ser acessadas dentro do bloco ao qual elas se encontram. Não é uma boa prática nomear variáveis com escopos diferentes com o mesmo nome, pois um erro pode acabar mudando o valor da variavel geral pelo valor da variável local, sem falar que polui o código, atrapalhando a compreensão dele. Não é boa prática declarar todas as variáveis como globais, isso só vai sobrecarregar a memória do computador, variáveis que só serão usadas um blocos específicos do código só devem ser declaradas dentro desses blocos.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -437,6 +485,8 @@ const assert = require("assert");
 const numbers = [19, 21, 30, 3, 45, 22, 15];
 assert.strictEqual(typeof numbers, "object");
 ~~~
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -459,6 +509,8 @@ repeat(3, (test) => {
 ~~~
 
 Neste caso, a função repeat recebe 2 parâmetros, o primeiro parâmetro é o número 3, que será usado como condição de parada do laço for, já o segundo parâmetro é uma função que será chamada pelo action, essa função será chamada depois que a validação do laço for acontecer, e essa função tem como objetivo identificar se o número passado a ela como parâmetro é par, se não for, ela não informa nada. Action que é a chamada da função anônima que irá testar se o número é par ou impar, recebe como argumento o valor do count em cada iteração do laço for, logo `test` que é o parâmetro da função anônima, irá receber o valor de count e esse valor que será testado.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -516,6 +568,8 @@ promise
 ~~~
 
 Promises são usadas para fazer requisições a uma API, uma das funções mais utilizadas para isso é o Fetch.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -601,6 +655,8 @@ async function sendJokeToFriend(name) {
 sendJokeToFriend("Anna");
 ~~~
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ### Observações
@@ -647,6 +703,8 @@ cliente1.nome = "Iago";
 - `function acao()` – Cria uma função.
 - `return` – Faz o retorno da função, mostrando que ela for atribuído ou finalizando a função.
 
+[Voltar ao sumário](#Sumário)
+
 ### HOFs
 
 - `.push()` – Adiciona o valor que estiver entre parênteses ao final da lista.
@@ -664,6 +722,8 @@ cliente1.nome = "Iago";
 - `.some()` – Procura se existe algum elemento que atenda a função callback passada dentro dos seus parênteses, retorna o valor em booleano, a callback do some aceita até 3 parâmetros, o elemento atual sendo processado no array, o index do elemento atual sendo processado no array e o array de origem.
 - `.every()` – Testa se todos os elementos de um array atendem a função callback passada dentro dos seus parênteses, retorna o valor em booleano, a callback do every aceita até 3 parâmetros, o elemento atual sendo processado no array, o index do elemento atual sendo processado no array e o array de origem.
 - `.forEach()` – Percorre um array e executa a função callback passada dentro dos seus parênteses a cada um dos itens do array, essa função não retorna nada, somente executa a função dentro dela. O forEach aceita até 3 parâmetros dentro da callback, o elemento atual sendo processado no array, o index do elemento atual sendo processado no array e o array de origem.
+
+[Voltar ao sumário](#Sumário)
 
 ### Métodos e propriedades
 
@@ -692,6 +752,8 @@ cliente1.nome = "Iago";
 - `.send ()` – Manda a requisição para o site indicado pelo `.open()`.
 - `.trim()` – Remove espaços em branco no inicio e no final das strings.
 
+[Voltar ao sumário](#Sumário)
+
 ### Eventos nativos
 
 - `dblclick` – Evento que é disparado com um double click.
@@ -714,3 +776,5 @@ cliente1.nome = "Iago";
 - `module.exports` – Exporta um módulo de um código para outro.
 - `export deafult ...` – Exporta um módulo de um código para outro, mas só é aceito em ES6.
 - `import ... from ...` – Importa um módulo de código, mas só é aceito em ES6. Com esse comando é possível escolher o módulo específico que se quer importar
+
+[Voltar ao sumário](#Sumário)

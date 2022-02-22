@@ -4,6 +4,21 @@ O CSS é responsável pelo estilo da página, é onde são feitas as configuraç
 
 ---
 
+# Sumário
+
+- [Identificações em CSS](#Identificações-em-CSS)
+- [Valores em CSS](#Valores-em-CSS)
+- [Cores em CSS](#Cores-em-CSS)
+  - [Padrão Hexadecimal (HEX)](#Padrão-Hexadecimal-(HEX))
+  - [Padrão Red-Green-Blue (RGB)](#Padrão-Red-Green-Blue-(RGB))
+  - [Padrão Hue-Saturation-Lightness (HSL)](#Padrão-Hue-Saturation-Lightness-(HSL))
+  - [Padrão Alfa](#Padrão-Alfa)
+- [Dimensões em CSS](#Dimensões-em-CSS)
+- [Hierarquia no CSS](#Hierarquia-no-CSS)
+- [Comandos em CSS](#Comandos-em-CSS)
+- [Pseudo elementos](#Pseudo-elementos)
+- [Seletores avançados](#Seletores-avançados)
+
 ## Identificações em CSS
 
 Quando existe mais de uma mesma tag, normalmente é dado a ela um 'id', 'name' ou ‘class’, que servem como formas de identificação exclusiva daquela tag e que pode ser usada no CSS para delimitar a formatação a somente aquela tag com aquele id, name ou class, sendo id representado por ' # ' (hashtag ou cerquilha), name e class por ' . ' (ponto)
@@ -58,11 +73,15 @@ O padrão alfa é adicionado normalmente como o próximo elemento após as cores
 
 Existem diversos tipos de padrão de cores com RGB, HEX, HSL e outros, para saber mais sobre cada padrão, acesse o [tutorial de cores do W3Schools](https://www.w3schools.com/colors/colors_hsl.asp).
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Dimensões em CSS
 
 Existem quatro formas de se regular as dimensões de um objeto em CSS, por altura, por largura, por espaçamento interno e por espaçamento externo, sendo respectivamente, height, width, padding e margin, sendo que os 2 primeiros podem receber valores numéricos em px, porcentagem ou outras formas, e os 2 últimos podem receber valores numéricos com qualquer medida ou valores escritos, como auto. As dimensões podem receber vários tipos de medidas, como px (pixel), pt (pontos), % (porcentage), vh (altura da página) ou vw (largura da págia), em (tamanho do elemento), cm (centímetros), in (inches), dentre outros.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -74,6 +93,8 @@ O que acontece se criarmos um marcador com a seguinte configuração: `p.teste`?
 
 Por último, o mais forte deles é o identificador. Então se usarmos o identificador e colocar que a cor dele é rosa, no navegador, a cor do texto vai ser rosa, porque o identificador tem a força 100. Então sempre que estamos criando CSS, precisamos pensar em o quão específico é o marcador e o quão forte ele vai ser para que não seja sobrescrito por qualquer outro, e que nenhum erro no código seja cometido. Por isso a recomendação de criar sempre classes para os elementos é muito boa, ele não é genérico o suficiente para que todas as vezes que a tag seja mudada, ele seja alterado; e ele não é específico igual a um identificador para que só funcione naquele elemento. Ele é um estilo que pode ser replicado várias vezes como a classe, e várias vezes em vários elementos.
 A única forma de alterar isso e alguma coisa mais forte que o identificador é quando temos o estilo inline. Então se adicionarmos uma propriedade `style`, e colocarmos o color igual a roxo, no navegador, ao recarregar, a cor vai ser roxo. Nada substitui o inline, ele é muito específico, ele está no elemento, e por isso ele é o mais forte. Ele teria o que seria equivalente a uma força 1000, e nada substitui isso.
+
+[Voltar ao sumário](#Sumário)
 
 ---
 
@@ -116,6 +137,8 @@ A única forma de alterar isso e alguma coisa mais forte que o identificador é 
 - `overflow: auto;` - Cria uma barra de rolagem dentro da div utilizando o parâmetro ‘auto’. Utilizando o ‘hidden’ tudo que estiver fora do tamanho da div ficará escondido
 - `@media screen and (max-width: 480px) {}` – Indica o CSS e ao navegador que tudo que toda tela que tiver uma largura máxima de 480px, exibirá no navegador o estilo da forma que estiver dentro do bloco.
 
+[Voltar ao sumário](#Sumário)
+
 ---
 
 ## Pseudo elementos
@@ -127,6 +150,10 @@ São métodos, que podem ser de interação ou exibição, restritos somente a o
 - `first-child` - Este pseudo elemento serve para selecionar somente o primeiro filho de uma tag, existem variantes como last-child (que seleciona somente o último filho), nth-child() (que pega qualquer filho indicado, por número, entre parentes), entre outros.
 - `before` - Serve para adicionar coisas antes do objeto ao qual está ligado. Dentro do seu bloco deve ser adicionado o comando `content: “teste”;` .
 - `after` - Serve para adicionar coisas após o objeto ao qual está ligado. Dentro do seu bloco deve ser adicionado o comando `content: “teste”;` .
+
+[Voltar ao sumário](#Sumário)
+
+---
 
 ## Seletores avançados
 
