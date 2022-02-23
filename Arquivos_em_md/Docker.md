@@ -737,17 +737,49 @@ ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 ### Gerando uma imagem a partir do Dockerfile
 
-~~~bash
+Até aqui entendemos que o `Dockerfile` funciona como um manual de instruções pra nossa aplicação rodar, e o nosso ficou dessa forma:
+
+~~~dockerfile
+FROM node:14-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:1.16.0-alpine AS prod
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
 ~~~
 
-~~~bash
-~~~
+Mas para que a gente consiga de fato consolidar essas instruções em uma `imagem`, precisamos rodar o comando `docker image build -t <name:tag> <origem_docker_file>`
 
 ~~~bash
+docker image build -t react-dockerized:v1 .
 ~~~
 
+Aqui temos o `comando docker` , acompanhado da `instância image` , e do `subcomando build`. Isso deve retornar o `log` do processo de `build`.
+
+Também utilizamos o `parâmetro -t` (de tag) com o `valor react-dockerized:v1` (aqui já estamos puxando uma `tag` `"v1"` para nossa `imagem`) e o ponto `.`, que está dizendo que o `Dockerfile` se encontra na mesma pasta em que o comando está sendo executado.
+
+Após a execução da `build`, podemos listar nossas `imagens` e verificar a presença da que acabamos de criar, com:
+
 ~~~bash
+docker images
 ~~~
+
+Para ver nossa aplicação funcionando, podemos rodar nosso mini-projeto no terminal interativo, definindo qual porta do nosso `localhost` será atribuida para qual porta do `container`:
+
+~~~bash
+docker run -dit -p 8000:80 --name reactdockerized react-dockerized:v1
+~~~
+
+Abra o navegador na URL <http://localhost:8000/> e veja a página padrão do React funcionando.
+
+[Voltar ao sumário](#Sumário)
+
+---
 
 ~~~bash
 ~~~
