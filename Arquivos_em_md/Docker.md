@@ -27,6 +27,8 @@ Containers são como "pacotes", entretanto, eles funcionam em uma dinâmica um t
   - [Excluindo containers específicos](#Excluindo-containers-específicos)
   - [Limpando containers que não estão sendo utilizados](#Limpando-containers-que-não-estão-sendo-utilizados)
   - [Monitorando os processos dentro de um container](#Monitorando-os-processos-dentro-de-um-container)
+  - [Executando comandos dentro de um container](#Executando-comandos-dentro-de-um-container)
+  - [Se juntando a um container em execução](#Se-juntando-a-um-container-em-execução)
 - [Parâmetros e flags](#Parâmetros-e-flags)
 - [Dockerfile](#Dockerfile)
   - [Criando uma aplicação React com Dockerfile](#Criando-uma-aplicação-React-com-Dockerfile)
@@ -40,9 +42,11 @@ Containers são como "pacotes", entretanto, eles funcionam em uma dinâmica um t
     - [CMD](#CMD)
     - [ENTRYPOINT](#ENTRYPOINT)
   - [Gerando uma imagem a partir do Dockerfile](#Gerando-uma-imagem-a-partir-do-Dockerfile)
-<!-- - [](#)
-- [](#)
-- [](#) -->
+  - [Comandos adicionais do Dockerfile](#Comandos-adicionais-do-Dockerfile)
+    - [LABEL](#LABEL)
+    - [ENV](#ENV)
+    - [USER](#USER)
+<!-- - [](#) -->
 
 ## Configurando a inicialização do Docker
 
@@ -390,6 +394,30 @@ docker container top <CONTAINER ID || NAMES>
 
 ---
 
+### Executando comandos dentro de um container
+
+- É possível executar um comando dentro de um `container` sem precisar entrar no `container`, é necessário que ele esteja rodando:
+
+~~~bash
+docker container exec <CONTAINER ID || NAMES> <COMANDO>
+~~~
+
+[Voltar ao sumário](#Sumário)
+
+---
+
+### Se juntando a um container em execução
+
+- É possível se juntar a um `container` que esteja rodando em background e dessa forma entrar no `container`:
+
+~~~bash
+docker container attach <CONTAINER ID || NAMES>
+~~~
+
+[Voltar ao sumário](#Sumário)
+
+---
+
 ## Parâmetros e flags
 
 - `-a` - Retorna todos os dados;
@@ -671,7 +699,7 @@ O comando `CMD` (Que vem de `Command Prompt`, ou `Prompt de comando` em portugu�
 O `CMD` possui 2 formas: a que vimos até aqui para a execução de comandos `shell` e as para `exec`. A estrutura desse comando é a seguinte:
 
 ~~~bash
-CMD ["<EXECUTAVEL", "<PARAMETRO-1>", ... , "<PARAMETRO-N>"]
+CMD ["<EXECUTAVEL", "<PARAMETRO-1>", ..., "<PARAMETRO-N>"]
 ~~~
 
 Vamos ver um exemplo:
@@ -716,7 +744,7 @@ Vamos ver um exemplo:
 ENTRYPOINT ["/bin/echo", "Hello World"]
 ~~~
 
-Um ponto de atenção é que ao definirmos um `ENTRYPOINT` , alteramos o comportamento do `CMD` , que ao ser utilizado irá rodar como base para o comando definido pelo `ENTRYPOINT` , apenas como "parâmetros adicionais" à ele, por exemplo:
+Um ponto de atenção é que ao definirmos um `ENTRYPOINT`, alteramos o comportamento do `CMD`, que ao ser utilizado irá rodar como base para o comando definido pelo `ENTRYPOINT`, apenas como "parâmetros adicionais" à ele, por exemplo:
 
 ~~~bash
 ENTRYPOINT [ "/bin/echo" ]
@@ -759,7 +787,7 @@ Mas para que a gente consiga de fato consolidar essas instruções em uma `image
 docker image build -t react-dockerized:v1 .
 ~~~
 
-Aqui temos o `comando docker` , acompanhado da `instância image` , e do `subcomando build`. Isso deve retornar o `log` do processo de `build`.
+Aqui temos o `comando docker`, acompanhado da `instância image`, e do `subcomando build`. Isso deve retornar o `log` do processo de `build`.
 
 Também utilizamos o `parâmetro -t` (de tag) com o `valor react-dockerized:v1` (aqui já estamos puxando uma `tag` `"v1"` para nossa `imagem`) e o ponto `.`, que está dizendo que o `Dockerfile` se encontra na mesma pasta em que o comando está sendo executado.
 
@@ -781,8 +809,106 @@ Abra o navegador na URL <http://localhost:8000/> e veja a página padrão do Rea
 
 ---
 
+### Comandos adicionais do Dockerfile
+
+#### LABEL
+
+`Labels` (Rótulos em português) são um mecanismo para atribuir `"metadatas"` (dados auxiliares) aos seus objetos `Docker`, como `imagens` e `containers`.
+
+Com o parâmetro `LABEL`, é possível fazer essas definições em nosso `Dockerfile`.
+
+A documentação oficial recomenda o uso de `labels` para organizar nossas `imagens`, registrar informações de licenças, anotar relacionamentos entre `containers` e outros componentes ou qualquer outras informações que façam sentido ao objetivo do `container` ou sua aplicação.
+
+As informações são registradas seguindo o parâmetro de `"chave e valor"`, e caso uma chave esteja repetida, a última sobrescreverá as anteriores:
+
 ~~~bash
+LABEL <KEY>=<VALUE>
 ~~~
+
+É comum registrarmos o `"maintener"` da `imagem`, para um possível contato posterior para tirar dúvidas ou sugerir contribuições:
+
+~~~bash
+LABEL maintener="John Doe <john.doe@email.com>"
+~~~
+
+Esse valor pode ser resgatado posteriormente através do comando `docker inspect <CONTAINER ID || NAMES>`, onde o valor estará no atributo `Labels`:
+
+~~~bash
+"Labels": {
+   "maintener": "John Doe <john.doe@email.com>"
+}
+~~~
+
+[Voltar ao sumário](#Sumário)
+
+---
+
+#### ENV
+
+Em ambientes de desenvolvimento de apps é muito importante o uso de `Environment Variables` (Variáveis de ambiente, em português)*, felizmente também podemos utilizá-las em nossos `containers`.
+
+    * Variáveis de ambiente são valores que são definidos dentro do escopo do sistema operacional, ou seja, são valores que estão disponíveis para todas as aplicações que estão instaladas dentro daquele SO.
+
+No `Dockerfile`, podemos definir nossas variáveis durante a criação de nossa `imagem` utilizando o comando ENV:
+
+~~~bash
+ENV <ENV NAME> <ENV VALUE>
+~~~
+
+Podemos utilizá-la, por exemplo, para setar o ambiente onde vamos rodar o `app`.
+
+~~~bash
+ENV NODE_ENV production
+~~~
+
+Ao rodar nossos `containers`, também podemos passar variáveis, basta utilizar a `tag --env` ou `-e`:
+
+~~~bash
+docker container run \
+   --env myCat=fluffy \
+   --env myName=johnDoe \
+   <IMAGE NAME>
+~~~
+
+Essas sobrescreverão as definidas no `Dockerfile` caso possuam o mesmo nome.
+
+[Voltar ao sumário](#Sumário)
+
+---
+
+#### USER
+
+Com o comando `USER`, podemos definir qual o usuário que irá iniciar nosso `app` no `container`.
+Caso não seja definido nenhum usuário, o `Docker` irá utilizar o `usuário root` como padrão, o que não é recomendado por motivos de segurança.
+
+Abaixo temos um exemplo da criação de um usuário com apenas as permissões necessárias em uma `imagem` `ubuntu`:
+
+~~~bash
+FROM ubuntu:8
+RUN mkdir /app
+RUN groupadd -r node-user && useradd -r -s /bin/false -g node-user node-user
+WORKDIR /app
+COPY . /app
+RUN chown -R node-user:node-user /app
+USER node-user
+CMD node index.js
+~~~
+
+Normalmente as `imagens` já possuem um usuário criado para a execução de nossos `apps`.
+
+Por exemplo nas `imagens` node, já possuem um usuário genérico chamado `"node"` com os privilégios necessários, e para usá-lo, basta adicionarmos o usuário ao diretório de nosso projeto e utilizarmos a `tag user`:
+
+~~~bash
+FROM node:10-alpine
+COPY . /app
+RUN chown -R node:node /app
+USER node
+CMD [“node”, “index.js”]
+~~~
+
+[Voltar ao sumário](#Sumário)
+
+---
 
 ~~~bash
 ~~~
