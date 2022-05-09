@@ -47,6 +47,7 @@ Fazendo um paralelo, as coleções são equivalentes às tabelas dos bancos de d
 Por padrão, após a instalação, seu servidor vai estar configurado para não iniciar junto ao sistema. Caso queira ativar o início automático quando ligar o computador, utilize o comando:
 
 ~~~bash
+# Linux
 sudo systemctl enable mongod.service
 ~~~
 
@@ -59,7 +60,32 @@ sudo systemctl disable mongod.service
 Na primeira vez que for utilizar o `MongoDB` após ligar o computador, será necessário iniciar o servidor com o comando:
 
 ~~~bash
+# Linux
 sudo service mongod start
+
+# macOS
+brew services start mongodb-community
+~~~
+
+Verificar se o MongoDB foi iniciado com sucesso:
+
+~~~bash
+# Linux
+sudo service mongod status
+
+# macOS
+brew services list | grep mongodb-community
+
+~~~
+
+Parando o MongoDB:
+
+~~~bash
+# Linux
+sudo service mongod stop
+
+# macOS
+brew services stop mongodb-community
 ~~~
 
 ---
