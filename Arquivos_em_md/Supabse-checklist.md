@@ -17,24 +17,24 @@
 - [ ] Configurando o Sequelize
   - [ ] Ter iniciado um projeto Node e ter instalado todas as dependências
 
-  ```bash
+  ~~~bash
     mkdir supabase-with-sequelize && cd supabase-with-sequelize
     npm init -y
     npm install sequelize sequelize-cli express dotenv
     npm install pg pg-hstore
-  ```
+  ~~~
 
   - [ ] Iniciar a configuração do Sequelize
 
-    ```bash
+    ~~~bash
     npx sequelize-cli init
 
-    ```
+    ~~~
 
   - [ ] Mudar o arquivo de `config.json`para `config.js`
   - [ ] Alterar o arquivo `config.js` adcionando as variáveis de ambiente.
 
-  ```JavaScript
+  ~~~JavaScript
   // config/config.js
   require('dotenv/config');
 
@@ -66,37 +66,37 @@
       "dialect": "postgres"
     }
   }
-  ```
+  ~~~
 
   - [ ] Adicionar ao arquivo `.env` as varáveis de ambiente
 
-  ```env
+  ~~~env
   PASSWORD_POSTGRES= # aqui vai a senha que você criou no Supabase, se a sua senha tiver caracteres especiais coloque a senha entre aspas
   HOST= # o link de onde o banco está hospedado
   DATABASE=postgres
   DB_USERNAME=postgres
   DB_PORT= # porta que o Supabase fornece
-  ```
+  ~~~
 
   - [ ] Pegar as informações do banco na aba de `configurações` > `Database` > `Connection info`
   - [ ] Alterar o `index` do `model` para procurar pelo arquivo `config.js`
 
-  ```JavaScript
+  ~~~JavaScript
   // models/index.js
 
   const config = require(__dirname + '/../config/config.js')[env];
-  ```
+  ~~~
 
   - [ ] Criar uma tabela de teste via `Sequelize`
 
-  ```bash
+  ~~~bash
   npx sequelize model:generate --name Product --attributes name:string,description:string
-  ```
+  ~~~
 
   - [ ] Executar a migration para criar a tabela
 
-  ```bash
+  ~~~bash
   npx sequelize model:generate --name Product --attributes name:string,description:string
-  ```
+  ~~~
 
   - [ ] Verificar no Supabase se a tabela foi criada na aba `Table Editor` > `All tables`
