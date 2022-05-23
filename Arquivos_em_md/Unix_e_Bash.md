@@ -55,6 +55,8 @@ No Unix tudo é diferenciado em dois tipos de coisas, processos e arquivos, todo
 - `jobs` – Mostra os processos em background.
 - `kill` – Mata o processo que você quiser, mesmo que ele esteja em background. Ex: `kill %1`. Dessa forma ele vai matar o processo número 1, o número depois da porcentagem indica qual processo é, esse número pode ser conseguido através do comando ps, assim como número PID, que também pode ser usado para matar o processo. Ex: `kill 7657`.
 - `kill -9 PID` – Mata os processos que se recusam a morrem com o kill normal. O PID no final deve ser substituído pelo PID do processo, o PID ode ser conseguido através do comando ps.
+- `touch` - Cria um arquivo novo. Ex: `touch file.txt`.
+- `touch file{01..20}.txt`- Cria arquivos em sequência seguindo a ordem dos números dentro das chaves.
 
 ![alt text](../imagens/unix-cheatsheet-1.png "explicação de arrays")
 
