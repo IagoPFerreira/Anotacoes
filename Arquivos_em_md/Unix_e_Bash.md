@@ -18,14 +18,14 @@ No Unix tudo é diferenciado em dois tipos de coisas, processos e arquivos, todo
 - `cd .` – Referencia a pasta na qual está.
 - `cd ..` – Volta para o diretório anterior, diretório pai.
 - `clear` – Limpa os comandos e limpa a tela
-- `mkdir` – Make Directory, cria um novo diretório, é só adicionar o comando mkdir + o nome que você quer dar ao diretório. Ex: `mkdir trybe`
+- `mkdir` – Make Directory, cria um novo diretório, é só adicionar o comando mkdir + o nome que você quer dar ao diretório. Ex: `mkdir exemplo`
 - `pwd` – Mostra o caminho completo até o diretório.
 - `cp` – Faz uma cópia do arquivo que você quiser, é só adicionar o comando cp + nome do arquivo a ser copiado + nome do novo arquivo. Ex: `cp arquivo1.odt arquivo2.odt`
 - `cat` – Abre o arquivo e mostra o conteúdo dentro do arquivo. Ex: `cat arquivo1.odt`. O comando cat em sí também consegue receber dados e dar um output desses dados, dependendo de como for usado, pode ser usado para atribuir um dado a um arquivo.
 - `mv` – Renomeia ou move o arquivo para outro lugar, adicionando o comando mv + o nome do arquivo a ser movido + caminho até o diretório alvo. Ex: `mv arquivo1.odt /Users/iago/Music`
 - `rm` – Apaga um arquivo. Ex: `rm arquivo2.odt`
-- `rmdir` – Apaga um diretório, mas o diretório precisa estar vazio. Ex: `rmdir trybe`
-- `rm -rf` – Apaga diretórios e arquivos mesmo que o diretório não esteja vazio. Ex: `rm -rf trybe`
+- `rmdir` – Apaga um diretório, mas o diretório precisa estar vazio. Ex: `rmdir exemplo`
+- `rm -rf` – Apaga diretórios e arquivos mesmo que o diretório não esteja vazio. Ex: `rm -rf exemplo`
 - `less` – Exibe parte do conteúdo por páginas, para ir para a próxima página é só apertar a barra de espaço e para sair é apertar Q. Ex: `less arquivo1.txt`. É possível fazer uma busca dentro do arquivo usando / + palavra-chave. Ex: `/toy`.
 - `head` – Exibe os 10 primeiros valores do arquivo. Ex: `head arquivo1.txt`
 - `head -5` – Exibe os 5 primeiros valores do arquivo. Ex: `head -5arquivo1.txt`
